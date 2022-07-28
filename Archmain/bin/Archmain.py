@@ -19,7 +19,7 @@ window.minsize(850, 500)
 window.configure(bg='#f6f9fc')
 
 #top #archcolor #0f94d2
-image = PhotoImage(file="~/.local/share/Archmain/icon/logo.png")
+image = PhotoImage(file="../icon/logo.png")
 banner = tk.Frame(master=window, height=80, bg="#333")
 banner.pack(fill=tk.X)
 linebanner = tk.Frame(master=window, height=5, bg="#0f94d2")
@@ -64,7 +64,7 @@ background_lista.place(x=30, y=100,)
 background_lista.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
 
 
-content = open("./data/listaupds", "r")
+content = open("../data/listaupds", "r")
 scrollbar = Scrollbar(window)   
 lista=Text(master=window,  width=63, height=15,font=('Poppins',9), bg='#ecf2f5', fg="#555", borderwidth = 0, highlightthickness = 0, yscrollcommand=scrollbar.set)
 scrollbar.config(command=lista.yview, bg="#0f94d2" , troughcolor="#333")
@@ -83,7 +83,7 @@ btnInstall.place(x=30, y=430,)
 
 
 
-lastcheck = open("./data/info_lastcheck", "r")
+lastcheck = open("../data/info_lastcheck", "r")
 lastcheck_label_title = tk.Label(master=window, text="Last Check:", font=('Poppins',9), bg="#f6f9fc", fg="#555")
 lastcheck_label_title.place(x=115, y=433)
 lastcheck_label = Text(master=window,  width=90, height=1,font=('Poppins',9), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
