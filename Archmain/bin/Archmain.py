@@ -95,8 +95,9 @@ for info_lastcheck in lastcheck:
    lastcheck_label.insert(END, info_lastcheck )
 lastcheck_label.config(state=DISABLED)
 
+#os.system('killall Archmain.sh')
 window.mainloop()
-
+#os.system('killall Archmain.sh; exec $HOME/.local/share/Archmain/bin/Archmain.sh')
 
 
 
