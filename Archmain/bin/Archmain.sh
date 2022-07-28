@@ -25,34 +25,35 @@ check_aur() {
 while true; do 
    check_pcm
         if (( UPDATES > 0 )); then
-                echo "$PCM Pacman updates" > "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$list_pacman" >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$AUR AUR updates" >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$list_aur" >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo $var > "$HOME/.local/share/Archmain/data/info_lastcheck"
+                echo "$PCM Pacman updates" > "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$list_pacman" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$AUR AUR updates" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$list_aur" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo $var > "$HOME/.local/share/Archmain/bin/info_lastcheck"
                 exec $URL/bin/aur-pacman-notify.sh
                 
         else
-                echo  $UPDATED > "$HOME/.local/share/Archmain/data/listaupds"
-                echo $var > "$HOME/.local/share/Archmain/data/info_lastcheck"
+                echo  $UPDATED > "$HOME/.local/share/Archmain/bin/listaupds"
+                echo $var > "$HOME/.local/share/Archmain/bin/info_lastcheck"
         fi
 
      check_aur
         if (( AUR > 0 )); then
-                echo "$PCM Pacman updates" > "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$list_pacman" >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$AUR AUR updates" >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo ' ' >> "$HOME/.local/share/Archmain/data/listaupds"
-                echo "$list_aur" >> "$HOME/.local/share/Archmain/data/listaupds"
+              echo "$PCM Pacman updates" > "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$list_pacman" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$AUR AUR updates" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo ' ' >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo "$list_aur" >> "$HOME/.local/share/Archmain/bin/listaupds"
+                echo $var > "$HOME/.local/share/Archmain/bin/info_lastcheck"
                 $URL/bin/aur-pacman-notify.sh
         else
-                echo  $UPDATED > "$HOME/.local/share/Archmain/data/listaupds"
-                echo $var > "$HOME/.local/share/Archmain/data/info_lastcheck"
+                echo  $UPDATED > "$HOME/.local/share/Archmain/bin/listaupds"
+                echo $var > "$HOME/.local/share/Archmain/bin/info_lastcheck"
         fi
 
         
