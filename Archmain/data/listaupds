@@ -1,0 +1,13 @@
+7 Pacman updates
+ 
+archlinux-keyring 20220713-2 -> 20220727-1
+ldb 2:2.5.1-1 -> 2:2.5.2-1
+libva-mesa-driver 22.1.3-1 -> 22.1.4-1
+mesa 22.1.3-1 -> 22.1.4-1
+mesa-vdpau 22.1.3-1 -> 22.1.4-1
+qt5-wayland 5.15.5+kde+r38-1 -> 5.15.5+kde+r38-2
+smbclient 4.16.3-1 -> 4.16.4-1
+ 
+0 AUR updates
+ 
+
