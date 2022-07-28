@@ -40,7 +40,7 @@ info.place(x=725, y=50)
 
 #Package Search:
 def getTextInput():
-    result=form.get(END)
+    result=form.get("1.0",END)
     os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); echo "' + result + '" > $HOME/.local/share/Archmain/data/input' + " ; " + " $TERMINAL -e $HOME/.local/share/Archmain/bin/find.sh")
 
 
