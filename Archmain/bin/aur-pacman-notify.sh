@@ -8,7 +8,6 @@ URL="$HOME/.local/share/Archmain";
 ICON="$URL/icon/logo.png" ;
 DELAY="3600"
 WAITING="300" #waiting after action install 5 min.
-LIST=$(cat "$HOME/.local/share/Archmain/data/listaupds")
 AUR=$(pikaur -Qqua | wc -l)
 PCM=$(checkupdates 2>/dev/null | wc -l); 
 TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal")
