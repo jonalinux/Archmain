@@ -143,6 +143,13 @@ fi
   echo -e  ${Green}pikaur.. installed!${Color_Off}
 fi
 
+echo -e ${Yellow}install tk${Color_Off}
+sudo pacman -S tk;
+
+
+
+
+cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
 
 cp -r  Archmain.desktop ~/.config/autostart/
