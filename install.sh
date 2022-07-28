@@ -154,9 +154,9 @@ cp -r Archmain ~/.local/share/
 
 cp -r  Archmain.desktop ~/.config/autostart/
 cp -r Archmainpy.desktop ~/.local/share/applications/
+
 chmod +x ~/.local/share/Archmain/bin/Archmain.sh
 chmod +x ~/.local/share/Archmain/bin/find.sh
-chmod +x ~/.local/share/Archmain/bin/aur-pacman-notify.sh
 chmod +x ~/.local/share/Archmain/bin/Archmain.py
 
 echo ''
