@@ -19,7 +19,7 @@ window.minsize(850, 500)
 window.configure(bg='#f6f9fc')
 
 #top #archcolor #0f94d2
-image = PhotoImage(file="./icon/logo.png")
+image = PhotoImage(file="~/.local/share/Archmain/icon/logo.png")
 banner = tk.Frame(master=window, height=80, bg="#333")
 banner.pack(fill=tk.X)
 linebanner = tk.Frame(master=window, height=5, bg="#0f94d2")
