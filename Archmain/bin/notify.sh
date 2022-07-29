@@ -5,7 +5,7 @@
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
 URL="$HOME/.local/share/Archmain";
-ICON="$URL/icon/logo.png" ;
+ICON="$URL/img/logo.png" ;
 CHECK="60"
 DELAY="3600"
 
