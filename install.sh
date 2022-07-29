@@ -13,7 +13,7 @@ Red='\033[1;31m'
 Yellow='\033[0;33m' 
 
 #terminal url
-terminal=$(cat "Archmain/data/terminal")
+terminal="Archmain/data/terminal"
 
 #Terminal check list
 T1="gnome-terminal"
@@ -59,6 +59,9 @@ elif    [ -x "$(command -v $T12)" ]; then
 fi;
 sleep 3
 
+
+
+#libnotify
 echo -e ${Blue}'check for notify-send '${Color_Off}
 sleep 3
 if ! [ -x "$(command -v notify-send)" ]; then
@@ -69,6 +72,11 @@ if ! [ -x "$(command -v notify-send)" ]; then
   else
   echo -e  ${Green}notify-send.. installed!${Color_Off}
 fi
+
+
+
+
+#pacman-contrib
 echo ''
 sleep 3
 echo -e ${Blue}'check for pacman-contrib '${Color_Off}
@@ -81,6 +89,10 @@ echo -e ${Yellow}install pacman-contrib..${Color_Off}
   else
   echo -e  ${Green}pacman-contrib.. installed!${Color_Off}
 fi
+
+
+
+#git
 echo ''
 echo -e ${Blue}'check for git '${Color_Off}
 sleep 3
@@ -93,6 +105,9 @@ echo -e ${Yellow}install git..${Color_Off}
   echo -e  ${Green}git.. installed!${Color_Off}
 fi
 
+
+#AURhelper
+Tx=$(cat "Archmain/data/terminal")
 AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
 echo ''
 echo -e ${Blue}'check for pikaur '${Color_Off}
@@ -105,14 +120,18 @@ sleep 5
         cmd_pikaur $AURhelpe
    else
 cmd_pikaur
-$terminal -e $AURhelpe
+$Tx -e $AURhelper
 fi
-  echo -e  ${Green}pikaur. installed!${Color_Off};
+  echo -e  ${Green}AURhelper installed!${Color_Off};
   else
-  echo -e  ${Green}pikaur.. installed!${Color_Off}
+  echo -e  ${Green}AURhelper installed!${Color_Off}
 fi
 
-echo -e ${Yellow}install tk${Color_Off}
+
+
+
+
+echo -e ${Yellow}install Python tk${Color_Off}
 sudo pacman -S tk;
 
 
