@@ -20,6 +20,7 @@ terminal="$HOME/.local/share/Archmain/data/terminal"
 
 
 #Variable Cmd
+get_Variables(){
 NumberUpdatesPacman=$(checkupdates 2>/dev/null | wc -l)
 NumberUpdatesAUR=$(pikaur -Qqua | wc -l)
 ListUpdatesPacman=$(checkupdates 2>/dev/null)
@@ -27,7 +28,7 @@ ListUpdatesAUR=$(pikaur -Qqua | wc -l)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$( expr $(checkupdates 2>/dev/null | wc -l) + $(pikaur -Qqua | wc -l))
-
+}
 
 #Terminal check list
 T1="gnome-terminal"
@@ -45,8 +46,10 @@ T12="xterm"
 
 #---------------------------------------------------------------------------------
 
-#Start!
+
 while true; do
+get_Variables
+echo 'start' #only for console
 
 #Reset data
 echo "" > "$list"
@@ -117,6 +120,7 @@ echo "$PackagesTotal" > "$packages"
 
 
 
-
+echo 'end' #only for console
 sleep $CHECK
+get_Variables
 done
