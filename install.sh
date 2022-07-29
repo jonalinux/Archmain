@@ -13,7 +13,7 @@ Red='\033[1;31m'
 Yellow='\033[0;33m' 
 
 #terminal url
-terminal="Archmain/data/terminal"
+terminal="Archmain/data/"
 
 #Terminal check list
 T1="gnome-terminal"
