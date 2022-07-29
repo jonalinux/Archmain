@@ -71,9 +71,9 @@ echo "
 [Desktop Entry]
 Name=Archmain
 GenericName=Archmain
-Exec=/home/$USER/.local/share/Archmain/bin/Archmain.sh
+Exec=/home/$USER/.local/share/Archmain/bin/notify.sh
 Type=Application
-Categories=GTK;GNOME;System;" > Archmain.desktop
+Categories=GTK;GNOME;System;" > notify.desktop
 
 #configure python app
 echo "
@@ -155,7 +155,7 @@ cp -r Archmain ~/.local/share/
 cp -r  Archmain.desktop ~/.config/autostart/
 cp -r Archmainpy.desktop ~/.local/share/applications/
 
-chmod +x ~/.local/share/Archmain/bin/Archmain.sh
+chmod +x ~/.local/share/Archmain/bin/notify.sh
 chmod +x ~/.local/share/Archmain/bin/find.sh
 chmod +x ~/.local/share/Archmain/bin/Archmain.py
 
