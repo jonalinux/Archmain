@@ -152,6 +152,15 @@ GenericName=data
 Exec=/home/$USER/.local/share/Archmain/bin/data.sh
 Type=Application" > data.desktop
 
+#configure python app
+echo "
+[Desktop Entry]
+Name=Archmain
+GenericName=Archmain
+Exec=/home/$USER/.local/share/Archmain/bin/Archmain.py
+Type=Application
+Icon=/home/$USER/.local/share/Archmain/icon/icon.png
+Categories=GTK;GNOME;System;" > Archmainpy.desktop
 
 
 
@@ -159,10 +168,11 @@ cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
 
 cp -r  data.desktop ~/.config/autostart/
-
+cp -r Archmainpy.desktop ~/.local/share/applications/
 
 chmod +x ~/.local/share/Archmain/bin/data.sh
 chmod +x ~/.local/share/Archmain/bin/Archmain.py
+
 
 echo ''
 echo -e ${Green}' Archmain installed, You should reboot.'${Color_Off}
