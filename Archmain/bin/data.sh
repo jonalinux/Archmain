@@ -11,7 +11,7 @@ ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
 CHECK="60" #min 1m safe CPU
-DELAY="3600"
+
 
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
@@ -27,7 +27,7 @@ ram="$HOME/.local/share/Archmain/data/ram"
 ssd="$HOME/.local/share/Archmain/data/ssd"
 cache="$HOME/.local/share/Archmain/data/cache"
 orphans="$HOME/.local/share/Archmain/data/orphans"
-
+delay="$HOME/.local/share/Archmain/data/delay"
 
 #Variable Cmd
 get_Variables(){
@@ -38,11 +38,13 @@ ListUpdatesAUR=$(pikaur -Qqua | wc -l)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$( expr "$(checkupdates 2>/dev/null | wc -l)" + "$(pikaur -Qqua | wc -l)")
-Kernel=$(uname -r)
+Kernel=$(uname -r )
 Ram=$(free -t | awk 'FNR == 2 {printf("%.2f%"), $3/$2*100}')
 SSD=$(du -sh / | awk '{ printf $1}')
 Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}')
 Orphans=$(pacman -Qtdq | wc -l)
+DELAY=$( expr "$(cat $delay)" \* 60)
+test=$()
 }
 
 #Terminal check list
@@ -65,6 +67,8 @@ T12="xterm"
 while true; do
 get_Variables
 echo 'start' #only for console
+
+
 
 #Reset data
 echo "$USER@$HOSTNAME" > "$list"

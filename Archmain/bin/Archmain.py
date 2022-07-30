@@ -4,11 +4,18 @@
 # Date Fri Jul 28 2022
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
+
+
+from distutils.cmd import Command
 from tkinter import *
 import tkinter as tk
 import os
 import getpass
+from tokenize import Number
+from turtle import width
 import webbrowser
+
+
 
 
 window=tk.Tk()
@@ -20,6 +27,8 @@ window.configure(bg='#f6f9fc')
 username = getpass.getuser()
 
 
+    
+    
 
 #top #archcolor #0f94d2
 image = tk.PhotoImage(file="/home/" + username + "/.local/share/Archmain/img/logo.png")
@@ -57,7 +66,7 @@ callback("https://github.com/JonathanSanfilippo/Archmain"))
 
 #Package Search:
 def package_search():
-    result=form.get("1.0",END) #INPUT=$(cat "$HOME/.local/share/Archmain/data/input") pikaur -S $INPUT
+    result=form.get("1.0",END) 
     os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL -e "/usr/bin/pikaur -S "' + result)
 
 background_form = tk.Frame(master=window, width=380, height=45, bg="#0f94d2")
@@ -100,7 +109,7 @@ lista.config(state=DISABLED)
 def install_Updates():
     os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL -e "/usr/bin/pikaur -Syu"')
     
-btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10, "bold"), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
+btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
 btnInstall.place(x=30, y=430,)
 
 lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
@@ -132,15 +141,15 @@ pending_label.config(state=DISABLED)
 
 
 #System info Sidebar
-system_info = tk.Label(master=window, text="System Info", font=('SF Pro Display',12, 'bold'), bg="#f6f9fc", fg="#555")
-system_info.place(x=660, y=93)
+system_info = tk.Label(master=window, text="System Info", font=('SF Pro Display',10, 'bold'), bg="#f6f9fc", fg="#555")
+system_info.place(x=660, y=103)
 
 
 kernel = open(file="/home/" + username + "/.local/share/Archmain/data/kernel")
 kernel_label_title = tk.Label(master=window, text="kernel:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-kernel_label_title.place(x=580, y=123)
+kernel_label_title.place(x=580, y=133)
 kernel_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-kernel_label.place(x=627, y=125)
+kernel_label.place(x=627, y=135)
 
 for info_kernel in kernel:
    kernel_label.insert(END, info_kernel )
@@ -148,9 +157,9 @@ kernel_label.config(state=DISABLED)
 
 pkgs_count = open(file="/home/" + username + "/.local/share/Archmain/data/packages")
 pkgs_count_label_title = tk.Label(master=window, text="Packages:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-pkgs_count_label_title.place(x=580, y=143)
+pkgs_count_label_title.place(x=580, y=153)
 pkgs_count_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-pkgs_count_label.place(x=645, y=145)
+pkgs_count_label.place(x=645, y=155)
 
 for info_pkgs_count in pkgs_count:
    pkgs_count_label.insert(END, info_pkgs_count )
@@ -158,19 +167,19 @@ pkgs_count_label.config(state=DISABLED)
 
 ram = open(file="/home/" + username + "/.local/share/Archmain/data/ram")
 ram_label_title = tk.Label(master=window, text="Memory usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-ram_label_title.place(x=580, y=163)
+ram_label_title.place(x=580, y=173)
 ram_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-ram_label.place(x=675, y=165)
+ram_label.place(x=675, y=175)
 
 for info_ram in ram:
    ram_label.insert(END, info_ram )
-ram_label.config(state=DISABLED)
+   ram_label.config(state=DISABLED)
 
 ssd = open(file="/home/" + username + "/.local/share/Archmain/data/ssd")
 ssd_label_title = tk.Label(master=window, text="Disc usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-ssd_label_title.place(x=580, y=183)
+ssd_label_title.place(x=580, y=193)
 ssd_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-ssd_label.place(x=650, y=185)
+ssd_label.place(x=650, y=195)
 
 for info_ssd in ssd:
    ssd_label.insert(END, info_ssd )
@@ -178,9 +187,9 @@ ssd_label.config(state=DISABLED)
 
 cache = open(file="/home/" + username + "/.local/share/Archmain/data/cache")
 cache_label_title = tk.Label(master=window, text="Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-cache_label_title.place(x=580, y=203)
+cache_label_title.place(x=580, y=213)
 cache_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-cache_label.place(x=626, y=205)
+cache_label.place(x=626, y=215)
 
 for info_cache in cache:
    cache_label.insert(END, info_cache )
@@ -188,17 +197,57 @@ cache_label.config(state=DISABLED)
 
 orphans = open(file="/home/" + username + "/.local/share/Archmain/data/orphans")
 orphans_label_title = tk.Label(master=window, text="Unused (orphans):", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-orphans_label_title.place(x=580, y=223)
+orphans_label_title.place(x=580, y=233)
 orphans_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-orphans_label.place(x=690, y=225)
+orphans_label.place(x=690, y=235)
 
 for info_orphans in orphans:
    orphans_label.insert(END, info_orphans )
 orphans_label.config(state=DISABLED)
 
+
+#settings
+Settings = tk.Label(master=window, text="Settings", font=('SF Pro Display',10, 'bold'), bg="#f6f9fc", fg="#555")
+Settings.place(x=660, y=273)
+
+
+
+
+
+#Package Search:
+def delay_set():
+    result=delay_label.get("1.0",END) 
+    os.system("echo '"+ result +"' > " + " /home/" + username + "/.local/share/Archmain/data/delay;")
+  
+delay=open(file="/home/" + username + "/.local/share/Archmain/data/delay")    
+conferm="  ok, reboot!"   
+delay_label_title = tk.Label(master=window, text="New:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+delay_label_title.place(x=580, y=322)
+delay_label = Text(master=window,  height=1, width=15,font=('SF Pro Display',10), bg="#ecf2f5", fg="green", borderwidth = 0, highlightthickness = 0, )
+delay_label.place(x=620, y=322)
+delay_label.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
+
+btnSet=tk.Button(window,  height=1, width=3, text="Set", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=lambda:[delay_set(), conferm_set()])
+btnSet.place(x=750, y=320)
+
+def conferm_set():
+ for x in conferm:
+   delay_label.insert(END, x)
+   
+
+delay_c=open(file="/home/" + username + "/.local/share/Archmain/data/delay")   
+delay_current_title = tk.Label(master=window, text="Current Delay: min", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+delay_current_title.place(x=580, y=298)
+delay_current = Text(master=window,  height=1, width=4,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
+delay_current.place(x=690, y=300)
+
+for c in delay_c:
+    delay_current.insert(END, c)
+    delay_current.config(state=DISABLED)
+   
+
+
 #-------------------------------------------------------------------------------------------------------------------------
-
-
 
 
 window.mainloop()
