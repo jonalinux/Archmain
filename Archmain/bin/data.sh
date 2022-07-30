@@ -69,10 +69,7 @@ echo 'start' #only for console
 #Reset data
 echo "$USER@$HOSTNAME" > "$list"
 echo '' >> "$list"
-echo "" > "$lastcheck"
-echo "" > "$packages"
-echo "" > "$pending"
-echo "" > "$terminal"
+
 
 
 #terminal check
