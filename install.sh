@@ -143,12 +143,7 @@ sudo pacman -S tk;
 
 
 #configure autostart file
-echo "
-[Desktop Entry]
-Name=notify
-GenericName=notify
-Exec=/home/$USER/.local/share/Archmain/bin/notify.sh
-Type=Application" > notify.desktop
+
 
 echo "
 [Desktop Entry]
@@ -157,27 +152,16 @@ GenericName=data
 Exec=/home/$USER/.local/share/Archmain/bin/data.sh
 Type=Application" > data.desktop
 
-#configure python app
-echo "
-[Desktop Entry]
-Name=Archmain
-GenericName=Archmain
-Exec=/home/$USER/.local/share/Archmain/bin/Archmain.py
-Type=Application
-Icon=/home/$USER/.local/share/Archmain/icon/icon.png
-Categories=GTK;GNOME;System;" > Archmainpy.desktop
+
 
 
 cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
 
 cp -r  data.desktop ~/.config/autostart/
-cp -r  notify.desktop ~/.config/autostart/
-cp -r Archmainpy.desktop ~/.local/share/applications/
+
 
 chmod +x ~/.local/share/Archmain/bin/data.sh
-chmod +x ~/.local/share/Archmain/bin/notify.sh
-chmod +x ~/.local/share/Archmain/bin/find.sh
 chmod +x ~/.local/share/Archmain/bin/Archmain.py
 
 echo ''
