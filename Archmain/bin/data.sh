@@ -74,6 +74,35 @@ echo "" > "$packages"
 echo "" > "$pending"
 echo "" > "$terminal"
 
+
+#terminal check
+if  [ -x "$(command -v $T1)" ]; then
+           echo $T1 > "$terminal"
+elif    [ -x "$(command -v $T2)" ]; then
+           echo $T2 > "$terminal"
+elif    [ -x "$(command -v $T3)" ]; then
+           echo $T3 > "$terminal"
+elif    [ -x "$(command -v $T4)" ]; then
+           echo $T4 > "$terminal"
+elif    [ -x "$(command -v $T5)" ]; then
+           echo $T5 > "$terminal"
+elif    [ -x "$(command -v $T6)" ]; then
+           echo $T6 > "$terminal"
+elif    [ -x "$(command -v $T7)" ]; then
+           echo $T7 > "$terminal"
+elif    [ -x "$(command -v $T8)" ]; then
+           echo $T8 > "$terminal"
+elif    [ -x "$(command -v $T9)" ]; then
+           echo $T9 > "$terminal"
+elif    [ -x "$(command -v $T10)" ]; then
+           echo $T10 > "$terminal"
+elif    [ -x "$(command -v $T11)" ]; then
+           echo $T11 > "$terminal"
+elif    [ -x "$(command -v $T12)" ]; then
+           echo $T12 > "$terminal"
+fi;
+
+
 #Packages installed in Arch
 echo "$PackagesTotal" > "$packages"
 #kernel
@@ -126,36 +155,6 @@ if [ "$Pending" == 0 ]; then
                 esac
                 
 fi
-
-
-
-
-#terminal check
-if  [ -x "$(command -v $T1)" ]; then
-           echo $T1 > "$terminal"
-elif    [ -x "$(command -v $T2)" ]; then
-           echo $T2 > "$terminal"
-elif    [ -x "$(command -v $T3)" ]; then
-           echo $T3 > "$terminal"
-elif    [ -x "$(command -v $T4)" ]; then
-           echo $T4 > "$terminal"
-elif    [ -x "$(command -v $T5)" ]; then
-           echo $T5 > "$terminal"
-elif    [ -x "$(command -v $T6)" ]; then
-           echo $T6 > "$terminal"
-elif    [ -x "$(command -v $T7)" ]; then
-           echo $T7 > "$terminal"
-elif    [ -x "$(command -v $T8)" ]; then
-           echo $T8 > "$terminal"
-elif    [ -x "$(command -v $T9)" ]; then
-           echo $T9 > "$terminal"
-elif    [ -x "$(command -v $T10)" ]; then
-           echo $T10 > "$terminal"
-elif    [ -x "$(command -v $T11)" ]; then
-           echo $T11 > "$terminal"
-elif    [ -x "$(command -v $T12)" ]; then
-           echo $T12 > "$terminal"
-fi;
            
 
 sleep $CHECK
