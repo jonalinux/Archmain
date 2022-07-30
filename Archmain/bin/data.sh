@@ -7,10 +7,14 @@
 
 
 #Setting ------------------------------------------------------------------------
-
+ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
-CHECK="30"
+CHECK="60" #min 1m safe CPU
+DELAY="3600"
+
+#py
+py="$HOME/.local/share/Archmain/bin/Archmain.py"
 
 #Variable URL
 list="$HOME/.local/share/Archmain/data/listupdates"
@@ -64,36 +68,26 @@ echo 'start' #only for console
 
 #Reset data
 echo "$USER@$HOSTNAME" > "$list"
+echo '' >> "$list"
 echo "" > "$lastcheck"
 echo "" > "$packages"
 echo "" > "$pending"
 echo "" > "$terminal"
 
-
-#list
-if [ "$NumberUpdatesPacman" -gt 0 ]; then
-  echo '' >> "$list"
-  echo "$ListUpdatesPacman" >> "$list"
-  else
-  echo '' 
-fi
-if [ "$NumberUpdatesAUR" -gt 0 ]; then
-  echo '' >> "$list"
-  echo "$ListUpdatesAUR" >> "$list"
-  else
-  echo ''
-fi
-if [ "$Pending" == 0 ]; then
-  echo 'System Updates.' >> "$list"
-  else
-  echo ''
-fi
-
-
-
+#Packages installed in Arch
+echo "$PackagesTotal" > "$packages"
+#kernel
+echo "$Kernel" > "$kernel"
+#ram
+echo "$Ram" > "$ram"
+#ssd
+echo "$SSD" > "$ssd"
+#cache
+echo "$Cache" > "$cache"
+#orphans
+echo "$Orphans" > "$orphans"
 #lastcheck
 echo "$DataTime" > "$lastcheck"
-
 #Pending
 if [ "$Pending" == 1 ]; then
   echo "$Pending Update Pending" > "$pending"
@@ -103,6 +97,38 @@ if [ "$Pending" == 1 ]; then
   else
    echo "System Updated" > "$pending"
 fi
+
+
+#list
+if [ "$NumberUpdatesPacman" -gt 0 ]; then
+  echo "$ListUpdatesPacman" >> "$list"
+  else
+  echo '' 
+fi
+if [ "$NumberUpdatesAUR" -gt 0 ]; then
+  echo "$ListUpdatesAUR" >> "$list"
+  else
+  echo ''
+fi
+if [ "$Pending" == 0 ]; then
+  echo 'System Updated.' >> "$list"
+  else
+           ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
+                case "$ACTION" in
+                      "0")
+                         $py
+                         ;;
+                      "1")
+                         sleep $DELAY;
+                         
+                         ;;
+                      
+                esac
+                
+fi
+
+
+
 
 #terminal check
 if  [ -x "$(command -v $T1)" ]; then
@@ -132,23 +158,6 @@ elif    [ -x "$(command -v $T12)" ]; then
 fi;
            
 
-
-#Packages installed in Arch
-echo "$PackagesTotal" > "$packages"
-#kernel
-echo "$Kernel" > "$kernel"
-#ram
-echo "$Ram" > "$ram"
-#ssd
-echo "$SSD" > "$ssd"
-#cache
-echo "$Cache" > "$cache"
-#orphans
-echo "$Orphans" > "$orphans"
-
-
-
-echo 'end' #only for console
 sleep $CHECK
 get_Variables
 done
