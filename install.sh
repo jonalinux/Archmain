@@ -15,6 +15,7 @@ Yellow='\033[0;33m'
 
 mkdir -p Archmain/data
 mkdir -p ~/.config/autostart
+echo "60" > Archmain/data/delay
 
 #terminal url
 terminal="Archmain/data/terminal"
