@@ -14,7 +14,7 @@ Yellow='\033[0;33m'
 
 
 mkdir -p Archmain/data
-
+mkdir -p ~/.config/autostart
 
 #terminal url
 terminal="Archmain/data/terminal"
