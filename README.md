@@ -16,10 +16,10 @@ and adds to autostart the script base data.sh which periodically checks for upda
 It is possible from the notification to use "Delay" to delay the control and update notifications to the next time, by default it is set to 1 hour, however in the gui it is possible to choose the time to be set for the "Delay" option.
 
 
-git clone https://github.com/JonathanSanfilippo/Archmain.git
-cd Archmain-main
-chmod +x ./install.sh
-./install.sh
+- git clone https://github.com/JonathanSanfilippo/Archmain.git
+- cd Archmain-main
+- chmod +x ./install.sh
+- ./install.sh
 
 ## Dependencies
 1. libnotify
