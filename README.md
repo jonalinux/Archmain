@@ -1,5 +1,10 @@
 # Archmain
 Archmain - AUR and Pacman updater 
+- Gnome
+- Cinnamon
+- KDE
+- Deepin
+- Xfce4
 
 ![295616490_10225333769284739_2539899213069185012_n](https://user-images.githubusercontent.com/103053714/182023375-69c64efc-ad34-4a4a-96f8-1a7232e025be.jpg)
 ![Screenshot from 2022-07-31 11-36-58](https://user-images.githubusercontent.com/103053714/182023382-9a34f3f1-1b44-4fe9-95d7-4dc6f4cf81dc.png)
