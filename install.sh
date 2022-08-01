@@ -12,7 +12,7 @@ Blue='\033[1;34m'
 Red='\033[1;31m'
 Yellow='\033[0;33m' 
 
-
+mkdir -p ~/.local/share/applications 
 mkdir -p Archmain/data
 mkdir -p ~/.config/autostart
 echo "60" > Archmain/data/delay
