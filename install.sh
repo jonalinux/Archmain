@@ -111,9 +111,7 @@ echo -e ${Yellow}install git..${Color_Off}
 fi
 
 
-#AURhelper
-Tx=$(cat "Archmain/data/terminal")
-AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
+
 echo ''
 echo -e ${Blue}'check for pikaur '${Color_Off}
 sleep 3
@@ -121,6 +119,9 @@ if ! [ -x "$(command -v /usr/bin/pikaur -Qqua 2>/dev/null)" ]; then
 echo -e ${Red}Error: pikaur is not installed.${Color_Off} >&2
 echo -e ${Yellow}install pikaur..${Color_Off}
 sleep 5
+#AURhelper
+Tx=$(cat "Archmain/data/terminal")
+AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
  if  [ -x "$(command -v gnome-terminal)" ]; then
         cmd_pikaur $AURhelpe
    else
