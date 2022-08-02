@@ -11,7 +11,7 @@ ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
 CHECK="60" #min 1m safe CPU
-
+WAIT="300"
 
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
@@ -147,6 +147,7 @@ if [ "$Pending" == 0 ]; then
                 case "$ACTION" in
                       "0")
                          $py
+                         sleep $WAIT;
                          ;;
                       "1")
                          sleep $DELAY;
