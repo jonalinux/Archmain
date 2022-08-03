@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="200"
+VERSION="210"
 
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
