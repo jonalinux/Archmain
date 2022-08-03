@@ -173,6 +173,7 @@ cp -r  data.desktop ~/.config/autostart/
 cp -r Archmainpy.desktop ~/.local/share/applications/
 
 chmod +x ~/.local/share/Archmain/bin/data.sh
+chmod +x ~/.local/share/Archmain/bin/update.sh
 chmod +x ~/.local/share/Archmain/bin/Archmain.py
 
 
