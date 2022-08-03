@@ -7,6 +7,8 @@
 
 
 #Setting ------------------------------------------------------------------------
+VERSION='210'
+
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
@@ -16,7 +18,11 @@ WAIT="300"
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
 
+#updateArchmain
+Aupd="$HOME/.local/share/Archmain/bin/update.sh"
+
 #Variable URL
+version="$HOME/.local/share/Archmain/data/version"
 log="$HOME/.local/share/Archmain/data/log"
 list="$HOME/.local/share/Archmain/data/listupdates"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
@@ -44,7 +50,7 @@ SSD=$(du -sh / | awk '{ printf $1}')
 Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}')
 Orphans=$(pacman -Qtdq | wc -l)
 DELAY=$( expr "$(cat $delay)" \* 60)
-test=$()
+Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version)
 }
 
 #Terminal check list
@@ -66,8 +72,9 @@ T12="xterm"
 
 while true; do
 get_Variables
-echo 'start' #only for console
-
+echo '' #only for console
+echo "$USER@$HOSTNAME" > "$list"
+echo '' >> "$list"
 
 
 #terminal check
@@ -126,8 +133,7 @@ fi
 #list
 #fix both in one 
 if [ "$NumberUpdates" -gt 0 ]; then
-  echo "$USER@$HOSTNAME" > "$list"
-  echo '' >> "$list"
+  
   echo "$ListUpdates"  >> "$list"
   echo "$DataTime" > "$log"
   echo " " >> "$log"
@@ -152,7 +158,29 @@ if [ "$Pending" == 0 ]; then
                 esac
                 
 fi
-           
+
+
+#checkversion
+checkVersion=$(cat $version)
+if [ "$checkVersion" -gt "$VERSION"]; then
+  
+ACTION=$(notify-send -i "$ICON" --action="Update"   -a "Archmain" "Archmain Update available. Version $checkVersion."   -u critical;  )
+                case "$ACTION" in
+                      "0")
+                         $Aupd
+                         sleep $WAIT;
+                         ;;
+                      "1")
+                         
+                         
+                         ;;
+                      
+                esac
+else
+
+echo ''
+
+fi
 
 sleep $CHECK
 get_Variables
