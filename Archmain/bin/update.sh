@@ -19,3 +19,4 @@ rm -rf "$HOME/.local/share/Archmain/update";
 rm -rf "$HOME/.local/share/Archmain/main.zip"
 rm -rf "$HOME/.local/share/Archmain/Archmainpy.desktop"
 rm -rf "$HOME/.local/share/Archmain/data.desktop"
+rm -rf "$HOME/.local/share/Archmain/Archmain"
