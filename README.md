@@ -33,3 +33,4 @@ It is possible from the notification to use "Delay" to delay the control and upd
 4. pikaur
 5. tk
 6. base-devel
+7. wget
