@@ -34,7 +34,7 @@ get_Variables(){
 NumberUpdatesPacman=$(checkupdates 2>/dev/null | wc -l)
 NumberUpdatesAUR=$(pikaur -Qqua | wc -l)
 ListUpdatesPacman=$(checkupdates 2>/dev/null)
-ListUpdatesAUR=$(pikaur -Qqua | wc -l)
+ListUpdatesAUR=$(pikaur -Qqua)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$( expr "$(checkupdates 2>/dev/null | wc -l)" + "$(pikaur -Qqua | wc -l)")
