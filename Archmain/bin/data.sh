@@ -17,6 +17,7 @@ WAIT="300"
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
 
 #Variable URL
+log="$HOME/.local/share/Archmain/data/log"
 list="$HOME/.local/share/Archmain/data/listupdates"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 packages="$HOME/.local/share/Archmain/data/packages"
@@ -31,13 +32,12 @@ delay="$HOME/.local/share/Archmain/data/delay"
 
 #Variable Cmd
 get_Variables(){
-NumberUpdatesPacman=$(checkupdates 2>/dev/null | wc -l)
-NumberUpdatesAUR=$(pikaur -Qqua | wc -l)
-#ListUpdatesPacman=$(checkupdates 2>/dev/null)
-ListUpdatesAUR=$(pikaur -Quq)
+NumberUpdates=$(pikaur -Qqua | wc -l)
+ListUpdates=$(pikaur -Quq)
+Log=$(pikaur -Qu)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
-Pending=$( expr "$(checkupdates 2>/dev/null | wc -l)" + "$(pikaur -Qqua | wc -l)")
+Pending=$(pikaur -Quq | wc -l)
 Kernel=$(uname -r )
 Ram=$(free -t | awk 'FNR == 2 {printf("%.2f%"), $3/$2*100}')
 SSD=$(du -sh / | awk '{ printf $1}')
@@ -67,12 +67,6 @@ T12="xterm"
 while true; do
 get_Variables
 echo 'start' #only for console
-
-
-
-#Reset data
-echo "$USER@$HOSTNAME" > "$list"
-echo '' >> "$list"
 
 
 
@@ -131,9 +125,13 @@ fi
 
 #list
 #fix both in one 
-if [ "$NumberUpdatesAUR" -gt 0 ]; then
-  echo "$ListUpdatesAUR"  >> "$list"
- 
+if [ "$NumberUpdates" -gt 0 ]; then
+  echo "$USER@$HOSTNAME" > "$list"
+  echo '' >> "$list"
+  echo "$ListUpdates"  >> "$list"
+  echo "$DataTime" > "$log"
+  echo " " >> "$log"
+  echo "$Log"  >> "$log"
   else
   echo ''
 fi
