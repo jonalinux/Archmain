@@ -33,8 +33,8 @@ delay="$HOME/.local/share/Archmain/data/delay"
 get_Variables(){
 NumberUpdatesPacman=$(checkupdates 2>/dev/null | wc -l)
 NumberUpdatesAUR=$(pikaur -Qqua | wc -l)
-ListUpdatesPacman=$(checkupdates 2>/dev/null)
-ListUpdatesAUR=$(pikaur -Qqua)
+#ListUpdatesPacman=$(checkupdates 2>/dev/null)
+ListUpdatesAUR=$(pikaur -Quq)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$( expr "$(checkupdates 2>/dev/null | wc -l)" + "$(pikaur -Qqua | wc -l)")
@@ -130,13 +130,10 @@ fi
 
 
 #list
-if [ "$NumberUpdatesPacman" -gt 0 ]; then
-  echo "$ListUpdatesPacman" >> "$list"
-  else
-  echo '' 
-fi
+#fix both in one 
 if [ "$NumberUpdatesAUR" -gt 0 ]; then
-  echo "$ListUpdatesAUR" >> "$list"
+  echo "$ListUpdatesAUR"  >> "$list"
+ 
   else
   echo ''
 fi

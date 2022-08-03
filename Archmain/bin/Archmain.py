@@ -107,7 +107,7 @@ lista.config(state=DISABLED)
 
 # bottom install updates
 def install_Updates():
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL -e "/usr/bin/pikaur -Syu"')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL -e "/usr/bin/pikaur -Syu"; exit;')
     
 btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
 btnInstall.place(x=30, y=430,)
@@ -126,9 +126,9 @@ lastcheck_label.config(state=DISABLED)
 #pending-updates
 pending = open(file="/home/" + username + "/.local/share/Archmain/data/pending")
 pending_label_title = tk.Label(master=window, text="Status:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-pending_label_title.place(x=365, y=433)
+pending_label_title.place(x=390, y=433)
 pending_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-pending_label.place(x=410, y=434)
+pending_label.place(x=435, y=434)
 
 for info_pending in pending:
    pending_label.insert(END, info_pending )
