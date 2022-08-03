@@ -45,7 +45,7 @@ subtitle = tk.Label(master=window, text="AUR and Pacman Updater", font=('SF Pro 
 subtitle.place(x=95, y=50)
 footer = tk.Frame(master=window, width=850, height=30, bg="#ecf2f5", highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
 footer.place(x=0, y=490)
-version = tk.Label(master=window, text="Version 2.0b", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
+version = tk.Label(master=window, text="Version 2.1", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
 version.place(x=775, y=495)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
 author.place(x=10, y=495)
