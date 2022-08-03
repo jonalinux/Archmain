@@ -138,7 +138,7 @@ fi
 
 
 echo -e ${Yellow}install Python tk${Color_Off}
-sudo pacman -S tk;
+sudo pacman -S tk wget
 
 
 
