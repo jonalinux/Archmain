@@ -132,7 +132,7 @@ fi
 
 #list
 #fix both in one 
-if [ "$NumberUpdates" -gt 0 ]; then
+if [ "$Pending" -gt 0 ]; then
   
   echo "$ListUpdates"  >> "$list"
   echo "$DataTime" > "$log"
