@@ -7,8 +7,8 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="212"
-
+VERSION="213"
+CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
@@ -35,10 +35,11 @@ ssd="$HOME/.local/share/Archmain/data/ssd"
 cache="$HOME/.local/share/Archmain/data/cache"
 orphans="$HOME/.local/share/Archmain/data/orphans"
 delay="$HOME/.local/share/Archmain/data/delay"
+messageDelay="$HOME/.local/share/Archmain/data/messageDelay"
 
 #Variable Cmd
 get_Variables(){
-ListUpdates=$(pikaur -Quq)
+ListUpdates=$(pikaur -Qu)
 Log=$(pikaur -Qu)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
@@ -50,6 +51,7 @@ Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}')
 Orphans=$(pacman -Qtdq | wc -l)
 DELAY=$( expr "$(cat $delay)" \* 60)
 Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version)
+messDelay=$(cat $delay)
 }
 
 #Terminal check list
@@ -74,33 +76,33 @@ get_Variables
 echo '' #only for console
 echo "$USER@$HOSTNAME" > "$list"
 echo '' >> "$list"
-
+echo "$VERSION" > "$CURRENTVERSION"
 
 #terminal check
 if  [ -x "$(command -v $T1)" ]; then
-           echo $T1 > "$terminal"
+           echo "$T1  -- /bin/sh -c" > "$terminal"
 elif    [ -x "$(command -v $T2)" ]; then
-           echo $T2 > "$terminal"
+           echo $T2 -e  > "$terminal"
 elif    [ -x "$(command -v $T3)" ]; then
-           echo $T3 > "$terminal"
+           echo $T3 -e  > "$terminal"
 elif    [ -x "$(command -v $T4)" ]; then
-           echo $T4 > "$terminal"
+           echo $T4 -e  > "$terminal"
 elif    [ -x "$(command -v $T5)" ]; then
-           echo $T5 > "$terminal"
+           echo $T5 -e  > "$terminal"
 elif    [ -x "$(command -v $T6)" ]; then
-           echo $T6 > "$terminal"
+           echo $T6 -e  > "$terminal"
 elif    [ -x "$(command -v $T7)" ]; then
-           echo $T7 > "$terminal"
+           echo $T7 -e  > "$terminal"
 elif    [ -x "$(command -v $T8)" ]; then
-           echo $T8 > "$terminal"
+           echo $T8 -e  > "$terminal"
 elif    [ -x "$(command -v $T9)" ]; then
-           echo $T9 > "$terminal"
+           echo $T9 -e  > "$terminal"
 elif    [ -x "$(command -v $T10)" ]; then
-           echo $T10 > "$terminal"
+           echo $T10 -e  > "$terminal"
 elif    [ -x "$(command -v $T11)" ]; then
-           echo $T11 > "$terminal"
+           echo $T11 -e  > "$terminal"
 elif    [ -x "$(command -v $T12)" ]; then
-           echo $T12 > "$terminal"
+           echo $T12 -e  > "$terminal"
 fi;
 
 
@@ -147,9 +149,10 @@ if [ "$Pending" == 0 ]; then
                 case "$ACTION" in
                       "0")
                          $py
-                         sleep $WAIT;
+                         #sleep $WAIT;
                          ;;
                       "1")
+                         echo " Delay on, refresh in $messDelay minutes" > "$messageDelay"
                          sleep $DELAY;
                          
                          ;;
@@ -170,7 +173,7 @@ else
 echo ''
 
 fi
-
+echo " Delay off, refresh in 60 seconds" > "$messageDelay"
 sleep $CHECK
 get_Variables
 done
