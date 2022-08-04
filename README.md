@@ -1,5 +1,5 @@
- file:///home/jonathan/Pictures/repository-open-graph-template.png
- 
+ ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/182971235-40edf750-6f82-40c2-98f0-60286f7c3117.png)
+
 # Archmain
 Follow the Wiki! 
 
