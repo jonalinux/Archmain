@@ -1,3 +1,5 @@
+ file:///home/jonathan/Pictures/repository-open-graph-template.png
+ 
 # Archmain
 Follow the Wiki! 
 
