@@ -111,7 +111,7 @@ def list_upd():
 
 # bottom install only pacman
 def install_pac():
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Syu"; echo "System Updated." > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "System Updated." > /home/' + username + '/.local/share/Archmain/data/pending')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Syu"; echo "Wait for refresh.." > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Wait for refresh..." > /home/' + username + '/.local/share/Archmain/data/pending')
     
 btnInstall=tk.Button(window, height=1, width=8, text="Pacman only", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_pac)
 btnInstall.place(x=100, y=430,)
@@ -119,7 +119,7 @@ btnInstall.place(x=100, y=430,)
 
 # bottom install updates
 def install_Updates():
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "/usr/bin/pikaur -Syu"; echo "System Updated." > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "System Updated." > /home/' + username + '/.local/share/Archmain/data/pending')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "/usr/bin/pikaur -Syu"; echo "Wait for refresh.." > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Wait for refresh..." > /home/' + username + '/.local/share/Archmain/data/pending')
     
 btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
 btnInstall.place(x=30, y=430,)
