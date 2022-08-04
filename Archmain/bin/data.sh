@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="211"
+VERSION="210"
 
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
@@ -163,8 +163,8 @@ fi
 #checkversion
 checkVersion=$(cat $version)
 if [ "$checkVersion" -gt "$VERSION" ]; then
-  
-ACTION=$(notify-send -i "$ICON" --action="Update"   -a "Archmain" "Archmain Update available. Version $checkVersion."   -u critical;  )
+  echo ''
+#ACTION=$(notify-send -i "$ICON" --action="Update"   -a "Archmain" "Archmain Update available. Version $checkVersion."   -u critical;  )
                 case "$ACTION" in
                       "0")
                          $Aupd
