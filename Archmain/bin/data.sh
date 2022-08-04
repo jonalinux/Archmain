@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="210"
+VERSION="211"
 
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
@@ -38,7 +38,6 @@ delay="$HOME/.local/share/Archmain/data/delay"
 
 #Variable Cmd
 get_Variables(){
-NumberUpdates=$(pikaur -Qqua | wc -l)
 ListUpdates=$(pikaur -Quq)
 Log=$(pikaur -Qu)
 PackagesTotal=$(pacman -Q | wc -l )
@@ -163,19 +162,9 @@ fi
 #checkversion
 checkVersion=$(cat $version)
 if [ "$checkVersion" -gt "$VERSION" ]; then
-  echo ''
-#ACTION=$(notify-send -i "$ICON" --action="Update"   -a "Archmain" "Archmain Update available. Version $checkVersion."   -u critical;  )
-                case "$ACTION" in
-                      "0")
-                         $Aupd
-                         sleep $WAIT;
-                         ;;
-                      "1")
-                         
-                         
-                         ;;
-                      
-                esac
+  
+notify-send -i "$ICON"    -a "Archmain" "Archmain Update available. Version $checkVersion."   -u normal -t 30000;
+               
 else
 
 echo ''
