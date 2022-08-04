@@ -8,16 +8,13 @@ terminal="$HOME/.local/share/Archmain/data/terminal"
 Terminal=$(cat $terminal)
 
 mkdir -p "$HOME/.local/share/Archmain/update";
-wget   "https://github.com/JonathanSanfilippo/Archmain/archive/refs/heads/main.zip";
-mv "$HOME/main.zip" "$HOME/.local/share/Archmain/main.zip"
-unzip "$HOME/.local/share/Archmain/main.zip" -d "$HOME/.local/share/Archmain/update";
+wget "https://github.com/JonathanSanfilippo/Archmain/archive/refs/heads/main.zip";
+mv ~/main.zip  "$HOME/.local/share/Archmain/update"
+unzip "$HOME/.local/share/Archmain/update/main.zip" -d "$HOME/.local/share/Archmain/update/";
 chmod +x "$HOME/.local/share/Archmain/update/Archmain-main/install.sh";
 
 $Terminal -e $HOME/.local/share/Archmain/update/Archmain-main/install.sh
 
-#clean update
+clean update
 rm -rf "$HOME/.local/share/Archmain/update";
-rm -rf "$HOME/.local/share/Archmain/main.zip"
-rm -rf "$HOME/.local/share/Archmain/Archmainpy.desktop"
-rm -rf "$HOME/.local/share/Archmain/data.desktop"
-rm -rf "$HOME/.local/share/Archmain/Archmain"
+
