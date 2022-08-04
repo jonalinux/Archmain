@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="211"
+VERSION="212"
 
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
@@ -163,7 +163,7 @@ fi
 checkVersion=$(cat $version)
 if [ "$checkVersion" -gt "$VERSION" ]; then
   
-notify-send -i "$ICON"    -a "Archmain" "Archmain Update available. Version $checkVersion."   -u normal -t 30000;
+notify-send -i "$ICON"    -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5"   -u critical;
                
 else
 
