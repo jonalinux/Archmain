@@ -9,17 +9,7 @@ Archmain - AUR and Pacman updater
 ![Screenshot from 2022-08-04 21-52-50](https://user-images.githubusercontent.com/103053714/182951115-81997e42-f4f3-4ce0-87b6-fa2fcacba036.png)
 
 
-Archmain
-I made a small script for notifying pacman and AUR package updates, as well as the ability to easily install packages from both AUR and other GUI.
-GUI interface in python and script engine in shell to have little load on memory and processor, only about 500kb.
-
-It does not need widgets or extensions for this useful for those who want to keep a light system without too many things added, but enjoy the utility to update them and install packages easily.
-
-The installation script installs the folder in ./local/share
-and adds to autostart the script base data.sh which periodically checks for updates and writes the information to be transmitted to the gui and eventually to libnotify to notify the presence of new updates. Install the .desktop file for the python application, and check the necessary dependencies as well as install an AUR helper for managing these packages.
-
-It is possible from the notification to use "Delay" to delay the control and update notifications to the next time, by default it is set to 1 hour, however in the gui it is possible to choose the time to be set for the "Delay" option.
-
+## Install
 
 - git clone https://github.com/JonathanSanfilippo/Archmain.git
 - cd Archmain-main
