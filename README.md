@@ -6,8 +6,8 @@ Archmain - AUR and Pacman updater
 - Deepin
 - Xfce4
 
-![Screenshot from 2022-08-03 06-36-44](https://user-images.githubusercontent.com/103053714/182532085-f42c3ad8-ad62-4647-aa59-f73731a30900.png)
-![Screenshot from 2022-07-31 11-36-58](https://user-images.githubusercontent.com/103053714/182023382-9a34f3f1-1b44-4fe9-95d7-4dc6f4cf81dc.png)
+![Screenshot from 2022-08-04 21-52-50](https://user-images.githubusercontent.com/103053714/182951115-81997e42-f4f3-4ce0-87b6-fa2fcacba036.png)
+
 
 Archmain
 I made a small script for notifying pacman and AUR package updates, as well as the ability to easily install packages from both AUR and other GUI.
