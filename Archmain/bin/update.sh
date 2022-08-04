@@ -9,6 +9,7 @@ Terminal=$(cat $terminal)
 
 mkdir -p "$HOME/.local/share/Archmain/update";
 wget   "https://github.com/JonathanSanfilippo/Archmain/archive/refs/heads/main.zip";
+mv "$HOME/main.zip" "$HOME/.local/share/Archmain/main.zip"
 unzip "$HOME/.local/share/Archmain/main.zip" -d "$HOME/.local/share/Archmain/update";
 chmod +x "$HOME/.local/share/Archmain/update/Archmain-main/install.sh";
 
