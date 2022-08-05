@@ -42,7 +42,7 @@ cachepacman="$HOME/.local/share/Archmain/data/cachepacman"
 #Variable Cmd
 get_Variables(){
 ListUpdates=$(pikaur -Qu)
-Log=$(pikaur -Qu)
+#Log=$(pikaur -Qu)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$(pikaur -Quq | wc -l)
