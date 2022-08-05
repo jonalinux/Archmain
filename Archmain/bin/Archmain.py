@@ -171,77 +171,95 @@ def message_Delay():
 system_info = tk.Label(master=window, text="System Info", font=('SF Pro Display',10, 'bold'), bg="#f6f9fc", fg="#555")
 system_info.place(x=660, y=103)
 
+def kernel_upd():
+ kernel = open(file="/home/" + username + "/.local/share/Archmain/data/kernel")
+ kernel_label_title = tk.Label(master=window, text="kernel:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ kernel_label_title.place(x=580, y=133)
+ kernel_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ kernel_label.place(x=627, y=135)
 
-kernel = open(file="/home/" + username + "/.local/share/Archmain/data/kernel")
-kernel_label_title = tk.Label(master=window, text="kernel:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-kernel_label_title.place(x=580, y=133)
-kernel_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-kernel_label.place(x=627, y=135)
-
-for info_kernel in kernel:
+ for info_kernel in kernel:
    kernel_label.insert(END, info_kernel )
-kernel_label.config(state=DISABLED)
+ kernel_label.config(state=DISABLED)
+ window.after(60000,kernel_upd)
 
-pkgs_count = open(file="/home/" + username + "/.local/share/Archmain/data/packages")
-pkgs_count_label_title = tk.Label(master=window, text="Packages:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-pkgs_count_label_title.place(x=580, y=153)
-pkgs_count_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-pkgs_count_label.place(x=645, y=155)
+def pkgs_upd():
+ pkgs_count = open(file="/home/" + username + "/.local/share/Archmain/data/packages")
+ pkgs_count_label_title = tk.Label(master=window, text="Installed Packages:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ pkgs_count_label_title.place(x=580, y=163)
+ pkgs_count_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ pkgs_count_label.place(x=697, y=165)
 
-for info_pkgs_count in pkgs_count:
+ for info_pkgs_count in pkgs_count:
    pkgs_count_label.insert(END, info_pkgs_count )
-pkgs_count_label.config(state=DISABLED)
+ pkgs_count_label.config(state=DISABLED)
+ window.after(60000, pkgs_upd)
+
 
 def ram_upd():
  ram = open(file="/home/" + username + "/.local/share/Archmain/data/ram")
  ram_label_title = tk.Label(master=window, text="Memory usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
- ram_label_title.place(x=580, y=173)
+ ram_label_title.place(x=580, y=193)
  ram_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
- ram_label.place(x=675, y=175)
+ ram_label.place(x=675, y=195)
 
  for info_ram in ram:
    ram_label.insert(END, info_ram )
    ram_label.config(state=DISABLED)
  window.after(60000, ram_upd)
 
+def ssd_upd():
+ ssd = open(file="/home/" + username + "/.local/share/Archmain/data/ssd")
+ ssd_label_title = tk.Label(master=window, text="Disc usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ ssd_label_title.place(x=580, y=223)
+ ssd_label = Text(master=window,  width=10, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ ssd_label.place(x=650, y=225)
 
-ssd = open(file="/home/" + username + "/.local/share/Archmain/data/ssd")
-ssd_label_title = tk.Label(master=window, text="Disc usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-ssd_label_title.place(x=580, y=193)
-ssd_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-ssd_label.place(x=650, y=195)
-
-for info_ssd in ssd:
+ for info_ssd in ssd:
    ssd_label.insert(END, info_ssd )
-ssd_label.config(state=DISABLED)
+ ssd_label.config(state=DISABLED)
+ window.after(60000, ssd_upd)
 
-cache = open(file="/home/" + username + "/.local/share/Archmain/data/cache")
-cache_label_title = tk.Label(master=window, text="Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-cache_label_title.place(x=580, y=213)
-cache_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-cache_label.place(x=626, y=215)
+def cache_upd():
+ cache = open(file="/home/" + username + "/.local/share/Archmain/data/cache")
+ cache_label_title = tk.Label(master=window, text="Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ cache_label_title.place(x=580, y=253)
+ cache_label = Text(master=window,  width=13, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ cache_label.place(x=626, y=255)
 
-for info_cache in cache:
+ for info_cache in cache:
    cache_label.insert(END, info_cache )
-cache_label.config(state=DISABLED)
+ cache_label.config(state=DISABLED)
+ window.after(1000, cache_upd)
 
-orphans = open(file="/home/" + username + "/.local/share/Archmain/data/orphans")
-orphans_label_title = tk.Label(master=window, text="Unused (orphans):", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-orphans_label_title.place(x=580, y=233)
-orphans_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
-orphans_label.place(x=690, y=235)
+def orphans_upd():
+ orphans = open(file="/home/" + username + "/.local/share/Archmain/data/orphans")
+ orphans_label_title = tk.Label(master=window, text="Unused (orphans):", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ orphans_label_title.place(x=580, y=283)
+ orphans_label = Text(master=window,  width=4, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ orphans_label.place(x=690, y=285)
 
-for info_orphans in orphans:
+ for info_orphans in orphans:
    orphans_label.insert(END, info_orphans )
-orphans_label.config(state=DISABLED)
+ orphans_label.config(state=DISABLED)
+ window.after(1000, orphans_upd)
+
+def cachePac_upd():
+ cachePacman = open(file="/home/" + username + "/.local/share/Archmain/data/cachepacman")
+ cachePacman_label_title = tk.Label(master=window, text="Packages Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
+ cachePacman_label_title.place(x=580, y=313)
+ cachePacman_label = Text(master=window,  width=5, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ cachePacman_label.place(x=685, y=315)
+
+ for info_cachePacman in cachePacman:
+   cachePacman_label.insert(END, info_cachePacman )
+ cachePacman_label.config(state=DISABLED)
+ window.after(1000, cachePac_upd)
 
 
 #settings
-Settings = tk.Label(master=window, text="Settings", font=('SF Pro Display',10, 'bold'), bg="#f6f9fc", fg="#555")
-Settings.place(x=660, y=273)
-
-
-
+#Settings = tk.Label(master=window, text="Settings", font=('SF Pro Display',10, 'bold'), bg="#f6f9fc", fg="#555")
+#Settings.place(x=660, y=333)
 
 
 #delay
@@ -252,13 +270,13 @@ def delay_set():
 delay=open(file="/home/" + username + "/.local/share/Archmain/data/delay")    
 conferm="  ok, reboot!"   
 delay_label_title = tk.Label(master=window, text="New:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-delay_label_title.place(x=580, y=322)
+delay_label_title.place(x=580, y=382)
 delay_label = Entry(master=window,  width=15,font=('SF Pro Display',10), bg="#ecf2f5", fg="green", borderwidth = 0, highlightthickness = 0, )
-delay_label.place(x=620, y=322)
+delay_label.place(x=620, y=382)
 delay_label.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
 
 btnSet=tk.Button(window,  height=1, width=3, text="Set", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=lambda:[delay_set(), conferm_set()])
-btnSet.place(x=750, y=320)
+btnSet.place(x=750, y=380)
 
 def conferm_set():
  for x in conferm:
@@ -267,20 +285,86 @@ def conferm_set():
 
 delay_c=open(file="/home/" + username + "/.local/share/Archmain/data/delay")   
 delay_current_title = tk.Label(master=window, text="Current Delay: min", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-delay_current_title.place(x=580, y=298)
+delay_current_title.place(x=580, y=358)
 delay_current = Text(master=window,  height=1, width=4,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
-delay_current.place(x=690, y=300)
+delay_current.place(x=690, y=360)
 
 for c in delay_c:
    delay_current.insert(END, c)
    delay_current.config(state=DISABLED)
 
+# clear buttons
+def  clear_homeCache():
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "rm -rf ~/.cache/*"; echo "Wait.." > /home/' + username + '/.local/share/Archmain/data/cache;')
+    
+btn=tk.Button(window, height=0, width=8, text="Clear Cache", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=clear_homeCache)
+btn.place(x=740, y=250)
 
+def  OrphCache():
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Rns $(pacman -Qdtq)"; echo "Wait.." > /home/' + username + '/.local/share/Archmain/data/orphans; ')
+    
+btn=tk.Button(window, height=0, width=8, text="Clear Orph", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=OrphCache)
+btn.place(x=740, y=280)
+
+def  clear_pkgsCache():
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Scc"; echo "Wait.."  > /home/' + username + '/.local/share/Archmain/data/cachepacman; ')
+    
+btn=tk.Button(window, height=0, width=8, text="Clear Pkgs", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=clear_pkgsCache)
+btn.place(x=740, y=310)
+
+#-------------------------------------------------------------------------------------------------------------------------
+
+# function to open a new window
+# on a button click
+def openNewWindow():
+     
+    # Toplevel object which will
+    # be treated as a new window
+    newWindow = Toplevel(window)
+ 
+    # sets the title of the
+    # Toplevel widget
+    newWindow.title("Credits")
+ 
+    # sets the geometry of toplevel
+    newWindow.geometry("200x150")
+    newWindow.maxsize(200,150)
+    newWindow.minsize(200,150)
+    newWindow.configure(bg='#f6f9fc')
+
+    # A Label widget to show in toplevel
+    Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
+    Label(newWindow, text ="Ivan Karavitis", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
+    Label(newWindow, text ="Jonathan Sanfilippo", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
+    Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
+    Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
+
+
+
+
+  
+
+
+#label = Label(window,
+              #text ="This is the main window")
+ 
+#label.place(x=350, y=494)
+ 
+# a button widget which will open a
+# new window on button click
+btn = Button(window, text ="Credits", font=('SF Pro Display', 10,'bold'), bg="#ecf2f5", fg="#0f94d2",  borderwidth = 0, highlightthickness = 0,command = openNewWindow)
+btn.place(x=200, y=491)
 
 #-------------------------------------------------------------------------------------------------------------------------
 
 
-window.after(100, message_Delay); 
+window.after(100, cachePac_upd)
+window.after(100, orphans_upd)
+window.after(100, cache_upd)
+window.after(100, ssd_upd)
+window.after(100, pkgs_upd)
+window.after(100,kernel_upd)
+window.after(100, message_Delay)
 window.after(100, last_chk) 
 window.after(100, list_upd)
 window.after(100, pending_upd)

@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="213"
+VERSION="214"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
@@ -36,6 +36,8 @@ cache="$HOME/.local/share/Archmain/data/cache"
 orphans="$HOME/.local/share/Archmain/data/orphans"
 delay="$HOME/.local/share/Archmain/data/delay"
 messageDelay="$HOME/.local/share/Archmain/data/messageDelay"
+cachepacman="$HOME/.local/share/Archmain/data/cachepacman"
+
 
 #Variable Cmd
 get_Variables(){
@@ -52,6 +54,7 @@ Orphans=$(pacman -Qtdq | wc -l)
 DELAY=$( expr "$(cat $delay)" \* 60)
 Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version)
 messDelay=$(cat $delay)
+CachePacman=$(du -sh  /var/cache/pacman/pkg  | awk '{ printf $1}')
 }
 
 #Terminal check list
@@ -120,6 +123,9 @@ echo "$Cache" > "$cache"
 echo "$Orphans" > "$orphans"
 #lastcheck
 echo "$DataTime" > "$lastcheck"
+#CachePackages
+echo "$CachePacman" > "$cachepacman"
+
 #Pending
 if [ "$Pending" == 1 ]; then
   echo "$Pending Update Pending" > "$pending"
