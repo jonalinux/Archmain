@@ -13,17 +13,13 @@ ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #loop
 CHECK="60" #min 1m safe CPU
-WAIT="300"
 
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
 
-#updateArchmain
-Aupd="$HOME/.local/share/Archmain/bin/update.sh"
 
 #Variable URL
 version="$HOME/.local/share/Archmain/data/version"
-log="$HOME/.local/share/Archmain/data/log"
 list="$HOME/.local/share/Archmain/data/listupdates"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 packages="$HOME/.local/share/Archmain/data/packages"
@@ -42,7 +38,6 @@ cachepacman="$HOME/.local/share/Archmain/data/cachepacman"
 #Variable Cmd
 get_Variables(){
 ListUpdates=$(pikaur -Qu)
-#Log=$(pikaur -Qu)
 PackagesTotal=$(pacman -Q | wc -l )
 DataTime=$(date)
 Pending=$(pikaur -Quq | wc -l)
@@ -127,7 +122,7 @@ echo "$DataTime" > "$lastcheck"
 echo "$CachePacman" > "$cachepacman"
 
 #Pending
-if [ "$Pending" == 1 ]; then
+if [ "$Pending" = 1 ]; then
   echo "$Pending Update Pending" > "$pending"
   elif
    [ "$Pending" -gt 0 ]; then
@@ -142,20 +137,17 @@ fi
 if [ "$Pending" -gt 0 ]; then
   
   echo "$ListUpdates"  >> "$list"
-  echo "$DataTime" > "$log"
-  echo " " >> "$log"
-  echo "$Log"  >> "$log"
   else
   echo ''
 fi
-if [ "$Pending" == 0 ]; then
+if [ "$Pending" =  0 ]; then
   echo 'System Updated.' >> "$list"
   else
            ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
                 case "$ACTION" in
                       "0")
                          $py
-                         #sleep $WAIT;
+                         
                          ;;
                       "1")
                          echo " Delay on, refresh in $messDelay minutes" > "$messageDelay"
