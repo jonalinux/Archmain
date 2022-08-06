@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # Archmain. maintenance app for Arch Linux.
-# Author Jonathan Sanfilippo 
+# Author Jonathan Sanfilippo, Ivan Karavitis 
 # Date Fri Jul 28 2022
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
