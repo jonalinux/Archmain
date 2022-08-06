@@ -9,10 +9,7 @@
 #REFRESH GUI ------------------------------------------------------------------------
 
 #Variable URL
-#list="$HOME/.local/share/Archmain/data/listupdates"
-
 packages="$HOME/.local/share/Archmain/data/packages"
-#pending="$HOME/.local/share/Archmain/data/pending"
 terminal="$HOME/.local/share/Archmain/data/terminal"
 kernel="$HOME/.local/share/Archmain/data/kernel"
 ram="$HOME/.local/share/Archmain/data/ram"
@@ -20,19 +17,18 @@ ssd="$HOME/.local/share/Archmain/data/ssd"
 cache="$HOME/.local/share/Archmain/data/cache"
 orphans="$HOME/.local/share/Archmain/data/orphans"
 cachepacman="$HOME/.local/share/Archmain/data/cachepacman"
-
+lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 
 #Variable Cmd
 get_Variables(){
-#ListUpdates=$(pikaur -Qu) 
 PackagesTotal=$(pacman -Q | wc -l )
-#Pending=$(pikaur -Quq | wc -l)
 Kernel=$(uname -r )
 Ram=$(free -t | awk 'FNR == 2 {printf("%.2f%"), $3/$2*100}')
 SSD=$(du -sh / | awk '{ printf $1}')
 Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}')
 Orphans=$(pacman -Qtdq | wc -l)
 CachePacman=$(du -sh  /var/cache/pacman/pkg  | awk '{ printf $1}')
+
 }
 
 #Terminal check list
