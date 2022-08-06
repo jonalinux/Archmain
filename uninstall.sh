@@ -5,21 +5,21 @@
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
 
-Fonts=" $HOME/.local/share/fonts/SF-Pro-Display-Medium.otf "
+Fonts="$HOME/.local/share/fonts/SF-Pro-Display-Medium.otf "
 Archmain="$HOME/.local/share/Archmain"
 Autostart="$HOME/.config/autostart/data.desktop "
-py=" $HOME/.local/share/applications/Archmainpy.desktop"
+py="$HOME/.local/share/applications/Archmainpy.desktop"
 
 
 echo ' Uninstall Archmain' 
 echo ''
 echo 'Remove Fonts SF-Pro-Display-Medium.otf '
-rm -rf  "$Fonts"
+rm -r  "$Fonts"
 echo 'Remove Archmain Folder in ~/.local/share/ '
-rm -rf "$Archmain"
+rm -r "$Archmain"
 echo 'Remove Autostart and GUI app'
-rm -rf "$Autostart"
-rm -rf "$py"
+rm -r "$Autostart"
+rm -r "$py"
 echo 'Kill all process'
 killall data.sh;
 
