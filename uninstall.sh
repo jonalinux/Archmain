@@ -5,10 +5,10 @@
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
 
-Fonts=" ~/.local/share/Archmain/fonts/SF-Pro-Display-Medium.otf "
-Archmain="~/.local/share/Archmain"
-Autostart="~/.config/autostart/data.desktop "
-py=" ~/.local/share/applications/Archmainpy.desktop"
+Fonts=" $HOME/.local/share/Archmain/fonts/SF-Pro-Display-Medium.otf "
+Archmain="$HOME/.local/share/Archmain"
+Autostart="$HOME/.config/autostart/data.desktop "
+py=" $HOME/.local/share/applications/Archmainpy.desktop"
 
 
 echo ' Uninstall Archmain' 
@@ -23,5 +23,5 @@ rm -rf "$py"
 echo 'Kill all process'
 killall data.sh;
 
-echo ' Unistall Complete, need to restart'
+echo ' Unistall Complete need to restart'
 
