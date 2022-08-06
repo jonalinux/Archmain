@@ -23,5 +23,5 @@ rm -rf "$py"
 echo 'Kill all process'
 killall data.sh;
 
-echo ' Unistall Complete'
+echo ' Unistall Complete, need to restart'
 
