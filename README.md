@@ -6,12 +6,9 @@
 
 
 ## Follow the Wiki! 
-
--https://github.com/JonathanSanfilippo/Archmain/wiki 
-
+https://github.com/JonathanSanfilippo/Archmain/wiki 
 
 ## Discussion
-
 https://github.com/JonathanSanfilippo/Archmain/discussions
 
 
