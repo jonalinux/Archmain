@@ -111,7 +111,7 @@ echo -e ${Yellow}install git..${Color_Off}
 fi
 
 
-
+#AURhelper check --------------------------------------------------------------------------
 echo ''
 echo -e ${Blue}'check for pikaur '${Color_Off}
 sleep 3
@@ -119,22 +119,47 @@ if ! [ -x "$(command -v /usr/bin/pikaur -Qqua 2>/dev/null)" ]; then
 echo -e ${Red}Error: pikaur is not installed.${Color_Off} >&2
 echo -e ${Yellow}install pikaur..${Color_Off}
 sleep 5
-#AURhelper
+
+
+#AURhelper 
 Tx=$(cat "Archmain/data/terminal")
 AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
  if  [ -x "$(command -v gnome-terminal)" ]; then
-        cmd_pikaur $AURhelpe
+       $Tx -c    $AURhelpe
    else
-cmd_pikaur
 $Tx -e $AURhelper
 fi
   echo -e  ${Green}AURhelper installed!${Color_Off};
   else
   echo -e  ${Green}AURhelper installed!${Color_Off}
 fi
+#-------------------------------------------------------------------------------------
 
 
+#Downgrade check ------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for downgrade '${Color_Off}
+sleep 3
+if ! [ -x "$(command -v /usr/bin/downgrade --help 2>/dev/null)" ]; then        
+echo -e ${Red}Error: downgrade is not installed.${Color_Off} >&2
+echo -e ${Yellow}install downgrade..${Color_Off}
+sleep 5
 
+
+#Downgrade
+Tx=$(cat "Archmain/data/terminal")
+dw=$( git clone https://aur.archlinux.org/downgrade.git; cd downgrade; makepkg -fsri);
+ if  [ -x "$(command -v gnome-terminal)" ]; then
+        $Tx -c $dw
+   else
+$Tx -e $dw
+fi
+  echo -e  ${Green}AURhelper installed!${Color_Off};
+  else
+  echo -e  ${Green}AURhelper installed!${Color_Off}
+fi
+
+#-------------------------------------------------------------------------------------
 
 
 echo -e ${Yellow}install Python tk${Color_Off}
@@ -172,9 +197,10 @@ cp -r Archmain ~/.local/share/
 cp -r  data.desktop ~/.config/autostart/
 cp -r Archmainpy.desktop ~/.local/share/applications/
 
-chmod +x ~/.local/share/Archmain/bin/data.sh
-chmod +x ~/.local/share/Archmain/bin/refresh.sh
-chmod +x ~/.local/share/Archmain/bin/Archmain.py
+chmod +x ~/.local/share/Archmain/bin/data.sh     #check in loop 
+chmod +x ~/.local/share/Archmain/bin/chnw.sh  #check now button script
+chmod +x ~/.local/share/Archmain/bin/refresh.sh #gui refresh
+chmod +x ~/.local/share/Archmain/bin/Archmain.py #gui
 
 
 echo ''
