@@ -5,7 +5,7 @@
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
 
-Fonts=" $HOME/.local/share/Archmain/fonts/SF-Pro-Display-Medium.otf "
+Fonts=" $HOME/.local/share/fonts/SF-Pro-Display-Medium.otf "
 Archmain="$HOME/.local/share/Archmain"
 Autostart="$HOME/.config/autostart/data.desktop "
 py=" $HOME/.local/share/applications/Archmainpy.desktop"
