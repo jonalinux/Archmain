@@ -17,13 +17,15 @@ import webbrowser
 
 
 
-window=tk.Tk()
+window=tk.Tk(className='Archmain')
 window.title('Archmain')
 window.geometry("800x600+10+20")
 window.maxsize(850, 520)
 window.minsize(850, 520)
 window.configure(bg='#f6f9fc')
 username = getpass.getuser()
+p1 = PhotoImage(file="/home/" + username + "/.local/share/Archmain/icon/icon2.png")
+window.iconphoto(False, p1)   
 
 
     
