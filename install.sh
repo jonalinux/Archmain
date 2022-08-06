@@ -35,8 +35,13 @@ T11="tilix"
 T12="xterm"
 
 
+
+
+
+#terminal check----------------------------------------------------------------------------
+
 echo -e ${Blue}'check for a compatible terminal..'${Color_Off}
-#terminal check
+
 if  [ -x "$(command -v $T1)" ]; then
            echo $T1 > "$terminal"
 elif    [ -x "$(command -v $T2)" ]; then
@@ -62,13 +67,14 @@ elif    [ -x "$(command -v $T11)" ]; then
 elif    [ -x "$(command -v $T12)" ]; then
            echo $T12 > "$terminal"
 fi;
-sleep 3
 
+Tx=$(cat "Archmain/data/terminal")
+  echo -e  ${Green}Teminal $Tx find ${Color_Off}
+echo ' '
 
-
-#libnotify
+#libnotify-----------------------------------------------------------------------------------
 echo -e ${Blue}'check for notify-send '${Color_Off}
-sleep 3
+
 if ! [ -x "$(command -v notify-send)" ]; then
   echo -e ${Red}Error: notify-send is not installed.${Color_Off} >&2
   echo -e ${Yellow}install notify-send..${Color_Off}
@@ -81,11 +87,10 @@ fi
 
 
 
-#pacman-contrib
+#pacman-contrib----------------------------------------------------------------------------
 echo ''
-sleep 3
 echo -e ${Blue}'check for pacman-contrib '${Color_Off}
-sleep 3
+
 if ! [ -x "$(command -v /usr/bin/checkupdates)" ]; then        
 echo -e ${Red}Error: pacman-contrib is not installed.${Color_Off} >&2
 echo -e ${Yellow}install pacman-contrib..${Color_Off}
@@ -97,10 +102,9 @@ fi
 
 
 
-#git
+#git-----------------------------------------------------------------------------------------
 echo ''
 echo -e ${Blue}'check for git '${Color_Off}
-sleep 3
 if ! [ -x "$(command -v git)" ]; then        
 echo -e ${Red}Error: git is not installed.${Color_Off} >&2
 echo -e ${Yellow}install git..${Color_Off}
@@ -114,15 +118,10 @@ fi
 #AURhelper check --------------------------------------------------------------------------
 echo ''
 echo -e ${Blue}'check for pikaur '${Color_Off}
-sleep 3
+
 if ! [ -x "$(command -v /usr/bin/pikaur -Qqua 2>/dev/null)" ]; then        
 echo -e ${Red}Error: pikaur is not installed.${Color_Off} >&2
 echo -e ${Yellow}install pikaur..${Color_Off}
-sleep 5
-
-
-#AURhelper 
-Tx=$(cat "Archmain/data/terminal")
 AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
  if  [ -x "$(command -v gnome-terminal)" ]; then
        $Tx -c    $AURhelpe
@@ -133,43 +132,63 @@ fi
   else
   echo -e  ${Green}AURhelper installed!${Color_Off}
 fi
-#-------------------------------------------------------------------------------------
+
 
 
 #Downgrade check ------------------------------------------------------------------
 echo ''
 echo -e ${Blue}'check for downgrade '${Color_Off}
-sleep 3
+
 if ! [ -x "$(command -v /usr/bin/downgrade --help 2>/dev/null)" ]; then        
 echo -e ${Red}Error: downgrade is not installed.${Color_Off} >&2
 echo -e ${Yellow}install downgrade..${Color_Off}
-sleep 5
-
-
-#Downgrade
-Tx=$(cat "Archmain/data/terminal")
 dw=$( git clone https://aur.archlinux.org/downgrade.git; cd downgrade; makepkg -fsri);
  if  [ -x "$(command -v gnome-terminal)" ]; then
         $Tx -c $dw
    else
 $Tx -e $dw
 fi
-  echo -e  ${Green}AURhelper installed!${Color_Off};
+  echo -e  ${Green}downgrade installed!${Color_Off};
   else
-  echo -e  ${Green}AURhelper installed!${Color_Off}
+  echo -e  ${Green}downgrade installed!${Color_Off}
 fi
 
-#-------------------------------------------------------------------------------------
+
+#wget check---------------------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for wget'${Color_Off}
+
+if ! [ -x "$(command -v wget --help)" ]; then        
+echo -e ${Red}Error: wget is not installed.${Color_Off} >&2
+echo -e ${Yellow}install wget${Color_Off}
+  sudo pacman -S wget
+  echo -e  ${Green}wget installed!${Color_Off};
+  else
+  echo -e  ${Green}wget installed!${Color_Off}
+fi
 
 
-echo -e ${Yellow}install Python tk${Color_Off}
-sudo pacman -S tk wget
+#tk------------------------------------------------------------------------------------------
+
+echo ''
+echo -e ${Blue}'check for tkinter'${Color_Off}
+
+if ! [ -x "$(command -v python -m tkinter)" ]; then        
+echo -e ${Red}Error: tkinter is not installed.${Color_Off} >&2
+echo -e ${Yellow}install tkinter${Color_Off}
+  sudo pacman -S tk
+  echo -e  ${Green}tkinter installed!${Color_Off};
+  else
+  echo -e  ${Green}tkinter installed!${Color_Off}
+fi
 
 
 
 
 
-#configure autostart file
+
+
+#configure autostart file-----------------------------------------------------------------
 
 
 echo "
