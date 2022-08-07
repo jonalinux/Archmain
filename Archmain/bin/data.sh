@@ -29,7 +29,6 @@ chSet="$HOME/.local/share/Archmain/data/checkSet"
 
 #Variable Cmd
 get_Variables(){
-SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
 ListUpdates=$(pikaur -Qu)
 Pending=$(pikaur -Quq | wc -l)
 CHECK=$( expr "$(cat $chSet)" \* 60) #loop
@@ -47,7 +46,7 @@ echo  "$Version " #only for console
 echo "$USER@$HOSTNAME" > "$list"
 echo '' >> "$list"
 echo "$VERSION" > "$CURRENTVERSION"
-echo "$Srv  " >  "$HOME/.local/share/Archmain/data/server"
+
 
 
 #Pending
