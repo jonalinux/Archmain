@@ -2,7 +2,8 @@
 
 # Archmain
 
-![Screenshot from 2022-08-07 22-11-18](https://user-images.githubusercontent.com/103053714/183311371-ce377ebd-f091-4c9b-b467-b6a0c9b65da0.png)
+
+![Screenshot from 2022-08-08 00-04-31](https://user-images.githubusercontent.com/103053714/183314482-ef5d149d-8ed1-46b3-a91b-891022068499.png)
 
 
 ## Install
