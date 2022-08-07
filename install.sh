@@ -182,6 +182,19 @@ echo -e ${Yellow}install tkinter${Color_Off}
   echo -e  ${Green}tkinter installed!${Color_Off}
 fi
 
+#Reflector------------------------------------------------------------------------------------------
+
+echo ''
+echo -e ${Blue}'check for reflector'${Color_Off}
+
+if ! [ -x "$(command -v reflector --help)" ]; then        
+echo -e ${Red}Error: reflector is not installed.${Color_Off} >&2
+echo -e ${Yellow}install reflector${Color_Off}
+  sudo pacman -S reflector
+  echo -e  ${Green}reflector installed!${Color_Off};
+  else
+  echo -e  ${Green}reflector installed!${Color_Off}
+fi
 
 
 
