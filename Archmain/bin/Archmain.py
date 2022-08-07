@@ -150,7 +150,7 @@ btn.place(x=318, y=468,)
 #Reflector mirrors
 def reflector():
     C=country.get() 
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country '  + C + '  --age 12 --sort rate --save /etc/pacman.d/mirrorlist";')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country  '  +  C  + '   --age 12 --sort rate --save /etc/pacman.d/mirrorlist";')
 
 country=Entry(window,  width=4,font=('SF Pro Display',10), bg="#ecf2f5", fg="#555",borderwidth = 0, highlightthickness = 0)
 country.place(x=270, y=505,)
