@@ -146,7 +146,7 @@ btnInstall.place(x=30, y=405,)
 
 # bottom mirrorlist
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");    $TERMINAL "rankmirrors -v  /etc/pacman.d/mirrorlist ";  echo "Mirrorlist Updated" > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -v  /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=418,)
