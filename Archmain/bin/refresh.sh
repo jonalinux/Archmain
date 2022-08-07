@@ -17,7 +17,7 @@ ssd="$HOME/.local/share/Archmain/data/ssd"
 cache="$HOME/.local/share/Archmain/data/cache"
 orphans="$HOME/.local/share/Archmain/data/orphans"
 cachepacman="$HOME/.local/share/Archmain/data/cachepacman"
-lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
+
 
 #Variable Cmd
 get_Variables(){
