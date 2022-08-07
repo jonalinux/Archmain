@@ -108,6 +108,7 @@ lineah=tk.Frame(window, height=1, width=650, bg="#999").place(x=60, y=449,)
 lineav1=tk.Frame(window, height=15, width=1, bg="#999").place(x=60, y=435,)
 lineav2=tk.Frame(window, height=15, width=1, bg="#999").place(x=140, y=435,)
 lineav3=tk.Frame(window, height=60, width=1, bg="#999").place(x=359, y=460,)
+lineav4=tk.Frame(window, height=45, width=1, bg="#999").place(x=80, y=450,)
 label=tk.Label(window, text="Last ",font=('SF Pro Display',10), fg="#888", bg='#f6f9fc').place(x=155, y=438,)
 lineah2=tk.Frame(window, height=1, width=200, bg="#999").place(x=290, y=515,)
 
@@ -123,22 +124,30 @@ btn=tk.Button(window, height=1, width=6, text="Rollback", font=('SF Pro Display'
 btn.place(x=570, y=435,)
 rollback_label.insert(0, ' PackageName')
 
+
+
 # bottom install only pacman 
 def install_pac():
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Syu";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  -  >>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu  >>  /home/' + username + '/.local/share/Archmain/data/temp; sudo pacman -Syu;  mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
     
 btnInstall=tk.Button(window, height=1, width=8, text="Exclude AUR", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_pac)
 btnInstall.place(x=100, y=405,)
 
-
-
-
 # bottom install updates
 def install_Updates():
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "/usr/bin/pikaur -Syu"; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  -  >>  /home/' + username + '/.local/share/Archmain/data/temp; pikaur -Qu  >>  /home/' + username + '/.local/share/Archmain/data/temp; /usr/bin/pikaur -Syu;   mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;  "; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
     
 btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
 btnInstall.place(x=30, y=405,)
+
+
+#@lastup
+def log():
+  os.system('cp  /home/' + username + '/.local/share/Archmain/data/@lastup  /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+btnInstall=tk.Button(window, height=1, width=7, text="Last Update", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=log)
+btnInstall.place(x=60, y=485,)
+
+
 
 # bottom mirrorlist
 def mirrorlist():
