@@ -160,7 +160,7 @@ btn.place(x=315, y=448,)
 
 def last_chk():
  lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
- lastcheck_label = Text(master=window,  width=13, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ lastcheck_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
  lastcheck_label.place(x=195, y=439)
 
  for info_lastcheck in lastcheck:
