@@ -153,7 +153,7 @@ btnInstall.place(x=60, y=485,)
 
 # bottom mirrorlist •
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo $Svr  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo  $Srv  >  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=468,)
@@ -176,7 +176,8 @@ def currServer():
 #Reflector mirrors
 def reflector():
     C=country.get() 
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country  '  +  C  + '   --age 12 --sort rate --save /etc/pacman.d/mirrorlist";')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country  '  +  C  + '   --age 12 --sort rate --save /etc/pacman.d/mirrorlist; "')
+    os.system('SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo $Srv >  /home/' + username + '/.local/share/Archmain/data/server; ')
 
 country=Entry(window,  width=4,font=('SF Pro Display',10), bg="#ecf2f5", fg="#555",borderwidth = 0, highlightthickness = 0)
 country.place(x=270, y=505,)

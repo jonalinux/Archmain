@@ -109,7 +109,7 @@ echo "$DataTime" > "$lastcheck"
 NEXT=$(date  "+%a %d %b %H:%M"  --date="$CheckSET minute")
 echo "$NEXT" > "$messageDelay"
  echo "OFF" > "$statusDelay"
-
+ 
 
 sleep "$CHECK"
 get_Variables

@@ -20,12 +20,13 @@ get_Variables(){
 ListUpdates=$(pikaur -Qu)
 Pending=$(pikaur -Quq | wc -l)
 DataTime=$(date '+%a %d %b %H:%M '  )
+SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
 }
 
 get_Variables
 echo "$USER@$HOSTNAME" > "$list"
 echo ' ' >> "$list"
-
+#echo "$Srv  " >  "$HOME/.local/share/Archmain/data/server"
 #Pending
 if [ "$Pending" = 1 ]; then
   echo "$Pending Update Pending" > "$pending"
