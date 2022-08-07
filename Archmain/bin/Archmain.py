@@ -13,6 +13,7 @@ import getpass
 from tokenize import Number
 from turtle import width
 import webbrowser
+from xmlrpc import server
 
 
 window=tk.Tk(className='Archmain')
@@ -109,8 +110,9 @@ lineav1=tk.Frame(window, height=15, width=1, bg="#999").place(x=60, y=435,)
 lineav2=tk.Frame(window, height=15, width=1, bg="#999").place(x=140, y=435,)
 lineav3=tk.Frame(window, height=60, width=1, bg="#999").place(x=359, y=460,)
 lineav4=tk.Frame(window, height=45, width=1, bg="#999").place(x=80, y=450,)
-label=tk.Label(window, text="Last ",font=('SF Pro Display',10), fg="#888", bg='#f6f9fc').place(x=155, y=438,)
+label=tk.Label(window, text="Last ",font=('SF Pro Display',10), fg="#999", bg='#f6f9fc').place(x=155, y=438,)
 lineah2=tk.Frame(window, height=1, width=200, bg="#999").place(x=290, y=515,)
+lineah3=tk.Frame(window, height=1, width=70, bg="#999").place(x=395, y=482,)
 
 #Rollback 
 def rollback_set():
@@ -149,12 +151,27 @@ btnInstall.place(x=60, y=485,)
 
 
 
-# bottom mirrorlist
+# bottom mirrorlist •
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -t  /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=468,)
+server=Label(window, height=1, text="Server", font=('SF Pro Display',10), bg='#f6f9fc', fg="#999", borderwidth = 0, highlightthickness = 0)
+server.place(x=414, y=472,)
+
+
+
+def currServer():
+ server_c=open(file="/home/" + username + "/.local/share/Archmain/data/server")   
+ server_current = Text(master=window,  height=1, width=4,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
+ server_current.place(x=459, y=472.4)
+
+ for S in server_c:
+  server_current.insert(END, S)
+  server_current.config(state=DISABLED)
+ window.after(60000, currServer)
+
 
 #Reflector mirrors
 def reflector():
@@ -457,6 +474,7 @@ window.after(100, last_chk)
 window.after(100, list_upd)
 window.after(100, pending_upd)
 window.after(100, ram_upd)
+window.after(100, currServer)
 window.mainloop()
 
 
