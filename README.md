@@ -5,7 +5,17 @@
 ![Screenshot from 2022-08-07 22-11-18](https://user-images.githubusercontent.com/103053714/183311371-ce377ebd-f091-4c9b-b467-b6a0c9b65da0.png)
 
 
+## Install
 
+- git clone https://github.com/JonathanSanfilippo/Archmain.git
+- cd Archmain-main
+- chmod +x ./install.sh
+- ./install.sh
+
+
+## Uninstall
+- chmod +x ./uninstall
+- ./uninstall
 
 ## Follow the Wiki! 
 https://github.com/JonathanSanfilippo/Archmain/wiki 
