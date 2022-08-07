@@ -24,7 +24,7 @@ get_Variables(){
 PackagesTotal=$(pacman -Q | wc -l )
 Kernel=$(uname -r )
 Ram=$(free -t | awk 'FNR == 2 {printf("%.2f%"), $3/$2*100}')
-SSD=$(df -H / | awk '{ printf $3}') #
+SSD=$(df -h / | grep G|awk '{printf $3}')
 Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}')
 Orphans=$(pacman -Qtdq | wc -l)
 CachePacman=$(du -sh  /var/cache/pacman/pkg  | awk '{ printf $1}')
