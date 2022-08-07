@@ -18,15 +18,15 @@ import webbrowser
 window=tk.Tk(className='Archmain')
 window.title('Archmain')
 window.geometry("800x600+10+20")
-window.maxsize(850, 520)
-window.minsize(850, 520)
+window.maxsize(850, 620)
+window.minsize(850, 620)
 window.configure(bg='#f6f9fc')
 username = getpass.getuser()
 p1 = PhotoImage(file="/home/" + username + "/.local/share/Archmain/icon/icon2.png")
 window.iconphoto(False, p1)   
 
 
-#top
+#top-footer
 image = tk.PhotoImage(file="/home/" + username + "/.local/share/Archmain/img/logo.png")
 banner = tk.Frame(master=window, height=80, bg="#333")
 banner.pack(fill=tk.X)
@@ -40,19 +40,19 @@ title.place(x=95, y=12)
 subtitle = tk.Label(master=window, text="AUR and Pacman Updater", font=('SF Pro Display',10), bg="#333", fg="#0f94d2")
 subtitle.place(x=95, y=50)
 footer = tk.Frame(master=window, width=850, height=30, bg="#ecf2f5", highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
-footer.place(x=0, y=490)
+footer.place(x=0, y=590)
 version = tk.Label(master=window, text="Version", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
-version.place(x=773, y=495)
+version.place(x=773, y=595)
 numversion = Text(window,  font=('SF Pro Display',10), bg="#ecf2f5", fg="#0f94d2", borderwidth = 0, highlightthickness = 0)
-numversion.place(x=815, y=495)
+numversion.place(x=815, y=595)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
-author.place(x=10, y=495)
+author.place(x=10, y=595)
 
 def callback(url):
    webbrowser.open_new_tab(url)
    
 link = Label(window, text="GitHub",font=('SF Pro Display', 8), bg="#ecf2f5", fg="#0f94d2")
-link.place(x=150, y=496)
+link.place(x=150, y=596)
 link.bind("<Button-1>", lambda e:
 callback("https://github.com/JonathanSanfilippo/Archmain"))
 
@@ -85,17 +85,12 @@ btnPkgs.place(x=755, y=10)
 
 
 
-def list_upd():
- #updates list 
- #os.system("ListUpdates=$(pikaur -Quq); echo $listUpdates > /home/" + username + "/.local/share/Archmain/data/listupdates")
+def list_upd():#console
  background_lista = tk.Frame(master=window, width=528, height=300, bg="#ecf2f5")
  background_lista.place(x=30, y=100,)
  background_lista.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
  content = open(file="/home/" + username + "/.local/share/Archmain/data/listupdates")
- #scrollbar = Scrollbar(window)   bg='#ecf2f5'
- lista=Text(master=window,  width=63, height=17,font=('SF Pro Display',10), bg='#ecf2f5', fg="#555", borderwidth = 0, highlightthickness = 0, )#yscrollcommand=scrollbar.set
- #scrollbar.config(command=lista.yview, bg="#0f94d2" , troughcolor="#333")
- #scrollbar.pack(side=RIGHT, fill=Y)
+ lista=Text(master=window,  width=63, height=17,font=('SF Pro Display',10), bg='#ecf2f5', fg="#555", borderwidth = 0, highlightthickness = 0, )
  lista.place(x=40, y=105,)
 
  for updates in content:
@@ -112,8 +107,9 @@ def list_upd():
 lineah=tk.Frame(window, height=1, width=650, bg="#999").place(x=60, y=449,)
 lineav1=tk.Frame(window, height=15, width=1, bg="#999").place(x=60, y=435,)
 lineav2=tk.Frame(window, height=15, width=1, bg="#999").place(x=140, y=435,)
+lineav3=tk.Frame(window, height=60, width=1, bg="#999").place(x=359, y=460,)
 label=tk.Label(window, text="Last ",font=('SF Pro Display',10), fg="#888", bg='#f6f9fc').place(x=155, y=438,)
-#lineah2=tk.Frame(window, height=1, width=20, bg="#999").place(x=305, y=473,)
+lineah2=tk.Frame(window, height=1, width=200, bg="#999").place(x=290, y=515,)
 
 #Rollback 
 def rollback_set():
@@ -146,17 +142,30 @@ btnInstall.place(x=30, y=405,)
 
 # bottom mirrorlist
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -v  /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -v    /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
-btn.place(x=318, y=418,)
+btn.place(x=318, y=468,)
+
+#Reflector mirrors
+def reflector():
+    C=country.get() 
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country'  + C + '  --age 12 --sort rate --save /etc/pacman.d/mirrorlist";')
+
+country=Entry(window,  width=4,font=('SF Pro Display',10), bg="#ecf2f5", fg="#555",borderwidth = 0, highlightthickness = 0)
+country.place(x=270, y=505,)
+country.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
+country.insert(0, " gb")
+btn=tk.Button(window, height=1, width=7, text="Reflector", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=reflector).place(x=318, y=502,)
+info=Label(window, font=('SF Pro Display',9), bg='#f6f9fc', fg="#888", text="Select the HTTP / HTTPS mirrors synchronized in the last 12 hours \n and located according  to the chosen country and overwrite \n the /etc/pacman.d/mirrorlist file with the results.")
+info.place(x=410, y=505,)
 
 # bottom install only pacman
 def Check_now():
     os.system('/home/' + username + '/.local/share/Archmain/bin/chnw.sh')
     
 btn=tk.Button(window, height=1, width=7, text="Check Now", font=('SF Pro Display',10), bg='#87ffc1', fg="#555", borderwidth = 0, highlightthickness = 0, command=Check_now)
-btn.place(x=318, y=448,)
+btn.place(x=318, y=435,)
 
 def last_chk():
  lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
@@ -297,22 +306,22 @@ def checkSet_set():
   
 checkSet=open(file="/home/" + username + "/.local/share/Archmain/data/checkSet")    
 checkSet_label_title = tk.Label(master=window, text="Check", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-checkSet_label_title.place(x=580, y=342)
+checkSet_label_title.place(x=580, y=352)
 checkSet_label = Entry(master=window,  width=4,font=('SF Pro Display',10), bg="#ecf2f5", fg="green", borderwidth = 0, highlightthickness = 0, )
-checkSet_label.place(x=620, y=342)
+checkSet_label.place(x=620, y=352)
 checkSet_label.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
 
 btnSet=tk.Button(window,  height=1, width=1, text="Set", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=lambda:[checkSet_set()])
-btnSet.place(x=660, y=340)
+btnSet.place(x=660, y=350)
 
 def status_check():
   statuscheck = open(file="/home/" + username + "/.local/share/Archmain/data/checkSet")
   statuscheck_label = Text(master=window,  height=1, width=4,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
-  statuscheck_label.place(x=755,  y=344)
+  statuscheck_label.place(x=755,  y=354)
   statuscheck_title = tk.Label(master=window, text="Min", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
-  statuscheck_title.place(x=730, y=343)
+  statuscheck_title.place(x=730, y=353)
   statusch2_label = tk.Label(master=window,  text="∞", width=3, height=1,font=('SF Pro Display',15), bg="#f6f9fc", fg="grey", borderwidth = 0, highlightthickness = 0,)
-  statusch2_label.place(x=694,  y=338)
+  statusch2_label.place(x=694,  y=348)
 
   for info_statuscheck in statuscheck:
    statuscheck_label.insert(END, info_statuscheck )
@@ -410,7 +419,7 @@ def openNewWindow():
     Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#f6f9fc", fg="#555").pack(side=TOP)
 
 btn = Button(window, text ="Credits", font=('SF Pro Display', 8), bg="#ecf2f5", fg="#0f94d2",  borderwidth = 0, highlightthickness = 0,command = openNewWindow)
-btn.place(x=190, y=493)
+btn.place(x=190, y=593)
 #-------------------------------------------------------------------------------------------------------------------------
 
 def refresh():
