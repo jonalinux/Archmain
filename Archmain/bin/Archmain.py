@@ -153,7 +153,7 @@ btnInstall.place(x=60, y=485,)
 
 # bottom mirrorlist •
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");     rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo $Svr  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=468,)
@@ -170,7 +170,7 @@ def currServer():
  for S in server_c:
   server_current.insert(END, S)
   server_current.config(state=DISABLED)
- window.after(60000, currServer)
+ window.after(5000, currServer)
 
 
 #Reflector mirrors
