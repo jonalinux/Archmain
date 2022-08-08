@@ -231,7 +231,7 @@ cp -r Archmainpy.desktop ~/.local/share/applications/
 
 chmod +x ~/.local/share/Archmain/bin/data.sh     #check in loop 
 chmod +x ~/.local/share/Archmain/bin/chnw.sh  #check now button script
-chmod +x ~/.local/share/Archmain/bin/refresh.sh #gui refresh
+#chmod +x ~/.local/share/Archmain/bin/refresh.sh #gui refresh deprecated!
 chmod +x ~/.local/share/Archmain/bin/Archmain.py #gui
 
 
