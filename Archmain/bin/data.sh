@@ -16,6 +16,7 @@ py="$HOME/.local/share/Archmain/bin/Archmain.py"
 
 
 #Variable URL
+info="$HOME/.local/share/Archmain/data/info"
 version="$HOME/.local/share/Archmain/data/version"
 list="$HOME/.local/share/Archmain/data/listupdates"
 pending="$HOME/.local/share/Archmain/data/pending"
@@ -37,6 +38,7 @@ CheckSET=$(cat $chSet)
 DELAY=$( expr "$(cat $delay)" \* 60)
 NDELAY=$(cat $delay)
 Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version)
+Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/info)
 DataTime=$(date '+%a %d %b %H:%M '  )
 }
 
@@ -77,9 +79,10 @@ fi
 
 #checkversion
 checkVersion=$(cat $version)
+infomess=$(cat $info)
 if [ "$checkVersion" -gt "$VERSION" ]; then
   
-notify-send -i "$ICON"    -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5"   -u critical;
+notify-send -i "$ICON"    -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical;
                
 else
 
