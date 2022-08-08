@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="219"
+VERSION="220"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
@@ -25,6 +25,7 @@ messageDelay="$HOME/.local/share/Archmain/data/messageDelay"
 statusDelay="$HOME/.local/share/Archmain/data/statusDelay"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 chSet="$HOME/.local/share/Archmain/data/checkSet"
+terminal="$HOME/.local/share/Archmain/data/terminal"
 
 
 
@@ -50,6 +51,49 @@ echo "$USER@$HOSTNAME" > "$list"
 echo '' >> "$list"
 echo "$VERSION" > "$CURRENTVERSION"
 
+
+
+#Terminal check list
+T1="gnome-terminal"
+T2="konsole"
+T3="xfce4-terminal"
+T4="kgx"
+T5="lxterminal"
+T6="alacritty"
+T7="mate-terminal"
+T8="deepin-terminal"
+T9="qterminal"
+T10="terminator"
+T11="tilix"
+T12="xterm"
+
+
+#terminal check
+if  [ -x "$(command -v $T1)" ]; then
+           echo "$T1  -- /bin/sh -c" > "$terminal"
+elif    [ -x "$(command -v $T2)" ]; then
+           echo $T2 -e  > "$terminal"
+elif    [ -x "$(command -v $T3)" ]; then
+           echo $T3 -e  > "$terminal"
+elif    [ -x "$(command -v $T4)" ]; then
+           echo $T4 -e  > "$terminal"
+elif    [ -x "$(command -v $T5)" ]; then
+           echo $T5 -e  > "$terminal"
+elif    [ -x "$(command -v $T6)" ]; then
+           echo $T6 -e  > "$terminal"
+elif    [ -x "$(command -v $T7)" ]; then
+           echo $T7 -e  > "$terminal"
+elif    [ -x "$(command -v $T8)" ]; then
+           echo $T8 -e  > "$terminal"
+elif    [ -x "$(command -v $T9)" ]; then
+           echo $T9 -e  > "$terminal"
+elif    [ -x "$(command -v $T10)" ]; then
+           echo $T10 -e  > "$terminal"
+elif    [ -x "$(command -v $T11)" ]; then
+           echo $T11 -e  > "$terminal"
+elif    [ -x "$(command -v $T12)" ]; then
+           echo $T12 -e  > "$terminal"
+fi;
 
 
 #Pending

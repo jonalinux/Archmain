@@ -86,7 +86,7 @@ btnPkgs.place(x=755, y=10)
 
 
 
-def list_upd():#console
+def list_upd(): #-----------------------------------------------------------------------------console
  background_lista = tk.Frame(master=window, width=528, height=300, bg="#ecf2f5")
  background_lista.place(x=30, y=100,)
  background_lista.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
@@ -97,7 +97,7 @@ def list_upd():#console
  for updates in content:
    lista.insert(END, updates )
  lista.config(state=DISABLED)
- window.after(1000, list_upd)
+ window.after(5000, list_upd)
 #-------------------------------------------------------------------------------------------------------------------------
 
 
@@ -130,14 +130,14 @@ rollback_label.insert(0, ' PackageName')
 
 # bottom install only pacman 
 def install_pac():
-    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates  >>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu   >>  /home/' + username + '/.local/share/Archmain/data/temp; sudo pacman -Syu;  mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
+    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates>>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu   >>  /home/' + username + '/.local/share/Archmain/data/temp; sudo pacman -Syu;  mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
     
 btnInstall=tk.Button(window, height=1, width=8, text="Exclude AUR", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_pac)
 btnInstall.place(x=100, y=405,)
 
 # bottom install updates
 def install_Updates():
-    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates  >>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu    >>  /home/' + username + '/.local/share/Archmain/data/temp; /usr/bin/pikaur -Syu;   mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;  "; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
+    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates >>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu    >>  /home/' + username + '/.local/share/Archmain/data/temp; /usr/bin/pikaur -Syu;   mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;  "; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
     
 btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_Updates)
 btnInstall.place(x=30, y=405,)
@@ -242,6 +242,8 @@ def pending_upd():
 
 
 def kernel_upd():
+ krn="Kernel=$(uname -r ); kernel=$HOME/.local/share/Archmain/data/kernel ;"
+ os.system( krn + '  echo $Kernel > $kernel')
  kernel = open(file="/home/" + username + "/.local/share/Archmain/data/kernel")
  kernel_label_title = tk.Label(master=window, text="kernel:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  kernel_label_title.place(x=580, y=133)
@@ -251,9 +253,11 @@ def kernel_upd():
  for info_kernel in kernel:
    kernel_label.insert(END, info_kernel )
  kernel_label.config(state=DISABLED)
- window.after(30000,kernel_upd)
+ window.after(60000,kernel_upd)
 
 def pkgs_upd():
+ pax="PackagesTotal=$(pacman -Q | wc -l ); packages=$HOME/.local/share/Archmain/data/packages ; "
+ os.system( pax + '  echo "$PackagesTotal" > "$packages"')
  pkgs_count = open(file="/home/" + username + "/.local/share/Archmain/data/packages")
  pkgs_count_label_title = tk.Label(master=window, text="Installed Packages:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  pkgs_count_label_title.place(x=580, y=163)
@@ -266,19 +270,25 @@ def pkgs_upd():
  window.after(5000, pkgs_upd)
 
 
-def ram_upd():
+   
+def ram_upd(): 
+ ramy=" RM=$HOME/.local/share/Archmain/data/ram  ; "
+ ramx="Ram=$(free -h | grep G | awk -F" + "'i       '"  +  " '{ print $2 }');"   
+ os.system( ramx + ramy +   ' echo "$Ram" > "$RM"'  )
  ram = open(file="/home/" + username + "/.local/share/Archmain/data/ram")
  ram_label_title = tk.Label(master=window, text="Memory usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  ram_label_title.place(x=580, y=193)
- ram_label = Text(master=window,  width=90, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ ram_label = Text(master=window,  width=5, height=1,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
  ram_label.place(x=675, y=195)
 
  for info_ram in ram:
    ram_label.insert(END, info_ram )
    ram_label.config(state=DISABLED)
- window.after(1000, ram_upd)
+ window.after(5000, ram_upd)
 
 def ssd_upd():
+ ssdx="SSD=$(df -h / | grep G|awk '{printf $3}')"
+ os.system( ssdx + " ssd=$HOME/.local/share/Archmain/data/ssd;   echo  $SSD > $ssd")
  ssd = open(file="/home/" + username + "/.local/share/Archmain/data/ssd")
  ssd_label_title = tk.Label(master=window, text="Disc usage:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  ssd_label_title.place(x=580, y=223)
@@ -288,9 +298,11 @@ def ssd_upd():
  for info_ssd in ssd:
    ssd_label.insert(END, info_ssd )
  ssd_label.config(state=DISABLED)
- window.after(30000, ssd_upd)
+ window.after(5000, ssd_upd)
 
 def cache_upd():
+ chx="Cache=$( du -sh $HOME/.cache/ | awk '{ printf $1}'); cache=$HOME/.local/share/Archmain/data/cache ;"
+ os.system( chx + ' echo "$Cache" > "$cache"')
  cache = open(file="/home/" + username + "/.local/share/Archmain/data/cache")
  cache_label_title = tk.Label(master=window, text="Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  cache_label_title.place(x=580, y=253)
@@ -300,9 +312,11 @@ def cache_upd():
  for info_cache in cache:
    cache_label.insert(END, info_cache )
  cache_label.config(state=DISABLED)
- window.after(1000, cache_upd)
+ window.after(5000, cache_upd)
 
 def orphans_upd():
+ orph="Orphans=$(pacman -Qtdq | wc -l); orphans=$HOME/.local/share/Archmain/data/orphans ;"
+ os.system( orph + ' echo "$Orphans" > "$orphans"')
  orphans = open(file="/home/" + username + "/.local/share/Archmain/data/orphans")
  orphans_label_title = tk.Label(master=window, text="Unused (orphans):", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  orphans_label_title.place(x=580, y=283)
@@ -312,9 +326,11 @@ def orphans_upd():
  for info_orphans in orphans:
    orphans_label.insert(END, info_orphans )
  orphans_label.config(state=DISABLED)
- window.after(1000, orphans_upd)
+ window.after(5000, orphans_upd)
 
 def cachePac_upd():
+ cpax="CachePacman=$(du -sh  /var/cache/pacman/pkg  | awk '{ printf $1}');  cachepacman=$HOME/.local/share/Archmain/data/cachepacman ;"
+ os.system( cpax + '  echo "$CachePacman" > "$cachepacman"')
  cachePacman = open(file="/home/" + username + "/.local/share/Archmain/data/cachepacman")
  cachePacman_label_title = tk.Label(master=window, text="Packages Cache:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  cachePacman_label_title.place(x=580, y=313)
@@ -324,7 +340,7 @@ def cachePac_upd():
  for info_cachePacman in cachePacman:
    cachePacman_label.insert(END, info_cachePacman )
  cachePacman_label.config(state=DISABLED)
- window.after(1000, cachePac_upd)
+ window.after(5000, cachePac_upd)
 
 
 #check
@@ -354,7 +370,7 @@ def status_check():
   for info_statuscheck in statuscheck:
    statuscheck_label.insert(END, info_statuscheck )
    statuscheck_label.config(state=DISABLED)
-   window.after(1000, status_check); 
+   window.after(2500, status_check); 
 
 
 #delay
@@ -375,8 +391,6 @@ btnSet.place(x=660, y=380)
    
 def currDelay():
  delay_c=open(file="/home/" + username + "/.local/share/Archmain/data/delay")   
- #delay_current_title = tk.Label(master=window, text="Current Delay:", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
- #delay_current_title.place(x=580, y=345)
  delay_current2_title = tk.Label(master=window, text="Min", font=('SF Pro Display',10), bg="#f6f9fc", fg="#555")
  delay_current2_title.place(x=730, y=383)
  delay_current = Text(master=window,  height=1, width=4,font=('SF Pro Display',10), bg="#f6f9fc", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
@@ -385,7 +399,7 @@ def currDelay():
  for c in delay_c:
   delay_current.insert(END, c)
   delay_current.config(state=DISABLED)
- window.after(1000, currDelay)
+ window.after(2500, currDelay)
 
 def status_Delay():
   statusDelay = open(file="/home/" + username + "/.local/share/Archmain/data/statusDelay")
@@ -395,7 +409,7 @@ def status_Delay():
   for info_statusDelay in statusDelay:
    statusDelay_label.insert(END, info_statusDelay )
    statusDelay_label.config(state=DISABLED)
-   window.after(5000, status_Delay); 
+   window.after(60000, status_Delay); 
 
 
 
@@ -448,23 +462,13 @@ def openNewWindow():
 
 btn = Button(window, text ="Credits", font=('SF Pro Display', 8), bg="#ecf2f5", fg="#0f94d2",  borderwidth = 0, highlightthickness = 0,command = openNewWindow)
 btn.place(x=190, y=593)
-#-------------------------------------------------------------------------------------------------------------------------
-
-def refresh():
-   os.system('/home/' + username + '/.local/share/Archmain/bin/refresh.sh')
-   window.after(10000, refresh)
-
-#------------------------------------------------------------------------------------------------------------------------
-
-#test
 
 
-#-------------------------------------------------------------------------------------------------------------------------
+
 
 window.after(100, status_check); 
 window.after(100, status_Delay); 
 window.after(100, currDelay)
-window.after(100, refresh)
 window.after(100, cachePac_upd)
 window.after(100, orphans_upd)
 window.after(100, cache_upd)
