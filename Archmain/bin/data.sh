@@ -51,7 +51,7 @@ echo "$VERSION" > "$CURRENTVERSION"
 
 
 #Pending
-if (( "$Pending" = 0 )); then
+if [ "$Pending" = 0 ]; then
              echo "System Updated" > "$pending"
 else
   echo "$Pending Update Pending" > "$pending"
