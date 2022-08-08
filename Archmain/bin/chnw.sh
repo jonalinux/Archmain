@@ -17,8 +17,9 @@ lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 
 #Variable Cmd
 get_Variables(){
+AUR=$(pikaur -Qqua ;)
 ListUpdates=$( checkupdates 2>/dev/null )
-Pending=$(expr $(pikaur -Quq | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
+Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
 DataTime=$(date '+%a %d %b %H:%M '  )
 SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
 }
@@ -30,11 +31,11 @@ echo ' ' >> "$list"
 #Pending
 if [ "$Pending" = 1 ]; then
   echo "$Pending Update Pending" > "$pending"
-  echo "$ListUpdates" "AUR"  >> "$list"
+  echo "$ListUpdates" "$AUR"  >> "$list"
   elif
    [ "$Pending" -gt 0 ]; then
   echo "$Pending Updates Pending" > "$pending"
-  echo "$ListUpdates"  "AUR" >> "$list"
+  echo "$ListUpdates"  "$AUR" >> "$list"
 
   else
    echo "System Updated" > "$pending"

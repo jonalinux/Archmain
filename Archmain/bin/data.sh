@@ -29,9 +29,9 @@ chSet="$HOME/.local/share/Archmain/data/checkSet"
 
 #Variable Cmd
 get_Variables(){
-AUR=$(pikaur -Qu ;)
+AUR=$(pikaur -Qqua ;)
 ListUpdates=$(checkupdates 2>/dev/null )
-Pending=$(expr $(pikaur -Quq | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
+Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
 CHECK=$( expr "$(cat $chSet)" \* 60) #loop
 CheckSET=$(cat $chSet)
 DELAY=$( expr "$(cat $delay)" \* 60)
@@ -55,7 +55,7 @@ if (( "$Pending" = 0 )); then
              echo "System Updated" > "$pending"
 else
   echo "$Pending Update Pending" > "$pending"
-  echo "$ListUpdates" "AUR"  >> "$list"
+  echo "$ListUpdates" "$AUR"  >> "$list"
    ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
                 case "$ACTION" in
                       "0")
