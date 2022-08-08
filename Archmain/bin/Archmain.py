@@ -130,7 +130,7 @@ rollback_label.insert(0, ' PackageName')
 
 # bottom install only pacman 
 def install_pac():
-    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates>>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu   >>  /home/' + username + '/.local/share/Archmain/data/temp; sudo pacman -Syu;  mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
+    os.system(' AUR=$(pikaur -Qqua ;) TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "echo Writing a log file; echo $(date) > /home/' + username + '/.local/share/Archmain/data/temp ;echo  last updates >>  /home/' + username + '/.local/share/Archmain/data/temp;  pacman -Qu   >>  /home/' + username + '/.local/share/Archmain/data/temp; sudo pacman -Syu;  mv /home/' + username + '/.local/share/Archmain/data/temp  /home/' + username + '/.local/share/Archmain/data/@lastup;";echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/listupdates; echo "Waiting for next check" > /home/' + username + '/.local/share/Archmain/data/pending; ')
     
 btnInstall=tk.Button(window, height=1, width=8, text="Exclude AUR", font=('SF Pro Display',10), bg='#dfd', fg="#555", borderwidth = 0, highlightthickness = 0, command=install_pac)
 btnInstall.place(x=100, y=405,)
