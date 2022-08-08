@@ -38,7 +38,7 @@ CheckSET=$(cat $chSet)
 DELAY=$( expr "$(cat $delay)" \* 60)
 NDELAY=$(cat $delay)
 Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version)
-Version=$(wget -O $version https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/info)
+Version=$(wget -O $info https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/info)
 DataTime=$(date '+%a %d %b %H:%M '  )
 }
 
