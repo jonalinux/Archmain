@@ -29,8 +29,9 @@ chSet="$HOME/.local/share/Archmain/data/checkSet"
 
 #Variable Cmd
 get_Variables(){
-ListUpdates=$(pikaur -Qu)
-Pending=$(pikaur -Quq | wc -l)
+AUR=$(pikaur -Qu ;)
+ListUpdates=$(checkupdates 2>/dev/null )
+Pending=$(expr $(pikaur -Quq | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
 CHECK=$( expr "$(cat $chSet)" \* 60) #loop
 CheckSET=$(cat $chSet)
 DELAY=$( expr "$(cat $delay)" \* 60)
@@ -50,9 +51,11 @@ echo "$VERSION" > "$CURRENTVERSION"
 
 
 #Pending
-if [ "$Pending" -gt 0 ]; then
+if (( "$Pending" = 0 )); then
+             echo "System Updated" > "$pending"
+else
   echo "$Pending Update Pending" > "$pending"
-  echo "$ListUpdates"  >> "$list"
+  echo "$ListUpdates" "AUR"  >> "$list"
    ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
                 case "$ACTION" in
                       "0")
@@ -68,27 +71,7 @@ if [ "$Pending" -gt 0 ]; then
                          ;;
                       
                 esac
-  elif
-   [ "$Pending" = 1 ]; then
-  echo "$Pending Updates Pending" > "$pending"
-  echo "$ListUpdates"  >> "$list"
-   ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="NDELAY"  -a "Archmain" "$Pending Update available."   -u critical;  )
-                case "$ACTION" in
-                      "0")
-                         $py
-                         
-                         ;;
-                      "1")
-                         NEXT=$(date "+%a %d %b %H:%M"  --date="$DELAY  minutes")
-                          echo "$NEXT" > "$messageDelay"
-                         echo "ON" > "$statusDelay"
-                         sleep "$DELAY";
-                         
-                         ;;
-                      
-                esac
-  else
-   echo "System Updated" > "$pending"
+   
 fi
 
 

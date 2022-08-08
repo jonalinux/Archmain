@@ -97,7 +97,7 @@ def list_upd():#console
  for updates in content:
    lista.insert(END, updates )
  lista.config(state=DISABLED)
- window.after(2000, list_upd)
+ window.after(1000, list_upd)
 #-------------------------------------------------------------------------------------------------------------------------
 
 
@@ -153,7 +153,8 @@ btnInstall.place(x=60, y=485,)
 
 # bottom mirrorlist •
 def mirrorlist():
-    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo  $Srv  >  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
+    #os.system('echo "Querying servers. This may take some time..."   >  /home/' + username + '/.local/share/Archmain/data/listupdates;')
+    os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );   Srv=$( expr $SRV - 3);   echo  $Srv  >  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
     
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=468,)
@@ -202,7 +203,7 @@ def last_chk():
  for info_lastcheck in lastcheck:
   lastcheck_label.insert(END, info_lastcheck )
   lastcheck_label.config(state=DISABLED)
- window.after(2000, last_chk); 
+ window.after(5000, last_chk); 
 
 def message_Delay():
  messageDelay = open(file="/home/" + username + "/.local/share/Archmain/data/messageDelay")
@@ -229,7 +230,7 @@ def pending_upd():
  for info_pending in pending:
    pending_label.insert(END, info_pending )
  pending_label.config(state=DISABLED)
- window.after(2000, pending_upd)
+ window.after(5000, pending_upd)
 
 
 
@@ -250,7 +251,7 @@ def kernel_upd():
  for info_kernel in kernel:
    kernel_label.insert(END, info_kernel )
  kernel_label.config(state=DISABLED)
- window.after(60000,kernel_upd)
+ window.after(30000,kernel_upd)
 
 def pkgs_upd():
  pkgs_count = open(file="/home/" + username + "/.local/share/Archmain/data/packages")
@@ -275,7 +276,7 @@ def ram_upd():
  for info_ram in ram:
    ram_label.insert(END, info_ram )
    ram_label.config(state=DISABLED)
- window.after(60000, ram_upd)
+ window.after(1000, ram_upd)
 
 def ssd_upd():
  ssd = open(file="/home/" + username + "/.local/share/Archmain/data/ssd")
@@ -287,7 +288,7 @@ def ssd_upd():
  for info_ssd in ssd:
    ssd_label.insert(END, info_ssd )
  ssd_label.config(state=DISABLED)
- window.after(60000, ssd_upd)
+ window.after(30000, ssd_upd)
 
 def cache_upd():
  cache = open(file="/home/" + username + "/.local/share/Archmain/data/cache")
@@ -299,7 +300,7 @@ def cache_upd():
  for info_cache in cache:
    cache_label.insert(END, info_cache )
  cache_label.config(state=DISABLED)
- window.after(5000, cache_upd)
+ window.after(1000, cache_upd)
 
 def orphans_upd():
  orphans = open(file="/home/" + username + "/.local/share/Archmain/data/orphans")
@@ -311,7 +312,7 @@ def orphans_upd():
  for info_orphans in orphans:
    orphans_label.insert(END, info_orphans )
  orphans_label.config(state=DISABLED)
- window.after(5000, orphans_upd)
+ window.after(1000, orphans_upd)
 
 def cachePac_upd():
  cachePacman = open(file="/home/" + username + "/.local/share/Archmain/data/cachepacman")
@@ -323,7 +324,7 @@ def cachePac_upd():
  for info_cachePacman in cachePacman:
    cachePacman_label.insert(END, info_cachePacman )
  cachePacman_label.config(state=DISABLED)
- window.after(5000, cachePac_upd)
+ window.after(1000, cachePac_upd)
 
 
 #check
@@ -353,7 +354,7 @@ def status_check():
   for info_statuscheck in statuscheck:
    statuscheck_label.insert(END, info_statuscheck )
    statuscheck_label.config(state=DISABLED)
-   window.after(2000, status_check); 
+   window.after(1000, status_check); 
 
 
 #delay
@@ -384,7 +385,7 @@ def currDelay():
  for c in delay_c:
   delay_current.insert(END, c)
   delay_current.config(state=DISABLED)
- window.after(2000, currDelay)
+ window.after(1000, currDelay)
 
 def status_Delay():
   statusDelay = open(file="/home/" + username + "/.local/share/Archmain/data/statusDelay")
@@ -394,7 +395,7 @@ def status_Delay():
   for info_statusDelay in statusDelay:
    statusDelay_label.insert(END, info_statusDelay )
    statusDelay_label.config(state=DISABLED)
-   window.after(2000, status_Delay); 
+   window.after(5000, status_Delay); 
 
 
 
@@ -451,7 +452,7 @@ btn.place(x=190, y=593)
 
 def refresh():
    os.system('/home/' + username + '/.local/share/Archmain/bin/refresh.sh')
-   window.after(5000, refresh)
+   window.after(10000, refresh)
 
 #------------------------------------------------------------------------------------------------------------------------
 
