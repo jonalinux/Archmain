@@ -219,7 +219,8 @@ GenericName=Archmain
 Exec=/home/$USER/.local/share/Archmain/bin/Archmain.py
 Type=Application
 Icon=/home/$USER/.local/share/Archmain/icon/icon.png
-Categories=GTK;GNOME;System;" > Archmainpy.desktop
+Categories=GTK;GNOME;System;
+Comment=AUR and Pacman Updater " > Archmainpy.desktop
 
 
 
