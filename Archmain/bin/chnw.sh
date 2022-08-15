@@ -21,7 +21,7 @@ AUR=$(pikaur -Qqua ;)
 ListUpdates=$( checkupdates 2>/dev/null )
 Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
 DataTime=$(date '+%a %d %b %H:%M '  )
-SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
+#SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
 }
 
 get_Variables
