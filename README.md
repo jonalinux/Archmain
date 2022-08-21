@@ -2,14 +2,13 @@
 
 # Archmain
 
-![Screenshot from 2022-08-21 12-45-07](https://user-images.githubusercontent.com/103053714/185789335-a76c64bc-c5d2-4efa-849a-842678699785.png)
-
-https://user-images.githubusercontent.com/103053714/183523007-a831aab6-1df2-4852-ae5f-94b9c6023bc0.mp4
-
-
 
 
 ## Install
+
+https://user-images.githubusercontent.com/103053714/185802387-5ae67568-095e-46f6-b8ba-2bfa9bda1aa3.mp4
+
+
 
 - git clone https://github.com/JonathanSanfilippo/Archmain.git
 - cd Archmain-main
