@@ -6,15 +6,17 @@
 
 
 
+from time import sleep
 from tkinter import *
 import tkinter as tk
+from tkinter import ttk
 import os
 import getpass
 from tokenize import Number
 from turtle import width
 import webbrowser
 from xmlrpc import server
-
+import time
 
 window=tk.Tk(className='Archmain')
 window.title('Archmain')
@@ -49,6 +51,8 @@ numversion.place(x=815, y=595)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo", font=('SF Pro Display',8), bg="#ecf2f5", fg="#666")
 author.place(x=10, y=595)
 
+
+
 def callback(url):
    webbrowser.open_new_tab(url)
    
@@ -68,19 +72,25 @@ numversion.config(state=DISABLED)
 
 
 
-#Package Search:
-def package_search():
-    result=form.get() 
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL  "/usr/bin/pikaur -S "' + result + ' ')
+#Install or remove packages:
+def InsRmv(): 
+    package=form.get()
+    option=options.get()
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "/usr/bin/pikaur ' + option + ' ' + package + ' " ')
+   
 
-background_form = tk.Frame(master=window, width=380, height=45, bg="#0f94d2")
-background_form.place(x=430, y=0) 
-form = tk.Entry(window, width=20, bg="#fff", fg='#222', font=('SF Pro Display',12), )
-form.place(x=550, y=10)
-form_title = tk.Label(master=window, text="Package Install:", font=('SF Pro Display',10), bg="#0f94d2", fg="#fff")
+background_form = tk.Frame(master=window, width=378, height=70, bg="#0f94d2")
+background_form.place(x=430, y=0)
+options = tk.Entry(window, width=6, bg="#fff", fg='#555', font=('SF Pro Display',11), )
+options.place(x=440, y=40)
+options.insert(0," -S") 
+form = tk.Entry(window, width=25, bg="#fff", fg='#555', font=('SF Pro Display',11), )
+form.place(x=510, y=40)
+form.insert(0," package name ") 
+form_title = tk.Label(master=window, text="Install or remove packages", font=('SF Pro Display',10), bg="#0f94d2", fg="#fff")
 form_title.place(x=440, y=12)
-btnPkgs=tk.Button(window,  height=1, width=3, text="Search", bg="#0f94d2", fg='#fff', font=('SF Pro Display',10), borderwidth = 0, highlightthickness = 0, command=package_search)
-btnPkgs.place(x=755, y=10)
+btnPkgs=tk.Button(window,  height=1, width=3, text="Run", bg='#dfd' , fg="#555", font=('SF Pro Display',10), borderwidth = 0, highlightthickness = 0, command=InsRmv)
+btnPkgs.place(x=750, y=39)
 
 #-------------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +134,7 @@ rollback_label.place(x=650, y=438,)
 rollback_label.config( highlightthickness=1,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
 btn=tk.Button(window, height=1, width=6, text="Rollback", font=('SF Pro Display',10),bg='#fed882' , fg="#555", borderwidth = 0, highlightthickness = 0, command=rollback_set)
 btn.place(x=570, y=435,)
-rollback_label.insert(0, ' PackageName')
+rollback_label.insert(0, ' package name')
 
 
 
@@ -150,7 +160,48 @@ btnInstall.place(x=30, y=405,)
 
 #@lastup
 def log():
-  os.system('cp  /home/' + username + '/.local/share/Archmain/data/@lastup  /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+    s = ttk.Style()
+    s.theme_use('clam')
+    s.configure("x.Horizontal.TProgressbar", foreground='x', background='#fed882', troughcolor='#ecf2f5', bordercolor='#bbccdd')
+    progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=200,mode='determinate')
+    progress.place(x=250, y=595)
+    labprogress=tk.Entry(window, width=4, font=('SF Pro Display',8), bg="#ecf2f5", fg="#666", borderwidth = 0, highlightthickness = 0)
+    labprogress.insert(0," ")
+    labprogress.place(x=460, y=595)
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+    
+    os.system('cp  /home/' + username + '/.local/share/Archmain/data/@lastup  /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+
 btnInstall=tk.Button(window, height=1, width=7, text="Last Update", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=log)
 btnInstall.place(x=60, y=485,)
 
@@ -158,9 +209,47 @@ btnInstall.place(x=60, y=485,)
 
 # bottom mirrorlist •
 def mirrorlist():
-    #os.system('echo "Querying servers. This may take some time..."   >  /home/' + username + '/.local/share/Archmain/data/listupdates;')
+    s = ttk.Style()
+    s.theme_use('clam')
+    s.configure("x.Horizontal.TProgressbar", foreground='x', background='#aad0fd', troughcolor='#ecf2f5', bordercolor='#bbccdd')
+    progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=200,mode='determinate')
+    progress.place(x=250, y=595)
+    labprogress=tk.Entry(window, width=4, font=('SF Pro Display',8), bg="#ecf2f5", fg="#666", borderwidth = 0, highlightthickness = 0)
+    labprogress.insert(0," ")
+    labprogress.place(x=460, y=595)
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+  
     os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");  SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );   Srv=$( expr $SRV - 3);   echo  $Srv  >  /home/' + username + '/.local/share/Archmain/data/server;  rankmirrors -t   /etc/pacman.d/mirrorlist  > /home/' + username + '/.local/share/Archmain/data/listupdates;  ')
     
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
 btn=tk.Button(window, height=1, width=7, text="Mirrorlist", font=('SF Pro Display',10), bg='#aad0fd', fg="#555", borderwidth = 0, highlightthickness = 0, command=mirrorlist)
 btn.place(x=318, y=468,)
 server=Label(window, height=1, text="Server", font=('SF Pro Display',10), bg='#f6f9fc', fg="#999", borderwidth = 0, highlightthickness = 0)
@@ -181,9 +270,48 @@ def currServer():
 
 #Reflector mirrors
 def reflector():
+    s = ttk.Style()
+    s.theme_use('clam')
+    s.configure("x.Horizontal.TProgressbar", foreground='x', background='#fed882', troughcolor='#ecf2f5', bordercolor='#bbccdd')
+    progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=200,mode='determinate')
+    progress.place(x=250, y=595)
+    labprogress=tk.Entry(window, width=4, font=('SF Pro Display',8), bg="#ecf2f5", fg="#666", borderwidth = 0, highlightthickness = 0)
+    labprogress.insert(0," ")
+    labprogress.place(x=460, y=595)
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
     C=country.get() 
     os.system(' TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");   $TERMINAL  "sudo reflector --verbose --country  '  +  C  + '   --age 12 --sort rate --save /etc/pacman.d/mirrorlist; "')
     os.system('SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);   echo $Srv >  /home/' + username + '/.local/share/Archmain/data/server; ')
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
 
 country=Entry(window,  width=4,font=('SF Pro Display',10), bg="#ecf2f5", fg="#555",borderwidth = 0, highlightthickness = 0)
 country.place(x=270, y=505,)
@@ -195,7 +323,46 @@ info.place(x=410, y=505,)
 
 # bottom install only pacman
 def Check_now():
+    s = ttk.Style()
+    s.theme_use('clam')
+    s.configure("x.Horizontal.TProgressbar", foreground='x', background='#87ffc1', troughcolor='#ecf2f5', bordercolor='#bbccdd')
+    progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=200,mode='determinate')
+    progress.place(x=250, y=595)
+    labprogress=tk.Entry(window, width=4, font=('SF Pro Display',8), bg="#ecf2f5", fg="#666", borderwidth = 0, highlightthickness = 0)
+    labprogress.insert(0," ")
+    labprogress.place(x=460, y=595)
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+  
     os.system('/home/' + username + '/.local/share/Archmain/bin/chnw.sh')
+
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
     
 btn=tk.Button(window, height=1, width=7, text="Check Now", font=('SF Pro Display',10), bg='#87ffc1', fg="#555", borderwidth = 0, highlightthickness = 0, command=Check_now)
 btn.place(x=318, y=435,)
@@ -421,12 +588,53 @@ def status_Delay():
 
 # clear buttons
 def  clear_homeCache():
+    s = ttk.Style()
+    s.theme_use('clam')
+    s.configure("x.Horizontal.TProgressbar", foreground='x', background='#fed882', troughcolor='#ecf2f5', bordercolor='#bbccdd')
+    progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=200,mode='determinate')
+    progress.place(x=250, y=595)
+    labprogress=tk.Entry(window, width=4, font=('SF Pro Display',8), bg="#ecf2f5", fg="#666", borderwidth = 0, highlightthickness = 0)
+    labprogress.insert(0," ")
+    labprogress.place(x=460, y=595)
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
     os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "rm -rf ~/.cache/*"; echo "Wait.." > /home/' + username + '/.local/share/Archmain/data/cache;')
-    
+     
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+
+
 btn=tk.Button(window, height=0, width=8, text="Clear Cache", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=clear_homeCache)
 btn.place(x=740, y=250)
 
 def  OrphCache():
+    
     os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "sudo pacman -Rns $(pacman -Qdtq)"; echo "Wait.." > /home/' + username + '/.local/share/Archmain/data/orphans; ')
     
 btn=tk.Button(window, height=0, width=8, text="Clear Orph", font=('SF Pro Display',10), bg='#fed882', fg="#555", borderwidth = 0, highlightthickness = 0, command=OrphCache)
