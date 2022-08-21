@@ -2,7 +2,8 @@
 
 # Archmain
 
-![Screenshot from 2022-08-08 20-54-47](https://user-images.githubusercontent.com/103053714/183508448-25292327-e42f-4793-b74c-792c4a1f9a93.png)
+![Screenshot from 2022-08-21 12-41-09](https://user-images.githubusercontent.com/103053714/185789291-15393242-d923-4f25-b39c-b4c99f0269e7.png)
+
 
 
 
