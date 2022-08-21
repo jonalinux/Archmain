@@ -1,1 +1,1 @@
-fixed the problem that the list of updated packages was not saved in "last update" after installing the official updates.
+New Features, added progress bar and ability to install and uninstall packages.
