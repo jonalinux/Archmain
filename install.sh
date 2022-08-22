@@ -224,6 +224,8 @@ Comment=AUR and Pacman Updater " > Archmainpy.desktop
 
 
 
+tar -xf Archmain/fonts/svgs.tar.gz
+
 cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
 
