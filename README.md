@@ -1,8 +1,8 @@
 
 
 # Archmain - Archlinux Manager GUI
-https://user-images.githubusercontent.com/103053714/185802387-5ae67568-095e-46f6-b8ba-2bfa9bda1aa3.mp4
 
+![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
 
 ## Install
 
