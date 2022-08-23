@@ -7,12 +7,13 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="222"
+VERSION="223"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png" ;
 
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
+
 
 
 #Variable URL
@@ -26,6 +27,15 @@ statusDelay="$HOME/.local/share/Archmain/data/statusDelay"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
 chSet="$HOME/.local/share/Archmain/data/checkSet"
 terminal="$HOME/.local/share/Archmain/data/terminal"
+ini="$HOME/.local/share/Archmain/data/config/set.ini"
+ini2="$HOME/.local/share/Archmain/data/config/set2.ini"
+no="$HOME/.local/share/Archmain/data/no.ini"
+noini="$HOME/.local/share/Archmain/data/config/no.ini"
+gr="$HOME/.local/share/Archmain/data/gr.ini"
+grini="$HOME/.local/share/Archmain/data/config/gr.ini"
+or="$HOME/.local/share/Archmain/data/or.ini"
+orini="$HOME/.local/share/Archmain/data/config/or.ini"
+config="$HOME/.local/share/Archmain/data/config"
 
 
 
@@ -96,13 +106,17 @@ elif    [ -x "$(command -v $T12)" ]; then
 fi;
 
 
+      
 #Pending
-if [ "$Pending" = 0 ]; then
-             echo "System Updated" > "$pending"
-else
-  echo "$Pending Update Pending" > "$pending"
-  echo "$ListUpdates" "$AUR"  >> "$list"
-   ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
+if [ "$Pending" -eq 1 ]; then
+             echo "$Pending Update Pending" > "$pending"
+             echo "$ListUpdates" "$AUR"  >> "$list"
+             cp -r "$or" "$config"
+             mv "$orini" "$ini"
+             cp -r "$or" "$config"
+              mv "$orini" "$ini2"
+  
+   ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Update available."   -u critical;  )
                 case "$ACTION" in
                       "0")
                          $py
@@ -112,12 +126,40 @@ else
                          NEXT=$(date "+%a %d %b %H:%M"  --date="$NDELAY  minutes")
                           echo "$NEXT" > "$messageDelay"
                           echo "ON" > "$statusDelay"
-                         sleep "$DELAY";
+                         sleep "$DELAY"
                          
                          ;;
                       
                 esac
-   
+elif [ "$Pending" -ge 1 ]; then
+             echo "$Pending Updates Pending" > "$pending"
+             echo "$ListUpdates" "$AUR"  >> "$list"
+             cp -r "$or" "$config"
+             mv "$orini" "$ini"
+             cp -r "$or" "$config"
+              mv "$orini" "$ini2"
+  
+   ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
+                case "$ACTION" in
+                      "0")
+                         $py
+                          
+                         ;;
+                      "1")
+                         NEXT=$(date "+%a %d %b %H:%M"  --date="$NDELAY  minutes")
+                          echo "$NEXT" > "$messageDelay"
+                          echo "ON" > "$statusDelay"
+                         sleep "$DELAY"
+                         
+                         ;;
+                      
+                esac
+else
+           echo "System Updated " > "$pending"
+             cp -r "$gr" "$config"
+             mv "$grini" "$ini"
+             cp -r "$no" "$config"
+              mv "$noini" "$ini2"
 fi
 
 

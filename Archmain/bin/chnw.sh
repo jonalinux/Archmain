@@ -14,6 +14,15 @@ list="$HOME/.local/share/Archmain/data/listupdates"
 pending="$HOME/.local/share/Archmain/data/pending"
 statusDelay="$HOME/.local/share/Archmain/data/statusDelay"
 lastcheck="$HOME/.local/share/Archmain/data/lastcheck"
+ini="$HOME/.local/share/Archmain/data/config/set.ini"
+ini2="$HOME/.local/share/Archmain/data/config/set2.ini"
+no="$HOME/.local/share/Archmain/data/no.ini"
+noini="$HOME/.local/share/Archmain/data/config/no.ini"
+gr="$HOME/.local/share/Archmain/data/gr.ini"
+grini="$HOME/.local/share/Archmain/data/config/gr.ini"
+or="$HOME/.local/share/Archmain/data/or.ini"
+orini="$HOME/.local/share/Archmain/data/config/or.ini"
+config="$HOME/.local/share/Archmain/data/config"
 
 #Variable Cmd
 get_Variables(){
@@ -29,17 +38,28 @@ echo "$USER@$HOSTNAME" > "$list"
 echo ' ' >> "$list"
 #echo "$Srv  " >  "$HOME/.local/share/Archmain/data/server"
 #Pending
-if [ "$Pending" = 1 ]; then
+if [ "$Pending" -eq 1 ]; then
   echo "$Pending Update Pending" > "$pending"
   echo "$ListUpdates" "$AUR"  >> "$list"
+  cp -r "$or" "$config"
+  mv "$orini" "$ini"
+  cp -r "$or" "$config"
+  mv "$orini" "$ini2"
   elif
    [ "$Pending" -gt 0 ]; then
   echo "$Pending Updates Pending" > "$pending"
   echo "$ListUpdates"  "$AUR" >> "$list"
-
+  cp -r "$or" "$config"
+  mv "$orini" "$ini"
+  cp -r "$or" "$config"
+  mv "$orini" "$ini2"
   else
-   echo "System Updated" > "$pending"
+   echo "System Updated " > "$pending"
    echo ' Last Check Performed manually: System Updated' >> "$list"
+   cp -r "$gr" "$config"
+   mv "$grini" "$ini"
+   cp -r "$no" "$config"
+   mv "$noini" "$ini2"
 fi
 
  echo "OFF" > "$statusDelay"
