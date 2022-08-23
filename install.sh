@@ -232,10 +232,11 @@ cp -r Archmain ~/.local/share/
 cp -r  data.desktop ~/.config/autostart/
 cp -r Archmainpy.desktop ~/.local/share/applications/
 
-chmod +x ~/.local/share/Archmain/bin/data.sh     #check in loop 
-chmod +x ~/.local/share/Archmain/bin/chnw.sh  #check now button script
-#chmod +x ~/.local/share/Archmain/bin/refresh.sh #gui refresh deprecated!
-chmod +x ~/.local/share/Archmain/bin/Archmain.py #gui
+chmod +x ~/.local/share/Archmain/bin/aur.sh 
+chmod +x ~/.local/share/Archmain/bin/pcm.sh    
+chmod +x ~/.local/share/Archmain/bin/data.sh 
+chmod +x ~/.local/share/Archmain/bin/chnw.sh  
+chmod +x ~/.local/share/Archmain/bin/Archmain.py
 
 
 echo ''
