@@ -35,11 +35,7 @@ T11="tilix"
 T12="xterm"
 
 
-echo "extract fonts"
-cd Archmain/fonts/
-tar -xf svgs.tar.gz
-cd ..
-cd ..
+
 
 
 #terminal check----------------------------------------------------------------------------
