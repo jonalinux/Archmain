@@ -23,6 +23,7 @@ grini="$HOME/.local/share/Archmain/data/config/gr.ini"
 or="$HOME/.local/share/Archmain/data/or.ini"
 orini="$HOME/.local/share/Archmain/data/config/or.ini"
 config="$HOME/.local/share/Archmain/data/config"
+urltemp="$HOME/.local/share/Archmain/data/temp"
 
 #Variable Cmd
 get_Variables(){
@@ -30,14 +31,13 @@ AUR=$(pikaur -Qqua ;)
 ListUpdates=$( checkupdates 2>/dev/null )
 Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l) )
 DataTime=$(date '+%a %d %b %H:%M '  )
-#SRV=$(rankmirrors -t   /etc/pacman.d/mirrorlist | wc -l );  Srv=$( expr $SRV - 3);  
+
 }
 
 get_Variables
 echo "$USER@$HOSTNAME" > "$list"
 echo ' ' >> "$list"
-#echo "$Srv  " >  "$HOME/.local/share/Archmain/data/server"
-#Pending
+
 if [ "$Pending" -eq 1 ]; then
   echo "$Pending Update Pending" > "$pending"
   echo "$ListUpdates" "$AUR"  >> "$list"
@@ -64,3 +64,5 @@ fi
 
  echo "OFF" > "$statusDelay"
 echo "$DataTime" > "$lastcheck"
+
+mv "$urltemp"  "$HOME/.local/share/Archmain/data/@lastup" 

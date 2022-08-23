@@ -611,7 +611,7 @@ rb_label_title.place(x=40, y=552)
 
 # bottom install only pacman 
 def install_pac():
-    os.system('/home/' + username + '/.local/share/Archmain/bin/pcm.sh')
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");    $TERMINAL /home/' + username + '/.local/share/Archmain/bin/pcm.sh')
    
   
 btnInstall=tk.Button(window, cursor="hand2", height=1, width=2, text="", font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="magenta", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=install_pac)
@@ -685,7 +685,7 @@ btnPkgs.place(x=1015, y=92)
 
 # bottom install updates
 def install_Updates():
-  os.system('/home/' + username + '/.local/share/Archmain/bin/aur.sh')
+  os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");    $TERMINAL /home/' + username + '/.local/share/Archmain/bin/aur.sh')
   
 def color_btn():  
   colors = open(file="/home/" + username + "/.local/share/Archmain/data/config/set2.ini")
