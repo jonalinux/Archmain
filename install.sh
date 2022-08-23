@@ -201,7 +201,7 @@ echo -e ${Yellow}install reflector${Color_Off}
 fi
 
 
-
+sudo pacman -S otf-font-awesome
 
 
 
