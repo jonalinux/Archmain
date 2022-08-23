@@ -35,7 +35,11 @@ T11="tilix"
 T12="xterm"
 
 
-
+echo "extract fonts"
+cd Archmain/fonts/
+tar -xf svgs.tar.gz
+cd ..
+cd ..
 
 
 #terminal check----------------------------------------------------------------------------
@@ -224,7 +228,8 @@ Comment=AUR and Pacman Updater " > Archmainpy.desktop
 
 
 
-tar -xf Archmain/fonts/svgs.tar.gz
+
+
 
 cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
