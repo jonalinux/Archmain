@@ -31,6 +31,7 @@ username = getpass.getuser()
 p1 = PhotoImage(file="/home/" + username + "/.local/share/Archmain/icon/icon2.png")
 window.iconphoto(False, p1)   
 
+os.system('echo "' + username + ' " > "/home/"' + username + '"/.local/share/Archmain/data/usr"')
  
 #top 
 image = tk.PhotoImage(file="/home/" + username + "/.local/share/Archmain/img/logo.png")
@@ -59,7 +60,7 @@ menu.place(x=0, y=85)
 footer = tk.Frame(master=window, width=1280, height=30, bg="#303134", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
 footer.place(x=0, y=740)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo, Ivan Karavitis. ", font=('SF Pro Display',9), bg="#303134", fg="#B6B6B7")
-author.place(x=500, y=744)
+author.place(x=520, y=744)
 
 github = open(file="/home/" + username + "/.local/share/Archmain/data/currentVersion")
 for ver in github:
@@ -72,16 +73,16 @@ s = ttk.Style()
 s.theme_use('clam')
 s.configure("x.Horizontal.TProgressbar", foreground='#232429', background='#25db51', troughcolor='#202124', bordercolor='#202124')
 progress_bk = tk.Frame(master=window, width=250, height=0, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=46, y=700)
-progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=245,mode='determinate')
-progress.place(x=50, y=700)
-progress_bk = tk.Frame(master=window, width=245, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=50, y=712)
-progress_bk = tk.Frame(master=window, width=245, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=50, y=700)
-labprogress=tk.Entry(window, width=4, font=('SF Pro Display',11), bg="#232429", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0)
+progress_bk.place(x=446, y=700)
+progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=700,mode='determinate')
+progress.place(x=450, y=700)
+progress_bk = tk.Frame(master=window, width=700, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+progress_bk.place(x=450, y=712)
+progress_bk = tk.Frame(master=window, width=700, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+progress_bk.place(x=450, y=700)
+labprogress=tk.Entry(window, width=4, font=('SF Pro Display',11), bg="#202124", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0)
 labprogress.insert(0," ")
-labprogress.place(x=300, y=698)
+labprogress.place(x=1200, y=698)
 
 
 #------------ Install or remove Packages:
@@ -108,12 +109,12 @@ btnPkgs.place(x=875, y=39)
 #--------------- Console 
  
 def list_upd(): 
- background_lista = tk.Frame(master=window, width=588, height=500, bg="#303134")
- background_lista.place(x=15, y=130,)
- background_lista.config( highlightthickness=0,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
+ #background_lista = tk.Frame(master=window, width=588, height=500, bg="#303134")
+ #background_lista.place(x=15, y=130,)
+ #background_lista.config( highlightthickness=0,highlightbackground = "#bbccdd", highlightcolor= "#bbccdd")
  content = open(file="/home/" + username + "/.local/share/Archmain/data/listupdates")
- lista=Text(master=window,  width=63, height=25,font=('SF Pro Display',11), bg='#303134', fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, )
- lista.place(x=25, y=140,)
+ lista=Text(master=window,  width=80, height=28,font=('Source Code Pro',11), bg='#202124', fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, )
+ lista.place(x=425, y=160,)
 
  for updates in content:
    lista.insert(END, updates )
@@ -154,6 +155,45 @@ def pending_upd():
    pending_label.insert(END, info_pending )
  pending_label.config(state=DISABLED)
  window.after(5000, pending_upd)
+ 
+ 
+ 
+def Check_now():
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+  
+    os.system('/home/' + username + '/.local/share/Archmain/bin/chnw.sh')
+
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    
+btn=tk.Button(window, height=1, width=2, text="",  font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="#25db51", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=Check_now)
+btn.place(x=6, y=188)
  
   
 def pkgs_upd():
@@ -396,8 +436,8 @@ country.insert(0, " gb")
 btn=tk.Button(window, height=1, width=2, text="", font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="#0f94d2", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=reflector).place(x=6, y=426,)
 labelrf=Label(window, height=1, text="Reflector *", font=('SF Pro Display',12), bg='#232429', fg="#999", borderwidth = 0, highlightthickness = 0)
 labelrf.place(x=40, y=429,)
-info=Label(window, font=('SF Pro Display',9), bg='#232429', fg="#888", text="*Select the HTTP / HTTPS mirrors synchronized in the last 12 hours \n and located according  to the chosen country and overwrite \n the /etc/pacman.d/mirrorlist file with the results.")
-info.place(x=5, y=640,)
+#info=Label(window, font=('SF Pro Display',9), bg='#232429', fg="#888", text="*Select the HTTP / HTTPS mirrors synchronized in the last 12 hours \n and located according  to the chosen country and overwrite \n the /etc/pacman.d/mirrorlist file with the results.")
+#info.place(x=5, y=640,)
  
  
  
@@ -442,7 +482,7 @@ checkSet_label_title = tk.Label(master=window, text="Set Check Updates", font=('
 checkSet_label_title.place(x=40, y=459)
 checkSet_label = Entry(master=window,  width=4,font=('SF Pro Display',12), bg="#303134", fg="#FFF", borderwidth = 0, highlightthickness = 0,insertbackground="#0f94d2" )
 checkSet_label.place(x=180, y=460)
-checkSet_label.insert(0, " 60")
+checkSet_label.insert(0, "60")
 
 
 
@@ -502,7 +542,7 @@ delay_label_title = tk.Label(master=window, text="Set Check Delay", font=('SF Pr
 delay_label_title.place(x=40, y=489)
 delay_label = Entry(master=window,  width=4,font=('SF Pro Display',12), bg="#303134", fg="#FFF", borderwidth = 0, highlightthickness = 0,insertbackground="#0f94d2")
 delay_label.place(x=180, y=490)
-delay_label.insert(0, " 120")
+delay_label.insert(0, "120")
 
 
    
@@ -545,101 +585,6 @@ rb_label_title = tk.Label(master=window, text="Rollback", font=('SF Pro Display'
 rb_label_title.place(x=40, y=522)
 
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
- 
- 
- 
- # ---------------------------- top header
- 
- 
-def last_chk():
- lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
- label=tk.Label(window, text="  Last check: ",font=('SF Pro Display',12), fg="#b0b3b8", bg='#303134').place(x=615, y=92,)
- lastcheck_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
- lastcheck_label.place(x=725, y=93)
-
- for info_lastcheck in lastcheck:
-  lastcheck_label.insert(END, info_lastcheck )
-  lastcheck_label.config(state=DISABLED)
- window.after(5000, last_chk); 
- 
- 
-def message_Delay():
- messageDelay = open(file="/home/" + username + "/.local/share/Archmain/data/messageDelay")
- messageDelay_label_title = tk.Label(master=window, text="  Next: ", font=('SF Pro Display',12), bg="#303134", fg="#b0b3b8")
- messageDelay_label_title.place(x=875, y=92)
- messageDelay_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="orange", borderwidth = 0, highlightthickness = 0,)
- messageDelay_label.place(x=940, y=93)
-
- for info_messageDelay in messageDelay:
-  messageDelay_label.insert(END, info_messageDelay )
-  messageDelay_label.config(state=DISABLED)
- window.after(5000, message_Delay); 
-
-
-
-def Check_now():
-    import time
-    progress['value'] = 5
-    labprogress.insert(0,"5%     ")
-    window.update_idletasks()
-    time.sleep(0.5)
-
-    progress['value'] = 30
-    labprogress.insert(0,"30%     ")
-    window.update_idletasks()
-    time.sleep(1)
-  
-    progress['value'] = 65
-    labprogress.insert(0,"65%      ")
-    window.update_idletasks()
-    time.sleep(0.5)
-  
-    os.system('/home/' + username + '/.local/share/Archmain/bin/chnw.sh')
-
-    progress['value'] = 95
-    labprogress.insert(0,"95%      ")
-    window.update_idletasks()
-    time.sleep(1.5)
-
-    progress['value'] = 100
-    labprogress.insert(0,"100%      ")
-    window.update_idletasks()
-    time.sleep(0.5)
-
-    progress['value'] = 0
-    labprogress.insert(0,"                        ")
-    window.update_idletasks()
-    time.sleep(0.1)
-    
-btn=tk.Button(window, height=1, width=7, text="Check Now", font=('SF Pro Display',10), bg='#0f94d2', fg="#FFF", borderwidth = 0, highlightthickness = 0, command=Check_now)
-btn.place(x=1090, y=92)
-
-
 
 #@lastup
 def log():
@@ -677,41 +622,77 @@ def log():
     time.sleep(0.1)
 
 
-btnInstall=tk.Button(window, height=1, width=7, text="Last Update", font=('SF Pro Display',10), bg='orange', fg="#000", borderwidth = 0, highlightthickness = 0, command=log)
-btnInstall.place(x=1180, y=92)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+btnInstall=tk.Button(window, height=1, width=2, text="",font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="orange", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=log)
+btnInstall.place(x=6, y=551)
+rb_label_title = tk.Label(master=window, text="Last installed Updates", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+rb_label_title.place(x=40, y=552)
 
 # bottom install only pacman 
 def install_pac():
     os.system('/home/' + username + '/.local/share/Archmain/bin/pcm.sh')
    
-    
-    
-btnInstall=tk.Button(window, height=1, width=8, text="Exclude AUR", font=('SF Pro Display',10), bg='#dfd', fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=install_pac)
-btnInstall.place(x=400, y=405,)
+  
+btnInstall=tk.Button(window, height=1, width=2, text="", font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="magenta", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=install_pac)
+btnInstall.place(x=6, y=581,)
+pcm_label_title = tk.Label(master=window, text="Exclude AUR Updates", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+pcm_label_title.place(x=40, y=582)
+
+
+ 
+ 
+ 
+ # ------------------------------------------------------------------------- top header
+ 
+
+user = open(file="/home/" + username + "/.local/share/Archmain/data/usr")
+tx_user = Text(master=window, width=24, height=1, font=('SF Pro Display',13), bg="#303134", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0,)
+tx_user.place(x=40, y=92)
+ 
+for usr in user:
+  tx_user.insert(END, "  " + usr )
+  tx_user.config(state=DISABLED)
+ 
+ 
+ 
+def last_chk():
+ lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
+ label=tk.Label(window, text="  Last check: ",font=('SF Pro Display',12), fg="#b0b3b8", bg='#303134').place(x=525, y=92,)
+ lastcheck_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
+ lastcheck_label.place(x=635, y=93)
+
+ for info_lastcheck in lastcheck:
+  lastcheck_label.insert(END, info_lastcheck )
+  lastcheck_label.config(state=DISABLED)
+ window.after(5000, last_chk); 
+ 
+ 
+def message_Delay():
+ messageDelay = open(file="/home/" + username + "/.local/share/Archmain/data/messageDelay")
+ messageDelay_label_title = tk.Label(master=window, text="  Next: ", font=('SF Pro Display',12), bg="#303134", fg="#b0b3b8")
+ messageDelay_label_title.place(x=805, y=92)
+ messageDelay_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="orange", borderwidth = 0, highlightthickness = 0,)
+ messageDelay_label.place(x=870, y=93)
+
+ for info_messageDelay in messageDelay:
+  messageDelay_label.insert(END, info_messageDelay )
+  messageDelay_label.config(state=DISABLED)
+ window.after(5000, message_Delay); 
+
+
+
+
+
 
 # bottom install updates
 def install_Updates():
     os.system('/home/' + username + '/.local/share/Archmain/bin/aur.sh')
     
-btnInstall=tk.Button(window, height=1, width=5, text="Install", font=('SF Pro Display',10), bg='#dfd', fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=install_Updates)
-btnInstall.place(x=600, y=405,)
+btnInstall=tk.Button(window, height=1, width=10, text="Update Now  ", font=('SF Pro Display',12), bg="#303134", activebackground="#303134", activeforeground="#25db51", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=install_Updates)
+btnInstall.place(x=1125, y=90,)
+#label=tk.Label(window, text="",font=('SF Pro Display',12), fg="#b0b3b8", bg='#303134').place(x=1130, y=92,)
 
 
+ 
 
 
 
@@ -779,7 +760,7 @@ window.after(100, pkgs_upd)
 window.after(100,kernel_upd)
 window.after(100, message_Delay)
 window.after(100, last_chk) 
-#window.after(100, list_upd)
+window.after(100, list_upd)
 window.after(100, pending_upd)
 window.after(100, ram_upd)
 window.after(100, currServer)
