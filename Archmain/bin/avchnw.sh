@@ -38,7 +38,6 @@ list="$HOME/.local/share/Archmain/data/listupdates"
 
 get_Variables(){
 AVset=$(cat "$HOME/.local/share/Archmain/data/avset")
-MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
 DIRSIZE=$(du -sh $DIR 2>/dev/null | cut -f1);
 DIR=$(cat "$HOME/.local/share/Archmain/data/avdir") #---------- "/" default set all system
 }
