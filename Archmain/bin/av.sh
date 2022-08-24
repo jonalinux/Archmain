@@ -40,7 +40,7 @@ config="$HOME/.local/share/Archmain/data/config"
 get_Variables(){
 TIME=$(date +%H)
 AVset=$(cat "$HOME/.local/share/Archmain/data/avset")
-MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
+
 DIR=$(cat "$HOME/.local/share/Archmain/data/avdir") #---------- "/" default set all system
 }
   
@@ -57,7 +57,7 @@ else
       if [ "$TIME" -eq "$AVset" ]; then #---------if clamav is installed on the system, check if it is the correct time to perform the scan.
                   
                   nice -n19 clamscan -ri $DIR > "$LOGFILE";
-
+                  MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
                  if [ "$MALWARE" -eq "0" ];then
                        cp -r "$gr" "$config"
                        mv "$grini" "$ini3"
