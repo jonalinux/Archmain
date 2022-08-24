@@ -211,6 +211,13 @@ GenericName=data
 Exec=/home/$USER/.local/share/Archmain/bin/data.sh
 Type=Application" > data.desktop
 
+echo "
+[Desktop Entry]
+Name=av
+GenericName=av
+Exec=/home/$USER/.local/share/Archmain/bin/av.sh
+Type=Application" > av.desktop
+
 #configure python app
 echo "
 [Desktop Entry]
@@ -231,8 +238,12 @@ cp -r Archmain/fonts ~/.local/share/
 cp -r Archmain ~/.local/share/
 
 cp -r  data.desktop ~/.config/autostart/
-cp -r Archmainpy.desktop ~/.local/share/applications/
+cp -r  av.desktop ~/.config/autostart/
+cp -r  Archmainpy.desktop ~/.local/share/applications/
 
+chmod +x ~/.local/share/Archmain/bin/av.sh 
+chmod +x ~/.local/share/Archmain/bin/avchnw.sh 
+chmod +x ~/.local/share/Archmain/bin/avSetUp.sh 
 chmod +x ~/.local/share/Archmain/bin/aur.sh 
 chmod +x ~/.local/share/Archmain/bin/pcm.sh    
 chmod +x ~/.local/share/Archmain/bin/data.sh 
