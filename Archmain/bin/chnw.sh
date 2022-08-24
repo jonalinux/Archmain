@@ -25,7 +25,7 @@ orini="$HOME/.local/share/Archmain/data/config/or.ini"
 config="$HOME/.local/share/Archmain/data/config"
 urltemp="$HOME/.local/share/Archmain/data/temp"
 
-
+echo '' > $list
 
 #Variable Cmd
 get_Variables(){
