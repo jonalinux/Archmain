@@ -31,7 +31,6 @@ username = getpass.getuser()
 p1 = PhotoImage(file="/home/" + username + "/.local/share/Archmain/icon/icon2.png")
 window.iconphoto(False, p1)   
 
-os.system('echo "' + username + ' " > "/home/"' + username + '"/.local/share/Archmain/data/usr"')
  
 #top 
 image = tk.PhotoImage(file="/home/" + username + "/.local/share/Archmain/img/logo.png")
@@ -67,6 +66,21 @@ for ver in github:
    numversion.insert(END, ver )
 numversion.config(state=DISABLED)
 
+
+
+
+
+def callback(url):
+    webbrowser.open_new(url)
+    
+link1 = Label(window, text="", font=('SF Pro Display',20), bg="#303134", activebackground="#303134", activeforeground="#25db51", fg="#F5F5F7", borderwidth = 0, highlightthickness = 0, cursor="hand2")
+link1.place(x=1200, y=10)
+link1.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain/wiki"))   
+
+
+
+
+#progressbar
 
 
 s = ttk.Style()
@@ -843,20 +857,20 @@ avlog_label_title.place(x=40, y=702)
  
 
 user = open(file="/home/" + username + "/.local/share/Archmain/data/usr")
-tx_user = Text(master=window, width=12, height=1, font=('SF Pro Display',13), bg="#303134", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0,)
-tx_user.place(x=40, y=92)
+tx_user = Text(master=window, width=20, height=1, font=('SF Pro Display',12), bg="#303134", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0,)
+tx_user.place(x=20, y=94)
  
 for usr in user:
-  tx_user.insert(END, "  " + usr )
+  tx_user.insert(END, usr )
   tx_user.config(state=DISABLED)
  
  
  
 def last_chk():
  lastcheck = open(file="/home/" + username + "/.local/share/Archmain/data/lastcheck")
- label=tk.Label(window, text="  Last check: ",font=('SF Pro Display',12), fg="#b0b3b8", bg='#303134').place(x=175, y=92,)
+ label=tk.Label(window, text="  Last check: ",font=('SF Pro Display',12), fg="#b0b3b8", bg='#303134').place(x=235, y=92,)
  lastcheck_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="#0f94d2", borderwidth = 0, highlightthickness = 0,)
- lastcheck_label.place(x=285, y=93)
+ lastcheck_label.place(x=345, y=93)
 
  for info_lastcheck in lastcheck:
   lastcheck_label.insert(END, info_lastcheck )
@@ -867,9 +881,9 @@ def last_chk():
 def message_Delay():
  messageDelay = open(file="/home/" + username + "/.local/share/Archmain/data/messageDelay")
  messageDelay_label_title = tk.Label(master=window, text="  Next: ", font=('SF Pro Display',12), bg="#303134", fg="#b0b3b8")
- messageDelay_label_title.place(x=455, y=92)
+ messageDelay_label_title.place(x=505, y=92)
  messageDelay_label = Text(master=window,  width=14, height=1,font=('SF Pro Display',12), bg="#303134", fg="orange", borderwidth = 0, highlightthickness = 0,)
- messageDelay_label.place(x=520, y=93)
+ messageDelay_label.place(x=570, y=93)
 
  for info_messageDelay in messageDelay:
   messageDelay_label.insert(END, info_messageDelay )
@@ -886,15 +900,15 @@ def InsRmv():
    
 
 options = tk.Entry(window, width=6, borderwidth = 0, highlightthickness = 0, bg="#404144", fg='#FFF', font=('SF Pro Display',12), insertbackground='#0f94d2' )
-options.place(x=700, y=96)
+options.place(x=730, y=96)
 options.insert(0," -S") 
 form = tk.Entry(window, width=24, borderwidth = 0, highlightthickness = 0, bg="#404144", fg='#FFF', font=('SF Pro Display',12), insertbackground='#0f94d2' )
-form.place(x=768, y=96)
+form.place(x=798, y=96)
 form.insert(0," PackageName") 
 form_title = tk.Label(master=window, text="Install or Remove AUR & Pacman packages", font=('SF Pro Display',10), bg="#303134", fg="#B6B6B7")
-form_title.place(x=700, y=72)
+form_title.place(x=730, y=72)
 btnPkgs=tk.Button(window, cursor="hand2", height=1, width=3, text="Run", bg='#0f94d2' , fg="#FFF", font=('SF Pro Display',10), borderwidth = 0, highlightthickness = 0, command=InsRmv)
-btnPkgs.place(x=1015, y=92)
+btnPkgs.place(x=1045, y=92)
 
 
 
