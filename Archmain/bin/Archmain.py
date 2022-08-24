@@ -23,9 +23,9 @@ import time
 
 window=tk.Tk(className='Archmain')
 window.title('Archmain')
-window.geometry("1280x768+10+20")
-window.maxsize(1280, 768)
-window.minsize(1280, 768)
+window.geometry("1280x800+10+20")
+window.maxsize(1280, 800)
+window.minsize(1280, 800)
 window.configure(bg='#202124')
 username = getpass.getuser()
 p1 = PhotoImage(file="/home/" + username + "/.local/share/Archmain/icon/icon2.png")
@@ -58,9 +58,9 @@ menu.place(x=0, y=75)
  
 #footer
 footer = tk.Frame(master=window, width=1280, height=30, bg="#303134", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-footer.place(x=0, y=740)
+footer.place(x=0, y=772)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo, Ivan Karavitis. ", font=('SF Pro Display',9), bg="#303134", fg="#B6B6B7")
-author.place(x=520, y=744)
+author.place(x=520, y=776)
 
 github = open(file="/home/" + username + "/.local/share/Archmain/data/currentVersion")
 for ver in github:
@@ -138,15 +138,18 @@ def pending_upd():
  pending_label.config(state=DISABLED)
  window.after(5000, pending_upd)
  
- 
+
  
 def Check_now():
     import time
+    
     progress['value'] = 5
     labprogress.insert(0,"5%     ")
     window.update_idletasks()
     time.sleep(0.5)
-
+    
+    
+    
     progress['value'] = 30
     labprogress.insert(0,"30%     ")
     window.update_idletasks()
@@ -156,7 +159,7 @@ def Check_now():
     labprogress.insert(0,"65%      ")
     window.update_idletasks()
     time.sleep(0.5)
-  
+    
     os.system('/home/' + username + '/.local/share/Archmain/bin/chnw.sh')
 
     progress['value'] = 95
@@ -620,6 +623,219 @@ pcm_label_title = tk.Label(master=window, text="Exclude AUR Updates", font=('SF 
 pcm_label_title.place(x=40, y=582)
 
 
+
+def avinfo():
+ colors = open(file="/home/" + username + "/.local/share/Archmain/data/config/avset.ini") 
+ pending = open(file="/home/" + username + "/.local/share/Archmain/data/avinfo")
+ pending_label_title = tk.Label(master=window, text="ClamAV:", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+ pending_label_title.place(x=40, y=612)
+ pending_label = Text(master=window,  width=22, height=1,font=('SF Pro Display',12), bg="#232429", borderwidth = 0, highlightthickness = 0,)
+ pending_label.place(x=105, y=613)
+ 
+ for cav in colors:
+  pending_label.config(fg=cav)
+ 
+ for info_pending in pending:
+   pending_label.insert(END, info_pending )
+ pending_label.config(state=DISABLED)
+ window.after(5000, avinfo)
+
+def av_Check_now():
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+  
+    os.system('/home/' + username + '/.local/share/Archmain/bin/avchnw.sh')
+
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    
+btn=tk.Button(window, cursor="hand2", height=1, width=2, text="",  font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="#25db51", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=av_Check_now)
+btn.place(x=6, y=611)
+
+
+
+
+def av_set():
+    import time
+    progress['value'] = 15
+    labprogress.insert(0,"15%     ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+    progress['value'] = 45
+    labprogress.insert(0,"45%     ")
+    window.update_idletasks()
+    time.sleep(0.1)
+  
+    progress['value'] = 75
+    labprogress.insert(0,"75%      ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    result=avst_label.get() 
+    os.system("echo '"+ result +"' > " + " /home/" + username + "/.local/share/Archmain/data/avset;")
+    os.system('/home/' + username + '/.local/share/Archmain/bin/avSetUp.sh')
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    
+avsttt =open(file="/home/" + username + "/.local/share/Archmain/data/avset")    
+btnSet3=tk.Button(window, cursor="hand2", height=1, width=2, text="",font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="#0f94d2", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=lambda:[av_set()])
+btnSet3.place(x=6, y=641)
+avst_label_title = tk.Label(master=window, text="AV Set Check", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+avst_label_title.place(x=40, y=642)
+avst_label = Entry(master=window,  width=3,font=('SF Pro Display',12), bg="#303134", fg="#FFF", borderwidth = 0, highlightthickness = 0,insertbackground="#0f94d2" )
+avst_label.place(x=145, y=643)
+avst_label.insert(0, "000")
+
+
+
+def av_set_status():
+  avst = open(file="/home/" + username + "/.local/share/Archmain/data/avCurrentSet")
+  avst_label = Text(master=window,  height=1, width=20,font=('SF Pro Display',10), bg="#232429", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
+  avst_label.place(x=180,  y=645)
+  
+  for avsetx in avst:
+   avst_label.insert(END, avsetx )
+   avst_label.config(state=DISABLED)
+   window.after(2500, av_set_status); 
+
+
+def av_dirset():
+    import time
+    progress['value'] = 15
+    labprogress.insert(0,"15%     ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+    progress['value'] = 45
+    labprogress.insert(0,"45%     ")
+    window.update_idletasks()
+    time.sleep(0.1)
+  
+    progress['value'] = 75
+    labprogress.insert(0,"75%      ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    result=avdr_label.get() 
+    os.system("echo '"+ result +"' > " + " /home/" + username + "/.local/share/Archmain/data/avdir")
+    os.system('/home/' + username + '/.local/share/Archmain/bin/avSetUp.sh')
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+    
+avdrrr =open(file="/home/" + username + "/.local/share/Archmain/data/avdir")    
+btnSet2=tk.Button(window, cursor="hand2", height=1, width=2, text="",font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="#0f94d2", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=lambda:[av_dirset()])
+btnSet2.place(x=6, y=671)
+avdr_label_title = tk.Label(master=window, text="AV Dir to scan", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+avdr_label_title.place(x=40, y=672)
+avdr_label = Entry(master=window,  width=6,font=('SF Pro Display',12), bg="#303134", fg="#FFF", borderwidth = 0, highlightthickness = 0,insertbackground="#0f94d2" )
+avdr_label.place(x=145, y=673)
+avdr_label.insert(0, " /")
+
+
+
+def av_dirset_status():
+  avdr = open(file="/home/" + username + "/.local/share/Archmain/data/avdir")
+  avdr_label = Text(master=window,  height=1, width=15,font=('SF Pro Display',10), bg="#232429", fg="#0f94d2", borderwidth = 0, highlightthickness = 0, )
+  avdr_label.place(x=220,  y=675)
+ 
+  for avdrx in avdr:
+   avdr_label.insert(END, avdrx )
+   avdr_label.config(state=DISABLED)
+   window.after(2500, av_dirset_status); 
+
+
+
+def avlog():
+    import time
+    progress['value'] = 5
+    labprogress.insert(0,"5%     ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 30
+    labprogress.insert(0,"30%     ")
+    window.update_idletasks()
+    time.sleep(1)
+  
+    progress['value'] = 65
+    labprogress.insert(0,"65%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+    
+    os.system('cp  /home/' + username + '/.local/share/Archmain/data/avlog  /home/' + username + '/.local/share/Archmain/data/listupdates; ')
+
+    progress['value'] = 95
+    labprogress.insert(0,"95%      ")
+    window.update_idletasks()
+    time.sleep(1.5)
+
+    progress['value'] = 100
+    labprogress.insert(0,"100%      ")
+    window.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 0
+    labprogress.insert(0,"                        ")
+    window.update_idletasks()
+    time.sleep(0.1)
+
+
+btn=tk.Button(window, cursor="hand2", height=1, width=2, text="",font=('SF Pro Display',11), bg="#232429", activebackground="#232429", activeforeground="orange", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0, command=avlog)
+btn.place(x=6, y=701)
+avlog_label_title = tk.Label(master=window, text="Last Clamscan log", font=('SF Pro Display',12), bg="#232429", fg="#b0b3b8")
+avlog_label_title.place(x=40, y=702)
+
+
+
+
  
  
  
@@ -748,9 +964,9 @@ def color_btn():
 # btn = Button(window, text ="Credits", font=('SF Pro Display', 8), bg="#303134", fg="#0f94d2",  borderwidth = 0, highlightthickness = 0,command = openNewWindow)
 # btn.place(x=190, y=593)
 
-
-
-
+window.after(100, av_dirset_status); 
+window.after(100, av_set_status); 
+window.after(100, avinfo)
 window.after(100, color_btn); 
 window.after(100, status_check); 
 window.after(100, status_Delay); 

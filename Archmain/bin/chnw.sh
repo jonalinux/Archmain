@@ -25,6 +25,8 @@ orini="$HOME/.local/share/Archmain/data/config/or.ini"
 config="$HOME/.local/share/Archmain/data/config"
 urltemp="$HOME/.local/share/Archmain/data/temp"
 
+
+
 #Variable Cmd
 get_Variables(){
 AUR=$(pikaur -Qqua ;)
@@ -35,8 +37,7 @@ DataTime=$(date '+%a %d %b %H:%M '  )
 }
 
 get_Variables
-echo "$USER@$HOSTNAME" > "$list"
-echo ' ' >> "$list"
+
 
 if [ "$Pending" -eq 1 ]; then
   echo "$Pending Update Pending" > "$pending"
@@ -55,7 +56,7 @@ if [ "$Pending" -eq 1 ]; then
   mv "$orini" "$ini2"
   else
    echo "System Updated " > "$pending"
-   echo ' Last Check Performed manually: System Updated' >> "$list"
+   echo 'System Updated' > "$list"
    cp -r "$gr" "$config"
    mv "$grini" "$ini"
    cp -r "$no" "$config"

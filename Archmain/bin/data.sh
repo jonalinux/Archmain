@@ -9,7 +9,7 @@
 #Setting ------------------------------------------------------------------------
 VERSION="223"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
-ICON="$HOME/.local/share/Archmain/img/logo.png" ;
+ICON="$HOME/.local/share/Archmain/img/logo.png"
 
 #py
 py="$HOME/.local/share/Archmain/bin/Archmain.py"
