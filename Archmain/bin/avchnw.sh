@@ -62,7 +62,7 @@ else
                 # nice -n5 clamscan -ri $DIR > "$LOGFILE" 
                 
                 clamscan -ri $DIR > "$LOGFILE" 
-
+                MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
                  cp -r "$LOGFILE" "$list"
                  if [ "$MALWARE" -eq "0" ];then
                        cp -r "$gr" "$config"
