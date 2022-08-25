@@ -1,1 +1,3 @@
-Added settings for the Archmain script with ClamAV, this novelty does not impose a dependency it will be possible to enable or disable this feature.
+v225 Added script for update version from notifier, 
+v224 Added settings for the Archmain script with ClamAV, 
+this novelty does not impose a dependency it will be possible to enable or disable this feature.
