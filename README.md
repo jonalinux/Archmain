@@ -5,7 +5,7 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
 
 # Last release v225
-Notification update added, it is no longer important to clone the entire project for normal updates on the script code, just click on the update button and wait for the notification to restart the system, from 225 onwards.
+Notification update added, it is no longer important to clone the entire project for normal updates on the script code, just click on the update button and wait for the notification to restart the system, from 225 onwards. Any previous settings on archmain will be kept without resetting all over again.
 
 ![Screenshot from 2022-08-24 21-50-51](https://user-images.githubusercontent.com/103053714/186520912-03b5161a-d71e-4226-a28d-3d983c97289d.png)
 
