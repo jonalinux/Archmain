@@ -175,7 +175,8 @@ if [ "$checkVersion" -gt "$VERSION" ]; then
    ACTION=$(notify-send -i "$ICON"  --action="Update at $checkVersion"  -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical)
              case "$ACTION" in
                       "0")
-                         $updt
+                         $updt;
+                         
                           
                          ;;  
              esac
