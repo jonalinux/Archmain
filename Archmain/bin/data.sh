@@ -110,7 +110,7 @@ fi;
 #Pending
 if [ "$Pending" -eq 1 ]; then
              echo "$Pending Update Pending" > "$pending"
-             echo "$ListUpdates" "$AUR"  >> "$list"
+             echo "$ListUpdates" "$AUR"  > "$list"
              cp -r "$or" "$config"
              mv "$orini" "$ini"
              cp -r "$or" "$config"
@@ -133,7 +133,7 @@ if [ "$Pending" -eq 1 ]; then
                 esac
 elif [ "$Pending" -ge 1 ]; then
              echo "$Pending Updates Pending" > "$pending"
-             echo "$ListUpdates" "$AUR"  >> "$list"
+             echo "$ListUpdates" "$AUR"  > "$list"
              cp -r "$or" "$config"
              mv "$orini" "$ini"
              cp -r "$or" "$config"
