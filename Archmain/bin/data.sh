@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="224"
+VERSION="225"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png"
 
@@ -166,10 +166,17 @@ fi
 #checkversion
 checkVersion=$(cat $version)
 infomess=$(cat $info)
+updt="$HOME/.local/share/Archmain/bin/updt.sh"
 if [ "$checkVersion" -gt "$VERSION" ]; then
-  
-notify-send -i "$ICON"    -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical;
-               
+   echo "" > "$list"
+   echo "new update version available $checkVersion" >> "$list"
+   ACTION=$(notify-send -i "$ICON"  --action="Update at $checkVersion"  -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical;)
+             case "$ACTION" in
+                      "0")
+                         $updt
+                          
+                         ;;  
+             esac
 else
 
 echo ''
