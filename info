@@ -1,3 +1,2 @@
-v225 Added script for update version from notifier, 
-v224 Added settings for the Archmain script with ClamAV, 
-this novelty does not impose a dependency it will be possible to enable or disable this feature.
+v225 Added a script for Archmain updates, it will no longer be necessary to clone each version, just click on the notification of the new version to update in a few seconds.
+from v224 we have implemented the ability to manage daily scans through ClamAV with our script, it is not mandatory to use ClamAV it will not be an Archmain dependency but a choice, it is in fact possible to choose whether to enable the function or not. for more info on Archmain and how it works read the Wiki.
