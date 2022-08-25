@@ -9,7 +9,13 @@
 
 
 
+## Follow the Wiki! 
+https://github.com/JonathanSanfilippo/Archmain/wiki 
 
+## Discussion
+https://github.com/JonathanSanfilippo/Archmain/discussions
+
+## Video Examples
 https://user-images.githubusercontent.com/103053714/186274523-55d48dc8-b2e4-4cec-9cfb-bc68f5b5cc73.mp4
 
 
@@ -23,15 +29,15 @@ https://user-images.githubusercontent.com/103053714/186274523-55d48dc8-b2e4-4cec
 - ./install.sh
 
 
+## Update Version
+Added a script for Archmain updates, it will no longer be necessary to clone each version, just click on the notification of the new version to update in a few seconds.
+
+
 ## Uninstall
 - chmod +x ./uninstall
 - ./uninstall
 
-## Follow the Wiki! 
-https://github.com/JonathanSanfilippo/Archmain/wiki 
 
-## Discussion
-https://github.com/JonathanSanfilippo/Archmain/discussions
 
 
 
