@@ -241,6 +241,7 @@ cp -r  data.desktop ~/.config/autostart/
 cp -r  av.desktop ~/.config/autostart/
 cp -r  Archmainpy.desktop ~/.local/share/applications/
 
+chmod +x ~/.local/share/Archmain/bin/updt.sh 
 chmod +x ~/.local/share/Archmain/bin/av.sh 
 chmod +x ~/.local/share/Archmain/bin/avchnw.sh 
 chmod +x ~/.local/share/Archmain/bin/avSetUp.sh 
