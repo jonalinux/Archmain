@@ -42,6 +42,15 @@ echo ""
 echo "Cleaning file..."
 rm -rf "$temp"
 
-echo ""
+
+ACTION=$(notify-send -i "$ICON" --action="Reboot now"   -a "Archmain" "update finished reboot the system now."   -u critical;  )
+                case "$ACTION" in
+                      "0")
+                         reboot
+                         ;;
+                      
+                esac
+
+
 read -p "Press [Enter] key to finish update, and reboot your System!"
 echo ""
