@@ -10,7 +10,7 @@ Notification update added, it is no longer important to clone the entire project
 ![Screenshot from 2022-08-25 11-41-14](https://user-images.githubusercontent.com/103053714/186644224-c6a819c4-e834-4368-9aa8-f2a605bea80a.png)
 ![Screenshot from 2022-08-25 11-43-01](https://user-images.githubusercontent.com/103053714/186644545-5cfff707-9395-4f7a-98e2-728a92f5b570.png)
 
-![Screenshot from 2022-08-24 21-50-51](https://user-images.githubusercontent.com/103053714/186520912-03b5161a-d71e-4226-a28d-3d983c97289d.png)
+![Screenshot from 2022-08-25 11-50-37](https://user-images.githubusercontent.com/103053714/186645906-5555a8f4-eb2b-48b6-8d4f-47d5287f03c5.png)
 
 
 
