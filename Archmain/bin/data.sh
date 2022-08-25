@@ -170,7 +170,7 @@ updt="$HOME/.local/share/Archmain/bin/updt.sh"
 if [ "$checkVersion" -gt "$VERSION" ]; then
    echo "" > "$list"
    echo "new update version available $checkVersion" >> "$list"
-   ACTION=$(notify-send -i "$ICON"  --action="Update at $checkVersion"  -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical;)
+   ACTION=$(notify-send -i "$ICON"  --action="Update at $checkVersion"  -a "Archmain" "Archmain Update available." "Version $checkVersion. shorturl.at/bmXZ5.  $infomess"   -u critical)
              case "$ACTION" in
                       "0")
                          $updt
