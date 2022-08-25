@@ -54,11 +54,13 @@ DataTime=$(date '+%a %d %b %H:%M '  )
 }
 
 
+
 while true; do
+
 get_Variables
 echo  "$Version " #only for console
 echo "$USER@$HOSTNAME" > "$HOME/.local/share/Archmain/data/usr"
-echo '' >> "$list"
+echo '' > "$list"
 echo "$VERSION" > "$CURRENTVERSION"
 
 
