@@ -4,7 +4,7 @@
 # Date Fri Jul 29 2022
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
 
-
+ICON="$HOME/.local/share/Archmain/img/logo.png"
 updt="https://github.com/JonathanSanfilippo/Archmain/archive/refs/heads/main.zip"
 url="main.zip"
 temp="$HOME/temp"
