@@ -28,6 +28,7 @@ echo ""
 echo "Updating new version... $nv"
 mv "$zip" "$temp"
 cp -r "$bin" "$des"
+chmod +x ~/.local/share/Archmain/bin/insrm.sh 
 chmod +x ~/.local/share/Archmain/bin/updt.sh 
 chmod +x ~/.local/share/Archmain/bin/av.sh 
 chmod +x ~/.local/share/Archmain/bin/avchnw.sh 
