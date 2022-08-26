@@ -56,10 +56,12 @@ menu = tk.Frame(master=window, width=1280, height=50, bg="#303134", highlightthi
 menu.place(x=0, y=75)
  
 #footer
-footer = tk.Frame(master=window, width=1280, height=30, bg="#303134", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+footer2 = tk.Frame(master=window, width=980, height=50, bg="#232429", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+footer2.place(x=360, y=722)
+footer = tk.Frame(master=window, width=1280, height=30, bg="#232429", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
 footer.place(x=0, y=772)
-author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo, Ivan Karavitis. ", font=('SF Pro Display',9), bg="#303134", fg="#B6B6B7")
-author.place(x=520, y=776)
+author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo, Ivan Karavitis. ", font=('SF Pro Display',9), bg="#232429", fg="#B6B6B7")
+author.place(x=1035, y=776)
 
 github = open(file="/home/" + username + "/.local/share/Archmain/data/currentVersion")
 for ver in github:
@@ -87,13 +89,13 @@ s = ttk.Style()
 s.theme_use('clam')
 s.configure("x.Horizontal.TProgressbar", foreground='#232429', background='#25db51', troughcolor='#202124', bordercolor='#202124')
 progress_bk = tk.Frame(master=window, width=250, height=0, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=446, y=700)
-progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=700,mode='determinate')
-progress.place(x=450, y=700)
-progress_bk = tk.Frame(master=window, width=700, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=450, y=712)
-progress_bk = tk.Frame(master=window, width=700, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
-progress_bk.place(x=450, y=700)
+progress_bk.place(x=371, y=700)
+progress=ttk.Progressbar(window,style="x.Horizontal.TProgressbar", orient=HORIZONTAL,length=800,mode='determinate')
+progress.place(x=365, y=700)
+progress_bk = tk.Frame(master=window, width=800, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+progress_bk.place(x=365, y=712)
+progress_bk = tk.Frame(master=window, width=800, height=4, bg="#202124", highlightthickness=0,highlightbackground = "#0f94d2", highlightcolor= "#0f94d2")
+progress_bk.place(x=365, y=700)
 labprogress=tk.Entry(window, width=4, font=('SF Pro Display',11), bg="#202124", fg="#b0b3b8", borderwidth = 0, highlightthickness = 0)
 labprogress.insert(0," ")
 labprogress.place(x=1200, y=698)
@@ -915,12 +917,21 @@ btnPkgs.place(x=1045, y=92)
 
 # bottom install updates
 def install_Updates():
+  ignore=formex.get()
+  os.system("echo '"+ ignore +"' > " + " /home/" + username + "/.local/share/Archmain/bin/ignore")
   os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");    $TERMINAL /home/' + username + '/.local/share/Archmain/bin/aur.sh')
   
+formex = tk.Entry(window, width=70, borderwidth = 0, highlightthickness = 0, bg="#303134", fg='#FFF', font=('SF Pro Display',12), insertbackground='#0f94d2' )
+formex.place(x=558, y=730)
+formex.insert(0," --ignore Packages") 
+formex_title = tk.Label(master=window, text="Exclude Packages from Update", font=('SF Pro Display',10), bg="#232429", fg="#B6B6B7")
+formex_title.place(x=365, y=730)
+
+
 def color_btn():  
   colors = open(file="/home/" + username + "/.local/share/Archmain/data/config/set2.ini")
   btnInstall=tk.Button(window, height=1, width=10, text="Update Now  ", font=('SF Pro Display',12), bg="#303134", activebackground="#303134", activeforeground="#25db51", borderwidth = 0, highlightthickness = 0, cursor="hand2", command=install_Updates)
-  btnInstall.place(x=1125, y=90,)
+  btnInstall.place(x=1135, y=92,)
   
   
   for cx2 in colors:

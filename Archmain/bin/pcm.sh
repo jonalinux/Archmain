@@ -10,7 +10,7 @@
 #Variable URL
 chnw="$HOME/.local/share/Archmain/bin/chnw.sh"
 urltemp="$HOME/.local/share/Archmain/data/temp"
-
+ignore=$(cat "$HOME/.local/share/Archmain/bin/ignore")
 
 
 echo "Writing a log file"; 
@@ -18,7 +18,7 @@ echo $(date) > "$urltemp"
 echo  "last updates" >> "$urltemp"
 echo ""
 checkupdates   >> "$urltemp"
-sudo pacman -Syu
+sudo pacman -Syu $ignore
 echo ""
 echo ""
 read -p "Press [Enter] key to save list updates.."
