@@ -5,7 +5,8 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
 
 # Last release v226
-![Screenshot from 2022-08-26 12-02-06](https://user-images.githubusercontent.com/103053714/186890138-aa681223-ab2b-4cd4-bee0-2967c5b3dd4d.png)
+
+![Screenshot from 2022-08-26 12-09-46](https://user-images.githubusercontent.com/103053714/186891214-06a93d1e-7660-4503-a991-dcf4c19e7b6d.png)
 
 
 ## Follow the Wiki! 
