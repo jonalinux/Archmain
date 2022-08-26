@@ -1,1 +1,2 @@
-v226 Added Exclude packages from updates, It is possible through this package from the AUR and pacman form updates.
+v227 in v227 the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
+-S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
