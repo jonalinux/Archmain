@@ -1,2 +1,2 @@
-v227 in v227 the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
+in v227 the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
 -S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
