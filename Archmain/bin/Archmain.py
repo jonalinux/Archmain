@@ -63,6 +63,16 @@ footer.place(x=0, y=772)
 author = tk.Label(master=window, text="© 2022 Jonathan Sanfilippo, Ivan Karavitis. ", font=('SF Pro Display',9), bg="#232429", fg="#B6B6B7")
 author.place(x=1035, y=776)
 
+
+def wiki(url):
+    webbrowser.open_new(url)
+ 
+wiki = Button(window, text ="  Wiki", cursor="hand2", font=('SF Pro Display', 10), bg="#232429", activebackground="#232429", activeforeground="#0f94d2", fg="#B0B3B8",  borderwidth = 0, highlightthickness = 0)
+wiki.place(x=0, y=770)
+wiki.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain/wiki")) 
+
+
+
 github = open(file="/home/" + username + "/.local/share/Archmain/data/currentVersion")
 for ver in github:
    numversion.insert(END, ver )
@@ -77,7 +87,7 @@ def callback(url):
     
 link1 = Label(window, text="", font=('SF Pro Display',20), bg="#303134", activebackground="#303134", activeforeground="#25db51", fg="#F5F5F7", borderwidth = 0, highlightthickness = 0, cursor="hand2")
 link1.place(x=1200, y=10)
-link1.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain/wiki"))   
+link1.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain"))   
 
 
 
@@ -898,7 +908,9 @@ def message_Delay():
 def InsRmv(): 
     package=form.get()
     option=options.get()
-    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal"); $TERMINAL "/usr/bin/pikaur ' + option + ' ' + package + ' " ')
+    os.system("echo '"+ package +"' > " + " /home/" + username + "/.local/share/Archmain/bin/xpkg")
+    os.system("echo '"+ option +"' > " + " /home/" + username + "/.local/share/Archmain/bin/xopt")
+    os.system('TERMINAL=$(cat "$HOME/.local/share/Archmain/data/terminal");    $TERMINAL /home/' + username + '/.local/share/Archmain/bin/insrm.sh')
    
 
 options = tk.Entry(window, width=6, borderwidth = 0, highlightthickness = 0, bg="#404144", fg='#FFF', font=('SF Pro Display',12), insertbackground='#0f94d2' )
@@ -940,27 +952,6 @@ def color_btn():
 
 
 
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
- 
-
-#-------------------------------------------------------------------------------------------------------------------------
-
 # # function to open a new window
 # # on a button click
 # def openNewWindow():
@@ -971,23 +962,25 @@ def color_btn():
  
 #     # sets the title of the
 #     # Toplevel widget
-#     newWindow.title("Credits")
+#     newWindow.title("Archmain man")
  
 #     # sets the geometry of toplevel
-#     newWindow.geometry("200x150")
-#     newWindow.maxsize(200,150)
-#     newWindow.minsize(200,150)
+#     newWindow.geometry("600x800")
+#     newWindow.maxsize(600,800)
+#     newWindow.minsize(600,800)
 #     newWindow.configure(bg='#232429')
 
 #     # A Label widget to show in toplevel
-#     Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#232429", fg="#b0b3b8").pack(side=TOP)
-#     Label(newWindow, text ="Ivan Karavitis", font=('SF Pro Display', 10 ), bg="#232429", fg="#b0b3b8").pack(side=TOP)
-#     Label(newWindow, text ="Jonathan Sanfilippo", font=('SF Pro Display', 10 ), bg="#232429", fg="#b0b3b8").pack(side=TOP)
-#     Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#232429", fg="#b0b3b8").pack(side=TOP)
-#     Label(newWindow, text =" ", font=('SF Pro Display', 10 ), bg="#232429", fg="#b0b3b8").pack(side=TOP)
+  
 
-# btn = Button(window, text ="Credits", font=('SF Pro Display', 8), bg="#303134", fg="#0f94d2",  borderwidth = 0, highlightthickness = 0,command = openNewWindow)
-# btn.place(x=190, y=593)
+
+
+
+
+
+ 
+
+
 
 window.after(100, av_dirset_status); 
 window.after(100, av_set_status); 
