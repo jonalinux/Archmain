@@ -7,7 +7,7 @@
 
 
 #Setting ------------------------------------------------------------------------
-VERSION="225"
+VERSION="226"
 CURRENTVERSION="$HOME/.local/share/Archmain/data/currentVersion"
 ICON="$HOME/.local/share/Archmain/img/logo.png"
 
