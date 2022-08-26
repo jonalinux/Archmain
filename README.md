@@ -7,6 +7,7 @@
 # Last release v227
 in the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
 -S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
+
 ![Screenshot from 2022-08-26 23-03-29](https://user-images.githubusercontent.com/103053714/186996622-f48d0cb0-2771-42a4-a522-73b720bb3a1e.png)
 
 
