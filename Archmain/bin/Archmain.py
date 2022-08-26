@@ -72,6 +72,13 @@ wiki.place(x=0, y=770)
 wiki.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain/wiki")) 
 
 
+def discussion(url):
+    webbrowser.open_new(url)
+ 
+discussion = Button(window, text =" Discussion", cursor="hand2", font=('SF Pro Display', 10), bg="#232429", activebackground="#232429", activeforeground="#0f94d2", fg="#B0B3B8",  borderwidth = 0, highlightthickness = 0)
+discussion.place(x=70, y=770)
+discussion.bind("<Button-1>", lambda e: callback("https://github.com/JonathanSanfilippo/Archmain/discussions")) 
+#
 
 github = open(file="/home/" + username + "/.local/share/Archmain/data/currentVersion")
 for ver in github:
