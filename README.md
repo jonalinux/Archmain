@@ -5,11 +5,7 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
 
 # Last release v228
-in the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
--S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
-
-![Screenshot from 2022-08-26 23-13-39](https://user-images.githubusercontent.com/103053714/186997370-777aacbb-a283-4494-9854-79e91c8a041b.png)
-
+![Screenshot from 2022-08-27 16-27-02](https://user-images.githubusercontent.com/103053714/187036796-c6ec7d7e-aaa4-4cbf-8411-1d0cfe18d408.png)
 
 
 ## v226 Added Exclude packages from updates
