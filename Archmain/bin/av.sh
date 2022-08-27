@@ -77,8 +77,8 @@ else
                                 $py
                                 ;;
                              esac
-            fi                 
-                 fi
+                 fi                 
+            fi
       elif  [ "$AVset" = "000" ]; then #-----if set 000 clamav its disabled
            cp -r "$av" "$config"
            mv "$avini" "$ini3"
