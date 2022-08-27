@@ -39,8 +39,10 @@ config="$HOME/.local/share/Archmain/data/config"
 
 get_Variables(){
 TIME=$(date +%H)
+data=$(date +%d)
+dailylog=$(tail "$LOGFILE"|grep "Start Date:"|cut -d":" -f4);
 AVset=$(cat "$HOME/.local/share/Archmain/data/avset")
-
+x="$data $AVset"
 DIR=$(cat "$HOME/.local/share/Archmain/data/avdir") #---------- "/" default set all system
 }
   
@@ -55,7 +57,9 @@ if ! [ -x "$(command -v clamscan --help)" ]; then #------------ check if clamav 
 else   
       
       if [ "$TIME" -eq "$AVset" ]; then #---------if clamav is installed on the system, check if it is the correct time to perform the scan.
-                  
+            if [ "$x" = "$dailylog" ]; then
+                echo "nothing"
+            else 
                   nice -n19 clamscan -ri $DIR > "$LOGFILE";
                   MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
                  if [ "$MALWARE" -eq "0" ];then
@@ -73,6 +77,7 @@ else
                                 $py
                                 ;;
                              esac
+            fi                 
                  fi
       elif  [ "$AVset" = "000" ]; then #-----if set 000 clamav its disabled
            cp -r "$av" "$config"
