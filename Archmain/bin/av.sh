@@ -86,7 +86,6 @@ else
       
       fi          
 fi
-sleep 1860 #------------- loop of the script every 31 min, important to center the time selected for the control, 
-           #              without repeating a scan twice at the same time set.
+sleep 1800 
 get_Variables           
 done
