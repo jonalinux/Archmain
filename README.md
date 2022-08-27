@@ -4,7 +4,7 @@
 
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
 
-# Last release v227
+# Last release v228
 in the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
 -S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
 
