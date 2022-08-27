@@ -1,2 +1,1 @@
-in the following pacman operations have been extended with AUR functionality, thanks to the possibility of inserting the option before the package name:
--S, -Ssq, -Si, -Sc, -Qu read more in the wiki.
+Fix of the bug that performed more than one scan at the same time with ClamAV, now the script checks if the check has already been performed at the specified time of the current day.
