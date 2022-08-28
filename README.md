@@ -11,9 +11,9 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 
 
 
-## Wiki! 
+## Instructions
 
-[All instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
+[Read more instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
 
 ### Install
 
