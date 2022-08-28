@@ -22,6 +22,13 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 - chmod +x ./install.sh
 - ./install.sh
 
+### Update Version
+Added a script for Archmain updates, it will no longer be necessary to clone each version, just click on the notification of the new version to update in a few seconds.
+
+### Uninstall
+- chmod +x ./uninstall
+- ./uninstall
+
 ## Discussion
 [We’re using Discussions as a place to connect with other members of our community.](https://github.com/JonathanSanfilippo/Archmain/discussions)
 
