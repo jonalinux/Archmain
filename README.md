@@ -15,6 +15,12 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 
 [All instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
 
+### Install
+
+- git clone https://github.com/JonathanSanfilippo/Archmain.git
+- cd Archmain-main
+- chmod +x ./install.sh
+- ./install.sh
 
 ## Discussion
 [We’re using Discussions as a place to connect with other members of our community.](https://github.com/JonathanSanfilippo/Archmain/discussions)
