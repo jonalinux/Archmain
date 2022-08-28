@@ -1,8 +1,14 @@
 
 
 # Archmain - Archlinux Manager GUI
+Archmain - Archlinux Manager GUI is an update notification script for the Arch Linux distribution, which allows you to install both Arch packages and AUR packages, and to manage important system settings.
 
-![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/185955930-c7ba0563-aeda-4e57-8bf5-614cbbc4d540.png)
+The Gui written in python shows a convenient dashboard for the user, where to check the system status.
+
+![Screenshot from 2022-08-27 22-33-44](https://user-images.githubusercontent.com/103053714/187074856-5a4d1c25-1271-47ce-8fe7-f541d86f373b.png)
+
+
+
 
 
 ## Wiki! 
