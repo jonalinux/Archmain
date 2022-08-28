@@ -13,8 +13,6 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 
 ## Instructions
 
-[Read more instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
-
 ### Install
 
 - git clone https://github.com/JonathanSanfilippo/Archmain.git
@@ -28,6 +26,11 @@ Added a script for Archmain updates, it will no longer be necessary to clone eac
 ### Uninstall
 - chmod +x ./uninstall
 - ./uninstall
+
+### Wiki!
+
+[Read more instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
+
 
 ## Discussion
 [We’re using Discussions as a place to connect with other members of our community.](https://github.com/JonathanSanfilippo/Archmain/discussions)
