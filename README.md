@@ -16,7 +16,7 @@
 ## Donate
 [Buy me a coffee!](https://www.paypal.com/donate/?hosted_button_id=8SPZX5QZY4WXC)
 
-[<img alt="paypal" width="150px" src="https://ciclabilisiciliane.com/wp-content/uploads/2018/01/PayPal.png" />](https://www.paypal.com/donate/?hosted_button_id=8SPZX5QZY4WXC)
+[<img alt="paypal" width="130px" src="https://ciclabilisiciliane.com/wp-content/uploads/2018/01/PayPal.png" />](https://www.paypal.com/donate/?hosted_button_id=8SPZX5QZY4WXC)
 
 
 
