@@ -27,7 +27,7 @@ Added a script for Archmain updates, it will no longer be necessary to clone eac
 - chmod +x ./uninstall
 - ./uninstall
 
-### Wiki!
+## Wiki!
 
 [Read more instructions in the archmain wiki.](https://github.com/JonathanSanfilippo/Archmain/wiki )
 
