@@ -7,7 +7,7 @@ Archmain - Archlinux Manager GUI is an update notification script for the Arch L
 
 The Gui written in python shows a convenient dashboard for the user, where to check the system status.
 
-![Screenshot from 2022-08-27 22-33-44](https://user-images.githubusercontent.com/103053714/187074856-5a4d1c25-1271-47ce-8fe7-f541d86f373b.png)
+![Screenshot from 2022-09-03 19-03-56](https://user-images.githubusercontent.com/103053714/188282975-05c1fe3b-555c-47a2-809e-4c823791fea4.png)
 
 
 
