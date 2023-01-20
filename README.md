@@ -18,7 +18,7 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 ### Install
 
 - git clone https://github.com/JonathanSanfilippo/Archmain.git
-- cd Archmain-main
+- cd Archmain
 - chmod +x ./install.sh
 - ./install.sh
 
