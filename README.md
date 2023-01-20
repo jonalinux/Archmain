@@ -21,6 +21,8 @@ The Gui written in python shows a convenient dashboard for the user, where to ch
 - cd Archmain
 - chmod +x ./install.sh
 - ./install.sh
+- sudo pacman -S tk 
+- Reboot
 
 ### Update Version
 Added a script for Archmain updates, it will no longer be necessary to clone each version, just click on the notification of the new version to update in a few seconds.
