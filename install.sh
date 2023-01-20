@@ -33,7 +33,7 @@ T9="qterminal"
 T10="terminator"
 T11="tilix"
 T12="xterm"
-
+#T13="kitty-terminal" progress --
 
 
 
