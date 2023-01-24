@@ -1,9 +1,11 @@
-GNU General Public License (GPL)
+GNU General Public License (GPL) http://www.gnu.org/licenses/gpl-3.0.html
 
 # Archmain. maintenance app for Arch Linux.
 # Author Jonathan Sanfilippo, Ivan Karavitis 
 # Date Fri Jul 28 2022
 # Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
+
+
  #   This program is free software: you can redistribute it and/or modify
  #   it under the terms of the GNU General Public License as published by
  #   the Free Software Foundation, either version 3 of the License, or
