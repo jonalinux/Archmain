@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Archmain
-Exec=python3 /home/jonathan/.config/archmain/archmain.py
-Terminal=false
-Categories=Utility;
-
