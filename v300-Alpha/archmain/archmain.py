@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
+import tkinter 
 import platform
 import tkinter
 import customtkinter
@@ -96,7 +96,6 @@ def update_textbox():
 
 
 #--------------------------------------------------------delay
-
 # Carica il valore attuale dal file di configurazione
 def load_config():
     with open("/home/" + username + "/.config/archmain/data/delay", 'r') as f:
@@ -110,10 +109,8 @@ def write_config(value):
        f.write(value)
 
 # Funzione eseguita quando si seleziona un nuovo valore nel menu a tendina
-def on_select(event):
-    value = combobox.get()
-    write_config(value)
-
+def optionmenu_callback(choice):
+    write_config(choice)
 
 # Crea il menu a tendina
 text_var = tkinter.StringVar(value="Delay in Minutes")
@@ -125,15 +122,14 @@ label = customtkinter.CTkLabel(master=app,
                                )
 label.place(x=842, y=20)
 
-combobox = customtkinter.CTkOptionMenu(app, values=["120", "180", "3600"], state='readonly')
-combobox.bind("<<ComboboxSelected>>", on_select)
+combobox = customtkinter.CTkOptionMenu(app, values=["120", "180", "3600"], command=optionmenu_callback)
 combobox.place(x=840, y=50)
+
 
 #----------------------------------------------------------------
 
 
 #---------------------------------------------------------------checkSet
-
 # Carica il valore attuale dal file di configurazione
 def load_config_2():
     with open("/home/" + username + "/.config/archmain/data/checkSet", 'r') as f:
@@ -146,13 +142,13 @@ def write_config_2(value_2):
      with open("/home/" + username + "/.config/archmain/data/checkSet", 'w') as f:
        f.write(value_2)
 
-# Funzione eseguita quando si seleziona un nuovo valore nel menu a tendina
-def on_select_2(event):
-    value_2 = combobox_2.get()
+# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
+def optionmenu_callback_2(choice):
+    value_2 = choice
     write_config_2(value_2)
 
 
-# Crea il menu a tendina
+# Crea l'opzione menù
 text_var = tkinter.StringVar(value="Check in Minutes")
 
 label = customtkinter.CTkLabel(master=app,
@@ -162,9 +158,11 @@ label = customtkinter.CTkLabel(master=app,
                                )
 label.place(x=845, y=100)
 
-combobox_2 = customtkinter.CTkOptionMenu(app, values=["30", "60"], state='readonly')
-combobox_2.bind("<<ComboboxSelected>>", on_select_2)
+combobox_2 = customtkinter.CTkOptionMenu(master=app,
+                                         values=["30", "60"],
+                                         command=optionmenu_callback_2)
 combobox_2.place(x=840, y=130)
+combobox_2.set(load_config_2())  # imposta il valore iniziale
 
 #--------------------------------------------------------------------------------------------
 
