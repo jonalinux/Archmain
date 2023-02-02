@@ -1,0 +1,12 @@
+9 Updates
+ 
+gnome-shell 1:43.2-1 -> 1:43.2-2
+libde265 1.0.10-2 -> 1.0.11-1
+libhandy 1.8.0-1 -> 1.8.1-1
+libva-mesa-driver 22.3.3-3 -> 22.3.4-1
+linux 6.1.8.arch1-1 -> 6.1.9.arch1-1
+mesa 22.3.3-3 -> 22.3.4-1
+nvidia 525.85.05-2 -> 525.85.05-3
+thin-provisioning-tools 0.9.0-1 -> 1.0.0-1
+upower 1.90.0-1 -> 1.90.0-2
+
