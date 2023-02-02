@@ -24,7 +24,7 @@ import os
 import subprocess
 import getpass
 import tkinter as tk
-from tkinter import ttk
+
 
 
 username = getpass.getuser()
@@ -264,7 +264,137 @@ diff = int(mirrorlist.stdout.strip())
 label = customtkinter.CTkLabel(app.sidebar_frame, text=f"Server Mirrors {diff}")
 label.place(x=20, y=40)
 
-#Packages
+#Cache-Packages
+def clear_cache_pkg():
+    terminal_list = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
+                     'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
+                     'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
+                     'yakuake']
+    for terminal in terminal_list:
+        try:
+            if terminal == 'gnome-terminal':
+                subprocess.call([terminal, '-e', "sudo pikaur -Sc"])
+            else:
+                subprocess.call([terminal, '-e', 'sudo pikaur -Sc'])
+            break
+        except:
+            continue
+
+clean_cache_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=clear_cache_pkg)
+clean_cache_button.place(x=492, y=500)
+
+#mostra valore cache
+def get_cache_size():
+    result = subprocess.check_output(["du", "-sh", "/var/cache/pacman/pkg/"])
+    size = result.split()[0].decode("utf-8")
+    return size
+
+def update_label():
+    size = get_cache_size()
+    text_var.set("Cache Pkgs: " + size + "B")
+    
+text_var = tkinter.StringVar(value="Cache size: updating...")
+
+label = customtkinter.CTkLabel(master=app,
+                               textvariable=text_var,
+                               width=250,
+                               height=25,
+                               )
+label.place(x=405, y=535)
+app.after(1000, update_label)
+update_label()
+
+
+#cache-home-bin
+def get_cache_and_trash_size():
+    result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/"])
+    sizes = result.splitlines()
+    cache_size = sizes[0].split()[0].decode("utf-8")
+    trash_size = sizes[1].split()[0].decode("utf-8")
+    return cache_size, trash_size
+
+def clear_cache_and_trash():
+    terminal_list = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
+                     'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
+                     'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
+                     'yakuake']
+    for terminal in terminal_list:
+        try:
+            if terminal == 'gnome-terminal':
+                subprocess.call([terminal, "--", "/home/" + username + "/.config/archmain/h-clean"])
+            else:
+                subprocess.call([terminal, "-e" , "/home/" + username + "/.config/archmain/h-clean"])
+            break
+        except:
+            continue
+
+
+
+   
+  
+
+def update_info_label():
+    cache_size, trash_size = get_cache_and_trash_size()
+    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
+
+
+text_var2 = customtkinter.StringVar(value="Cache size: updating...\nTrash size: updating...")
+
+info_label = customtkinter.CTkLabel(master=app,
+                               textvariable=text_var2,
+                               width=120,
+                               height=40)
+info_label.place(x=305, y=535)
+
+clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=clear_cache_and_trash)
+clear_button.place(x=330, y=500)
+
+
+app.after(1000, update_info_label)
+update_info_label()
+
+
+#Orphans
+# Lista dei terminali supportati
+terminal_list = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
+                 'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
+                 'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
+                 'yakuake']
+
+orphan_pkgs_label_text = tkinter.StringVar()
+orphan_pkgs_label_text.set("Orphan Packages: N/A")
+
+# Funzione per pulire la cache dei pacchetti orfani
+def clear_orphan_pkgs():
+    for terminal in terminal_list:
+        try:
+            if terminal == 'gnome-terminal':
+                subprocess.call([terminal,  '--', "/home/" + username + "/.config/archmain/orphans"])
+            else:
+                subprocess.call([terminal, '-e', "/home/" + username + "/.config/archmain/orphans"])
+            
+            break
+        except:
+            continue
+    update_orphan_pkgs_label()
+
+def update_orphan_pkgs_label():
+    try:
+        output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
+        num_orphan_pkgs = len(output.splitlines())
+        orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
+    except:
+        orphan_pkgs_label_text.set("No Orphan")
+
+# Creazione del bottone per pulire la cache dei pacchetti orfani
+clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=clear_orphan_pkgs)
+clear_orphan_button.place(x=650, y=500)
+
+# Creazione della label che mostra il numero di pacchetti orfani
+orphan_pkgs_label = customtkinter.CTkLabel(app, textvariable=orphan_pkgs_label_text, width=120, height=25)
+orphan_pkgs_label.place(x=630, y=535)
+app.after(1000, update_orphan_pkgs_label) 
+update_orphan_pkgs_label()
 
 
 
@@ -272,5 +402,15 @@ label.place(x=20, y=40)
 
 
 
+
+
+
+
+
+
+
+app.after(1000, update_info_label)
+app.after(1000, update_orphan_pkgs_label) 
+app.after(1000, update_label)
 app.after(5000, update_textbox)
 app.mainloop()
