@@ -1,1 +1,0 @@
-Fix of the bug that performed more than one scan at the same time with ClamAV, now the script checks if the check has already been performed at the specified time of the current day.
