@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2023 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+echo "This script will clean up the orphan packages."
+echo "Are you sure you want to continue? (y/N)"
+read -r confirmation
+
+if [ "$confirmation" == "y" ]; then
+  sudo pacman -Rns $(pacman -Qtdq)
+
+    echo ""
+  echo ""
+  read -p "Orphan packages have been successfully cleaned up. Press [Enter] key to esc"
+  echo ""
+  echo ""
+  echo ""
+else
+read -p  "Aborted.  Press [Enter] key to esc"
+  echo ""
+fi
