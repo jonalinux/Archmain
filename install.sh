@@ -50,11 +50,26 @@ else
   echo -e "${Green}Pikaur is already installed!${Color_Off}"
 fi
 
-# Install other required packages
-sudo pikaur -S git pacman-contrib downgrade tk reflector python-pip python-pillow --noconfirm
 
-# Install required python packages
-pip install customtkinter psutil
+# Array of required packages
+required_packages=(git pacman-contrib downgrade tk reflector python-pip python-pillow customtkinter psutil)
+
+# Function to check if a package is installed
+function is_installed {
+  pacman -Qi $1 &> /dev/null
+  return $?
+}
+
+# Loop through the required packages
+for package in "${required_packages[@]}"
+do
+  # Check if the package is installed
+  if ! is_installed $package; then
+    # If not installed, install it
+    sudo pikaur -S $package --noconfirm
+  fi
+done
+
 
 # Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
