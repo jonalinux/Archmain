@@ -570,15 +570,8 @@ def get_cache_and_trash_size():
     return cache_size, trash_size
 
 def clear_cache_and_trash():
-    for terminal in terminals:
-        try:
-            if terminal == 'gnome-terminal':
-                subprocess.call([terminal, "--", "/home/" + username + "/.config/archmain/scripts/home-clean"])
-            else:
-                subprocess.call([terminal, "-e" , "/home/" + username + "/.config/archmain/scripts/home-clean"])
-            break
-        except:
-            continue
+    os.system("rm -rf ~/.cache/*")
+    os.system("rm -rf ~/.local/share/Trash/*")
     update_info_label()
 
 def update_info_label():
