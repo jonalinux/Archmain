@@ -1,111 +1,258 @@
-#!/bin/bash
-# 
-#
-# Author: Jonathan Sanfilippo
-# Program: Archmain - Arch System Management
-# Date: Feb 1 2023 - Birmingham, United Kingdom. 
-# Copyright (C) 2023 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
-#
-#Licenses:
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#!/bin/sh
+# Archmain. maintenance app for Arch Linux.
+# Author Jonathan Sanfilippo, Ivan Karavitis 
+# Date Fri Jul 28 2022
+# Copyright (C) 2022 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
+
+
+#colors
+Color_Off='\033[0m' 
+Green='\033[1;32m'
+Blue='\033[1;34m'
+Red='\033[1;31m'
+Yellow='\033[0;33m' 
+
+mkdir -p ~/.local/share/applications 
+mkdir -p Archmain/data
+mkdir -p ~/.config/autostart
+echo "60" > Archmain/data/delay
+
+#terminal url
+terminal="Archmain/data/terminal"
+
+#Terminal check list
+T1="gnome-terminal"
+T2="konsole"
+T3="xfce4-terminal"
+T4="kgx"
+T5="lxterminal"
+T6="alacritty"
+T7="mate-terminal"
+T8="deepin-terminal"
+T9="qterminal"
+T10="terminator"
+T11="tilix"
+T12="xterm"
 
 
 
-declare -A pkgs=(
-  [tk]=tk
-  [python-pip]=python-pip
-  [pillow]=python-pillow
-  [pacman-contrib]=pacman-contrib
-  [pikaur]=pikaur
-  [downgrade]=downgrade
-  [reflector]=reflector
-)
 
-declare -A pips=(
-  [customtkinter]=customtkinter
-  [psutil]=psutil
-)
 
-# Function to install missing packages
-install_package() {
-  local pkg="$1"
-  if ! pacman -Qi "$pkg" &> /dev/null; then
-    echo "$pkg not found, installing..."
-    sudo pacman -S "$pkg"
+#terminal check----------------------------------------------------------------------------
+
+echo -e ${Blue}'check for a compatible terminal..'${Color_Off}
+
+if  [ -x "$(command -v $T1)" ]; then
+           echo $T1 > "$terminal"
+elif    [ -x "$(command -v $T2)" ]; then
+           echo $T2 > "$terminal"
+elif    [ -x "$(command -v $T3)" ]; then
+           echo $T3 > "$terminal"
+elif    [ -x "$(command -v $T4)" ]; then
+           echo $T4 > "$terminal"
+elif    [ -x "$(command -v $T5)" ]; then
+           echo $T5 > "$terminal"
+elif    [ -x "$(command -v $T6)" ]; then
+           echo $T6 > "$terminal"
+elif    [ -x "$(command -v $T7)" ]; then
+           echo $T7 > "$terminal"
+elif    [ -x "$(command -v $T8)" ]; then
+           echo $T8 > "$terminal"
+elif    [ -x "$(command -v $T9)" ]; then
+           echo $T9 > "$terminal"
+elif    [ -x "$(command -v $T10)" ]; then
+           echo $T10 > "$terminal"
+elif    [ -x "$(command -v $T11)" ]; then
+           echo $T11 > "$terminal"
+elif    [ -x "$(command -v $T12)" ]; then
+           echo $T12 > "$terminal"
+fi;
+
+Tx=$(cat "Archmain/data/terminal")
+  echo -e  ${Green}Teminal $Tx find ${Color_Off}
+echo ' '
+
+#libnotify-----------------------------------------------------------------------------------
+echo -e ${Blue}'check for notify-send '${Color_Off}
+
+if ! [ -x "$(command -v notify-send)" ]; then
+  echo -e ${Red}Error: notify-send is not installed.${Color_Off} >&2
+  echo -e ${Yellow}install notify-send..${Color_Off}
+  sudo pacman -S libnotify;
+  echo -e  ${Green}notify-send.. installed!${Color_Off};
   else
-    echo "$pkg already installed."
-  fi
-}
+  echo -e  ${Green}notify-send.. installed!${Color_Off}
+fi
 
-# Function to install missing python packages
-install_pip_package() {
-  local pkg="$1"
-  if ! pip show "$pkg" &> /dev/null; then
-    echo "$pkg not found, installing via pip..."
-    sudo pip install "$pkg"
+
+
+
+#pacman-contrib----------------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for pacman-contrib '${Color_Off}
+
+if ! [ -x "$(command -v /usr/bin/checkupdates)" ]; then        
+echo -e ${Red}Error: pacman-contrib is not installed.${Color_Off} >&2
+echo -e ${Yellow}install pacman-contrib..${Color_Off}
+  sudo pacman -S pacman-contrib;
+  echo -e  ${Green}pacman-contrib. installed!${Color_Off};
   else
-    echo "$pkg already installed."
-  fi
-}
+  echo -e  ${Green}pacman-contrib.. installed!${Color_Off}
+fi
 
-# Check and install missing packages
-for pkg in "${pkgs[@]}"; do
-  install_package "$pkg"
-done
 
-# Check and install missing python packages
-for pkg in "${pips[@]}"; do
-  install_pip_package "$pkg"
-done
 
-# Create the $home/.config/archmain directory
-config_dir="$HOME/.config/archmain"
-mkdir -p "$config_dir"
+#git-----------------------------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for git '${Color_Off}
+if ! [ -x "$(command -v git)" ]; then        
+echo -e ${Red}Error: git is not installed.${Color_Off} >&2
+echo -e ${Yellow}install git..${Color_Off}
+  sudo pacman -S git;
+  echo -e  ${Green}git. installed!${Color_Off};
+  else
+  echo -e  ${Green}git.. installed!${Color_Off}
+fi
 
-# Copy all files to the $home/.config/archmain directory
-cp * "$config_dir"
 
-# Define the username variable
-username=$(whoami)
+#AURhelper check --------------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for pikaur '${Color_Off}
 
-# Create the checkupdates.desktop file
-cat << EOF > "/home/$username/.config/autostart/checkupdates.desktop"
+if ! [ -x "$(command -v /usr/bin/pikaur -Qqua 2>/dev/null)" ]; then        
+echo -e ${Red}Error: pikaur is not installed.${Color_Off} >&2
+echo -e ${Yellow}install pikaur..${Color_Off}
+AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
+ if  [ -x "$(command -v gnome-terminal)" ]; then
+       $Tx -c    $AURhelpe
+   else
+$Tx -e $AURhelper
+fi
+  echo -e  ${Green}AURhelper installed!${Color_Off};
+  else
+  echo -e  ${Green}AURhelper installed!${Color_Off}
+fi
+
+
+
+#Downgrade check ------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for downgrade '${Color_Off}
+
+if ! [ -x "$(command -v /usr/bin/downgrade --help 2>/dev/null)" ]; then        
+echo -e ${Red}Error: downgrade is not installed.${Color_Off} >&2
+echo -e ${Yellow}install downgrade..${Color_Off}
+dw=$( git clone https://aur.archlinux.org/downgrade.git; cd downgrade; makepkg -fsri);
+ if  [ -x "$(command -v gnome-terminal)" ]; then
+        $Tx -c $dw
+   else
+$Tx -e $dw
+fi
+  echo -e  ${Green}downgrade installed!${Color_Off};
+  else
+  echo -e  ${Green}downgrade installed!${Color_Off}
+fi
+
+
+#wget check---------------------------------------------------------------------------------
+echo ''
+echo -e ${Blue}'check for wget'${Color_Off}
+
+if ! [ -x "$(command -v wget --help)" ]; then        
+echo -e ${Red}Error: wget is not installed.${Color_Off} >&2
+echo -e ${Yellow}install wget${Color_Off}
+  sudo pacman -S wget
+  echo -e  ${Green}wget installed!${Color_Off};
+  else
+  echo -e  ${Green}wget installed!${Color_Off}
+fi
+
+
+#tk------------------------------------------------------------------------------------------
+
+echo ''
+echo -e ${Blue}'check for tkinter'${Color_Off}
+
+if ! [ -x "$(command -v python -m tkinter)" ]; then        
+echo -e ${Red}Error: tkinter is not installed.${Color_Off} >&2
+echo -e ${Yellow}install tkinter${Color_Off}
+  sudo pacman -S tk
+  echo -e  ${Green}tkinter installed!${Color_Off};
+  else
+  echo -e  ${Green}tkinter installed!${Color_Off}
+fi
+
+#Reflector------------------------------------------------------------------------------------------
+
+echo ''
+echo -e ${Blue}'check for reflector'${Color_Off}
+
+if ! [ -x "$(command -v reflector --help)" ]; then        
+echo -e ${Red}Error: reflector is not installed.${Color_Off} >&2
+echo -e ${Yellow}install reflector${Color_Off}
+  sudo pacman -S reflector
+  echo -e  ${Green}reflector installed!${Color_Off};
+  else
+  echo -e  ${Green}reflector installed!${Color_Off}
+fi
+
+
+sudo pacman -S otf-font-awesome
+
+
+
+#configure autostart file-----------------------------------------------------------------
+
+
+echo "
 [Desktop Entry]
-Type=Application
-Exec=$config_dir/scripts/checkupdates
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name[en_US]=checkupdates.desktop
-EOF
+Name=data
+GenericName=data
+Exec=/home/$USER/.local/share/Archmain/bin/data.sh
+Type=Application" > data.desktop
 
-# Create the archmain.desktop file
-cat << EOF > "/home/$username/.local/share/applications/archmain.desktop"
+echo "
 [Desktop Entry]
-Type=Application
+Name=av
+GenericName=av
+Exec=/home/$USER/.local/share/Archmain/bin/av.sh
+Type=Application" > av.desktop
+
+#configure python app
+echo "
+[Desktop Entry]
 Name=Archmain
-Icon=$config_dir/icons/app-icon.png
-Exec=python3 $config_dir/archmain.py
-Comment=Arch System Management
-Terminal=false
-Categories=Utility;
-EOF
-
-# Make all files executable
-chmod +x "$config_dir"/*
-chmod +x "$config_dir/scripts"/*
+GenericName=Archmain
+Exec=/home/$USER/.local/share/Archmain/bin/Archmain.py
+Type=Application
+Icon=/home/$USER/.local/share/Archmain/icon/icon.png
+Categories=GTK;GNOME;System;
+Comment=AUR and Pacman Updater " > Archmainpy.desktop
 
 
-echo "Installation complete, it is necessary to reboot in order to launch the Archmain start scripts."
+
+
+
+
+cp -r Archmain/fonts ~/.local/share/
+cp -r Archmain ~/.local/share/
+
+cp -r  data.desktop ~/.config/autostart/
+cp -r  av.desktop ~/.config/autostart/
+cp -r  Archmainpy.desktop ~/.local/share/applications/
+
+chmod +x ~/.local/share/Archmain/bin/insrm.sh 
+chmod +x ~/.local/share/Archmain/bin/updt.sh 
+chmod +x ~/.local/share/Archmain/bin/av.sh 
+chmod +x ~/.local/share/Archmain/bin/avchnw.sh 
+chmod +x ~/.local/share/Archmain/bin/avSetUp.sh 
+chmod +x ~/.local/share/Archmain/bin/aur.sh 
+chmod +x ~/.local/share/Archmain/bin/pcm.sh    
+chmod +x ~/.local/share/Archmain/bin/data.sh 
+chmod +x ~/.local/share/Archmain/bin/chnw.sh  
+chmod +x ~/.local/share/Archmain/bin/Archmain.py
+
+
+echo ''
+echo -e ${Green}' Archmain installed, You should reboot.'${Color_Off}
+echo ''
