@@ -76,6 +76,7 @@ pip install psutil customtkinter pillow
 # Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
 mkdir -p "$config_dir"
+mkdir -p "$HOME/.local/share/Trash/"
 
 # Copy all files to the $HOME/.config/archmain directory
 cp -r * "$config_dir"
