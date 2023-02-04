@@ -71,6 +71,7 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
 
     else
         echo "System Updated" > "$list"
+        echo "last check at $(date +'%F %T')" >> "$list"
     fi
 }
 
