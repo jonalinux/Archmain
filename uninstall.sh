@@ -21,40 +21,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+
 #!/bin/bash
 
-declare -A pkgs=(
-  [tk]=tk
-  [python-pip]=python-pip
-  [pillow]=python-pillow
-  [pacman-contrib]=pacman-contrib
-  [pikaur]=pikaur
-  [downgrade]=downgrade
-  [reflector]=reflector
-)
-
-declare -A pips=(
-  [customtkinter]=customtkinter
-  [psutil]=psutil
-)
-
-# Remove checkupdates.desktop file
-rm -f "$HOME/.config/autostart/checkupdates.desktop"
-
-# Remove archmain.desktop file
-rm -f "$HOME/.local/share/applications/archmain.desktop"
-
-# Remove archmain config directory
+# Remove Archmain files
 rm -rf "$HOME/.config/archmain"
 
-# Uninstall packages
-for pkg in "${pkgs[@]}"; do
-  sudo pacman -R "$pkg"
+# Remove autostart file
+rm -f "$HOME/.config/autostart/checkupdates.desktop"
+
+# Remove Archmain desktop file
+rm -f "$HOME/.local/share/applications/archmain.desktop"
+
+# Uninstall Python packages
+sudo pip uninstall -y psutil customtkinter pillow
+
+# Array of installed packages
+installed_packages=(pacman-contrib downgrade tk reflector python-pip)
+
+# Loop through the installed packages
+for package in "${installed_packages[@]}"
+do
+  # Remove the package
+  sudo pacman -Rsn --noconfirm $package
 done
 
-# Uninstall pip packages
-for pkg in "${pips[@]}"; do
-  sudo pip uninstall "$pkg"
-done
-
-echo "Uninstallation complete."
+echo "Archmain - Arch System Management has been successfully uninstalled."

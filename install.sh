@@ -52,7 +52,7 @@ fi
 
 
 # Array of required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip python-pillow customtkinter psutil)
+required_packages=(git pacman-contrib downgrade tk reflector python-pip)
 
 # Function to check if a package is installed
 function is_installed {
@@ -70,6 +70,8 @@ do
   fi
 done
 
+# Install Python packages
+pip install psutil customtkinter pillow
 
 # Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
@@ -80,6 +82,8 @@ cp -r * "$config_dir"
 
 # Define the username variable
 username=$(whoami)
+
+
 
 # Create the checkupdates.desktop file
 cat << EOF > "/home/$username/.config/autostart/checkupdates.desktop"
