@@ -35,6 +35,5 @@
         # reflector
         # pip install psutil
         
-        "/home/" + username + "/.config/archmain/config/dark.json"
-        
-  
+       
+
