@@ -5,4 +5,4 @@
 
 ## Coming Soon v. 300
 
-![image](https://user-images.githubusercontent.com/103053714/216790161-10134247-e22a-47ba-97a3-a5cf17dccaec.png)
+![image](https://user-images.githubusercontent.com/103053714/216792417-2c9c0605-a4e6-41c6-b9c3-031c3550d43f.png)
