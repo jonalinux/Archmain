@@ -21,53 +21,47 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-#colors
-Color_Off='\033[0m' 
+# Colors
+Color_Off='\033[0m'
 Green='\033[1;32m'
 Blue='\033[1;34m'
 Red='\033[1;31m'
-Yellow='\033[0;33m' 
+Yellow='\033[0;33m'
 
+echo -e "${Blue}Checking for pikaur...${Color_Off}"
 
-echo -e ${Blue}'check for pikaur '${Color_Off}
+# Check if pikaur is installed
+if ! command -v pikaur &>/dev/null; then
+  echo -e "${Red}Error: pikaur is not installed.${Color_Off}" >&2
+  echo -e "${Yellow}Installing pikaur...${Color_Off}"
+  
+  # Installing required dependencies
+  sudo pacman -S --needed base-devel
 
-if ! [ -x "$(command -v /usr/bin/pikaur -Qqua 2>/dev/null)" ]; then        
-echo -e ${Red}Error: pikaur is not installed.${Color_Off} >&2
-echo -e ${Yellow}install pikaur..${Color_Off}
-AURhelper=$(sudo pacman -S --needed base-devel; git clone https://aur.archlinux.org/pikaur.git; cd pikaur; makepkg -fsri);
- if  [ -x "$(command -v gnome-terminal)" ]; then
-       $Tx -c    $AURhelpe
-   else
-$Tx -e $AURhelper
+  # Clone the pikaur repository and install it
+  git clone https://aur.archlinux.org/pikaur.git
+  cd pikaur
+  makepkg -fsri
+
+  # Clean up
+  cd ..
+  rm -rf pikaur
+else
+  echo -e "${Green}Pikaur is already installed!${Color_Off}"
 fi
-  echo -e  ${Green}AURhelper installed!${Color_Off};
-  else
-  echo -e  ${Green}AURhelper installed!${Color_Off}
-fi
 
-
-#git, notify-send, pacman-contrib, downgrade, tk, reflector, python-pip, python-pillow, customtkinter psutil 
-
+# Install other required packages
 sudo pikaur -S git notify-send pacman-contrib downgrade tk reflector python-pip python-pillow
 
-pip install customtkinter
-pip install psutil
+# Install required python packages
+pip install customtkinter psutil
 
-
-
-
-# Create the $home/.config/archmain directory
+# Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
 mkdir -p "$config_dir"
 
-# Copy all files to the $home/.config/archmain directory
-cp * "$config_dir"
-cp -r script/ "$config_dir"
-cp -r config/ "$config_dir"
-cp -r img/ "$config_dir"
-cp -r icons/ "$config_dir"
-cp -r data/ "$config_dir"
+# Copy all files to the $HOME/.config/archmain directory
+cp -r * "$config_dir"
 
 # Define the username variable
 username=$(whoami)
@@ -95,10 +89,8 @@ Terminal=false
 Categories=Utility;
 EOF
 
-
 # Make all files executable
-chmod +x "$config_dir"/*
-chmod +x "$config_dir/scripts"/*
-
+find "$config_dir" -type f -exec chmod +x {} \;
 
 echo "Installation complete, it is necessary to reboot in order to launch the Archmain start scripts."
+
