@@ -336,7 +336,7 @@ def del_console():
     with open("/home/" + username + "/.config/archmain/data/list-upds", "w") as file:
         file.write(" ")
 
-button = customtkinter.CTkButton(master=app, text="Clean Console", fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
+button = customtkinter.CTkButton(master=app, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
 button.place(x=850, y=610)
 
 
