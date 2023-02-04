@@ -28,6 +28,27 @@ Blue='\033[1;34m'
 Red='\033[1;31m'
 Yellow='\033[0;33m'
 
+#!/bin/bash
+
+echo -e "${Blue}Checking for base-devel...${Color_Off}"
+
+# Check if base-devel is already installed
+if pacman -Q base-devel &> /dev/null; then
+  echo -e "${Green}base-devel is already installed!${Color_Off}"
+else
+  echo -e "${Yellow}Installing base-devel...${Color_Off}"
+
+  # Install base-devel
+  sudo pacman -S base-devel
+
+  # Confirm the installation
+  if pacman -Q base-devel &> /dev/null; then
+    echo -e "${Green}base-devel has been successfully installed.${Color_Off}"
+  else
+    echo -e "${Red}Error: Failed to install base-devel.${Color_Off}" >&2
+  fi
+fi
+
 echo -e "${Blue}Checking for pikaur...${Color_Off}"
 
 # Check if pikaur is installed
@@ -50,15 +71,16 @@ else
   echo -e "${Green}Pikaur is already installed!${Color_Off}"
 fi
 
-
 # Array of required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip)
+required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify)
 
 # Function to check if a package is installed
 function is_installed {
   pacman -Qi $1 &> /dev/null
   return $?
 }
+
+echo -e "${Blue}Checking for required packages...${Color_Off}"
 
 # Loop through the required packages
 for package in "${required_packages[@]}"
@@ -67,11 +89,17 @@ do
   if ! is_installed $package; then
     # If not installed, install it
     sudo pikaur -S $package --noconfirm
+  else
+    echo -e "${Green}$package is already installed!${Color_Off}"
   fi
 done
 
+echo -e "${Blue}Installing Python packages...${Color_Off}"
+
 # Install Python packages
 pip install psutil customtkinter pillow
+
+echo -e "${Blue}Setting up the configuration...${Color_Off}"
 
 # Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
@@ -112,5 +140,5 @@ EOF
 # Make all files executable
 find "$config_dir" -type f -exec chmod +x {} \;
 
-echo "Installation complete, it is necessary to reboot in order to launch the Archmain start scripts."
+echo -e "${Red}Warning: Installation complete, but it is necessary to reboot in order to launch the Archmain start scripts. ${Color_Off}"
 
