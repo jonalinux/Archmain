@@ -63,6 +63,11 @@ mkdir -p "$config_dir"
 
 # Copy all files to the $home/.config/archmain directory
 cp * "$config_dir"
+cp -r script/ "$config_dir"
+cp -r config/ "$config_dir"
+cp -r img/ "$config_dir"
+cp -r icons/ "$config_dir"
+cp -r data/ "$config_dir"
 
 # Define the username variable
 username=$(whoami)
