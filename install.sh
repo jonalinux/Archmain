@@ -51,7 +51,7 @@ else
 fi
 
 # Install other required packages
-sudo pikaur -S git notify-send pacman-contrib downgrade tk reflector python-pip python-pillow
+sudo pikaur -S git pacman-contrib downgrade tk reflector python-pip python-pillow
 
 # Install required python packages
 pip install customtkinter psutil
