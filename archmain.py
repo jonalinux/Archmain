@@ -35,6 +35,7 @@ import psutil
 from tkinter import *
 from PIL import Image
 import json
+import shutil
 
 
 
@@ -44,6 +45,8 @@ app.geometry(f"{1020}x{650}")
 app.minsize(1020, 650)
 app.maxsize(1020, 650)
 app.title("Archmain - Arch System Management")
+
+
 
 #user
 username = getpass.getuser()
@@ -90,11 +93,11 @@ label.place(x=55, y=590)
 
 
 #terminals
-terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-             'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-             'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-             'yakuake']
+with open('/home/' + username + '/.config/archmain/config/terminals.json', 'r') as file:
+    terminals_dict = json.load(file)
 
+# Accedi alla lista di terminali
+terminals = terminals_dict['terminals']
 
 
 # configure grid layout (4x4)
@@ -153,9 +156,6 @@ progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_col
 progressbar.configure(mode="indeterminate",)
 progressbar.place_forget()
 
-
-
-
 #Update Now
 def check_updates():
     terminal = None
@@ -175,6 +175,10 @@ def button_function():
 
 button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text="Update Now", command=check_updates)
 button.place(x=35, y=20)
+
+
+
+
 
 #ignore-AUR
 def ignore_AUR():
@@ -221,7 +225,7 @@ button = customtkinter.CTkButton(master=app,
 button.place(x=35, y=86)
 
 
-
+#New-mirrors
 def load_config_c():
     with open("/home/" + username + "/.config/archmain/config/country.json", 'r') as f:
         country = json.load(f)
@@ -230,7 +234,12 @@ value_c = load_config_c()
 
 
 # lista delle opzioni per il menu a tendina
-countries = ['us', 'gb', 'de', 'fr', 'it', 'jp', 'cn', 'au', 'ca', 'nl','ru', 'pl', 'cz', 'se', 'dk', 'at', 'be', 'ch', 'es', 'fi','no']
+with open('/home/' + username + '/.config/archmain/config/lang.json', 'r') as file:
+    countries_dict = json.load(file)
+
+# Accedi alla lista di terminali
+countries = countries_dict['countries']
+
 
 
 def new_mirrors():
@@ -278,6 +287,26 @@ combobox_country.set(value_c)  # imposta il valore iniziale
 
 
 
+#leggi pacchetti
+def read_text_file():
+    try:
+        with open('/home/' + username + '/.config/archmain/data/last', 'r') as file:
+            text = file.read()
+            with open("/home/" + username + "/.config/archmain/data/list-upds", "w") as file:
+                file.write(text)
+    except:
+        print("Error reading/writing file")
+
+read_text_file_button = customtkinter.CTkButton(app, border_color="#0f94d2",
+                                 fg_color=("#ccc","#333"),
+                                 text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4, text="Last Updated", command=read_text_file)
+read_text_file_button.place(x=35, y=152)
+
+
+
+
 
 
 
@@ -303,10 +332,17 @@ textbox.place(x=207, y=50)
 textbox.configure(state="disabled")  # configure textbox to be read-only
 app.after(1000, update_textbox)
 
+def del_console():
+    with open("/home/" + username + "/.config/archmain/data/list-upds", "w") as file:
+        file.write(" ")
+
+button = customtkinter.CTkButton(master=app, text="Clean Console", fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
+button.place(x=850, y=610)
 
 
 
-#--------------------------------------------------------delay
+
+#delay
 # Carica il valore attuale dal file di configurazione
 def load_config():
     with open("/home/" + username + "/.config/archmain/data/delay", 'r') as f:
@@ -330,16 +366,13 @@ label = customtkinter.CTkLabel(master=app,textvariable=text_var,width=120,height
 label.place(x=842, y=20)
 
 combobox = customtkinter.CTkOptionMenu(master=app,
-                                         values=["120", "180", "240","3600"],
+                                         values=["120", "180", "240","1440"],
                                          command=optionmenu_callback)
 combobox.place(x=840, y=48)
 combobox.set(load_config())  # imposta il valore iniziale
 
 
-#----------------------------------------------------------------
-
-
-#---------------------------------------------------------------checkSet
+#checkSet
 # Carica il valore attuale dal file di configurazione
 def load_config_2():
     with open("/home/" + username + "/.config/archmain/data/checkSet", 'r') as f:
@@ -365,14 +398,13 @@ label = customtkinter.CTkLabel(master=app,textvariable=text_var, width=120,heigh
 label.place(x=845, y=90)
 
 combobox_2 = customtkinter.CTkOptionMenu(master=app,
-                                         values=["30", "60", "120", "180","3600"],
+                                         values=["60", "120", "180","1440"],
                                          command=optionmenu_callback_2)
 combobox_2.place(x=840, y=118)
 combobox_2.set(load_config_2())  # imposta il valore iniziale
 
-#--------------------------------------------------------------------------------------------
 
-#--------------------------------------------------multi-opzioni
+#-Ricerca multi-opzioni
 def search_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur {entry_value.get()}'")
@@ -409,8 +441,6 @@ for t in terminals:
 
 text_var = tkinter.StringVar(value="Enter the name of packages. ")
 
-
-
 entry_value = tk.StringVar()
 entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=450, height=29, font=('',14))
 entry.place(x=210, y=12)
@@ -430,8 +460,6 @@ def combobox_callback(choice):
     elif choice == 'Downgrade':
         downgrade_package()
 
-
-
 combobox = customtkinter.CTkComboBox(master=app, values=actions, variable=combobox_var, command=combobox_callback)
 combobox.place(x=665, y=12)
 
@@ -441,12 +469,7 @@ def write_to_file():
 write_to_file()
 
 
-#-------------------------------cpu-disk-ram-swap-boot
-
-
-
-
-
+#cpu-disk-ram-swap-boot
 def update_values():
     disk_usage = psutil.disk_usage("/").percent
     disk_progress.set(value=disk_usage/100)
@@ -538,8 +561,6 @@ label.place(x=845, y=205)
 app.after(1000, update_packages_info)
 
 
-
-
 #cache-home-bin
 def get_cache_and_trash_size():
     result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/"])
@@ -625,13 +646,6 @@ label.place(x=390, y=520)
 app.after(1000, update_label)
 
 update_label()
-
-
-
-
-
-
-
 
 #Orphans
 orphan_pkgs_label_text = tkinter.StringVar()

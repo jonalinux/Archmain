@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/jonathan/.config/archmain/scripts/checkupdates
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=checkupdates.desktop
