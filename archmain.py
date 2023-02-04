@@ -433,17 +433,28 @@ def downgrade_package():
     else:
         print("No supported terminal found.")
 
-terminal = None
+terminal = None 
 for t in terminals: 
     if os.system(f"which {t}") == 0:
         terminal = t
         break
 
-text_var = tkinter.StringVar(value="Enter the name of packages. ")
-
 entry_value = tk.StringVar()
-entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=450, height=29, font=('',14))
-entry.place(x=210, y=12)
+entry_value.set("Before using the options, insert the package name.")
+entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
+entry.place(x=263, y=12)
+
+def clear_entry():
+    entry_value.set("")
+button = customtkinter.CTkButton(master=app, width=50, text="Del",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=clear_entry)
+button.place(x=210, y=12)    
+
+def change_bg_color(event=None):
+    entry.configure(text_color=("#333","#f2f2f2"))   
+
+entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
+entry.place(x=263, y=12)
+entry.bind("<FocusIn>", change_bg_color)   
 
 actions = ['Search', 'Install', 'Remove', 'Ignore', 'Downgrade']
 combobox_var = customtkinter.StringVar(value="Options")
