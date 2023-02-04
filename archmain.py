@@ -53,16 +53,12 @@ icon = tkinter.PhotoImage(file="/home/" + username + "/.config/archmain/icons/ap
 app.iconphoto(False, icon)   
 
 
-
 # Definire il percorso del file JSON 
 file_path = "/home/" + username + "/.config/archmain/config/mode.json"
-
-
 
 # Impostare il valore predefinito del modo di apparizione e del tema di colore
 appearance_mode = "System"
 color_theme = customtkinter.set_default_color_theme( "/home/" + username + "/.config/archmain/config/theme.json")
-
 
 # Provare a caricare la scelta dell'utente dal file JSON
 try:
@@ -76,8 +72,6 @@ except FileNotFoundError:
 # Impostare il modo di apparizione e il tema di colore
 customtkinter.set_appearance_mode(appearance_mode)
 #customtkinter.set_default_color_theme(color_theme)
-
-
 
 appearance_mode_var = tkinter.StringVar(value=appearance_mode)
 app.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(app,width=90, values=["Light", "Dark", "System"],
@@ -93,6 +87,14 @@ def change_appearance_mode_event(new_appearance_mode: str):
 
 label = customtkinter.CTkLabel(master=app,text="Themes", width=50, height=15, text_color="#868686")
 label.place(x=55, y=590)
+
+
+#terminals
+terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
+             'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
+             'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
+             'yakuake']
+
 
 
 # configure grid layout (4x4)
@@ -146,13 +148,17 @@ app.label = customtkinter.CTkLabel(app, text="Archmain v3.00", fg_color=('#dbdbd
 app.label.place(x=60, y=370)
 
 
-#----------------------------Check updates
+#ProgressBar
+progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color="#55ff00")
+progressbar.configure(mode="indeterminate",)
+progressbar.place_forget()
+
+
+
+
+#Update Now
 def check_updates():
     terminal = None
-    terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-                 'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-                 'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-                 'yakuake']
     for t in terminals:
         if os.system(f"which {t}") == 0:
             terminal = t
@@ -170,13 +176,9 @@ def button_function():
 button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text="Update Now", command=check_updates)
 button.place(x=35, y=20)
 
-#----------------------------ignore-AUR
+#ignore-AUR
 def ignore_AUR():
     terminal = None
-    terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-                 'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-                 'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-                 'yakuake']
     for t in terminals:
         if os.system(f"which {t}") == 0:
             terminal = t
@@ -196,8 +198,7 @@ button.place(x=35, y=53)
 
 
 
-#------------------------manual-Check
-
+#manual-Check
 def man_check_updates():
     subprocess.call(["bash", "/home/" + username + "/.config/archmain/scripts/verified"])
     progressbar.stop()
@@ -219,12 +220,69 @@ button = customtkinter.CTkButton(master=app,
                                  command=start_progress_bar)
 button.place(x=35, y=86)
 
-progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color="#55ff00")
-progressbar.configure(mode="indeterminate")
-progressbar.place_forget()
 
 
- 
+def load_config_c():
+    with open("/home/" + username + "/.config/archmain/config/country.json", 'r') as f:
+        country = json.load(f)
+        return country["country"]
+value_c = load_config_c()
+
+
+# lista delle opzioni per il menu a tendina
+countries = ['us', 'gb', 'de', 'fr', 'it', 'jp', 'cn', 'au', 'ca', 'nl','ru', 'pl', 'cz', 'se', 'dk', 'at', 'be', 'ch', 'es', 'fi','no']
+
+
+def new_mirrors():
+    # get the value selected from the dropdown menu
+    country = combobox_country.get()
+    # save the selected value in an external file named country
+    with open("/home/" + username + "/.config/archmain/config/country.json", "w") as f:
+      json.dump({"country": country}, f)
+
+
+    # Loop through each terminal in the list
+    for terminal in terminals:
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo reflector --verbose --country {country} --sort rate --save /etc/pacman.d/mirrorlist '")
+            break
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=390, y=586)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=new_mirrors)
+    thread.start()
+
+button = customtkinter.CTkButton(master=app,width=90,
+                                 border_color="#0f94d2",
+                                 fg_color=("#ccc","#333"),
+                                 text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="New Mirrors",
+                                 command=start_progress_bar)
+button.place(x=35, y=119)
+
+combobox_country = customtkinter.CTkOptionMenu(master=app, width=50, values=countries)
+combobox_country.place(x=128, y=119)
+combobox_country.set(value_c)  # imposta il valore iniziale
+
+
+
+
+
+
+
+
 # Console
 text = ""
 
@@ -343,11 +401,6 @@ def downgrade_package():
     else:
         print("No supported terminal found.")
 
-terminals = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-'yakuake']
-
 terminal = None
 for t in terminals: 
     if os.system(f"which {t}") == 0:
@@ -450,31 +503,93 @@ boot_partition_label.place(x=845, y=357)
 boot_partition_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="#55ff00")
 boot_partition_progress.place(x=845, y=380)
 
-#kernel
-kernel = platform.release()
-label = customtkinter.CTkLabel(app, text=f"Kernel {kernel}", fg_color=('#dbdbdb','#2b2b2b'))
-label.place(x=845, y=165)
-
-#Mirrorlist
-mirrorlist = subprocess.run(['bash', '-c', 'mirrorlist=$(cat /etc/pacman.d/mirrorlist | wc -l ); diff=$( expr $mirrorlist - 10); echo $diff'], capture_output=True, text=True)
-diff = int(mirrorlist.stdout.strip())
-label = customtkinter.CTkLabel(app, text=f"Server Mirrors {diff}", fg_color=('#dbdbdb','#2b2b2b'))
-label.place(x=845, y=185)
+def count_installed_packages():
+    output = subprocess.run(['pikaur', '-Q'], stdout=subprocess.PIPE)
+    packages = output.stdout.decode('utf-8').split('\n')
+    return len(packages)
 
 
+def update_kernel_info():
+    kernel = platform.release()
+    kernel_label.configure(text="Kernel: {}".format(kernel))
+    kernel_label.after(1000, update_kernel_info)
+    
+kernel_label = customtkinter.CTkLabel(app, text="Kernel: ...", fg_color=('#dbdbdb','#2b2b2b'))
+kernel_label.place(x=845, y=165)
+app.after(1000, update_kernel_info)
+
+def update_mirrorlist_info():
+    mirrorlist = subprocess.run(['bash', '-c', 'mirrorlist=$(cat /etc/pacman.d/mirrorlist | wc -l ); diff=$( expr $mirrorlist - 10); echo $diff'], capture_output=True, text=True)
+    diff = int(mirrorlist.stdout.strip())
+    mirrorlist_label.configure(text="Server Mirrors: {}".format(diff))
+    mirrorlist_label.after(1000, update_mirrorlist_info)
+
+mirrorlist_label = customtkinter.CTkLabel(app, text="Server Mirrors: ...", fg_color=('#dbdbdb','#2b2b2b'))
+mirrorlist_label.place(x=845, y=185)
+app.after(1000, update_mirrorlist_info)
+
+def update_packages_info():
+    packages = count_installed_packages()
+    label.configure(text="Packages: {}".format(packages))
+    label.after(1000, update_packages_info)
+
+label = customtkinter.CTkLabel(app,fg_color=('#dbdbdb','#2b2b2b'),text="Packages: {}".format(count_installed_packages()))
+label.place(x=845, y=205)
+app.after(1000, update_packages_info)
 
 
 
 
-#*****************************************************************Center
+#cache-home-bin
+def get_cache_and_trash_size():
+    result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/"])
+    sizes = result.splitlines()
+    cache_size = sizes[0].split()[0].decode("utf-8")
+    trash_size = sizes[1].split()[0].decode("utf-8")
+    return cache_size, trash_size
+
+def clear_cache_and_trash():
+    for terminal in terminals:
+        try:
+            if terminal == 'gnome-terminal':
+                subprocess.call([terminal, "--", "/home/" + username + "/.config/archmain/scripts/home-clean"])
+            else:
+                subprocess.call([terminal, "-e" , "/home/" + username + "/.config/archmain/scripts/home-clean"])
+            break
+        except:
+            continue
+    update_info_label()
+
+def update_info_label():
+    cache_size, trash_size = get_cache_and_trash_size()
+    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
+
+text_var2 = customtkinter.StringVar(value="Cache size: updating...\nTrash size: updating...")
+
+info_label = customtkinter.CTkLabel(master=app,
+                               textvariable=text_var2,
+                               width=120,
+                               height=40)
+info_label.place(x=230, y=520)
+
+clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=clear_cache_and_trash)
+clear_button.place(x=250, y=490)
+
+app.after(1000, update_info_label)
+
+update_info_label()
+
+def update_info_label():
+    cache_size, trash_size = get_cache_and_trash_size()
+    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
+    app.after(1000, update_info_label) # Aggiungi questa riga
+
+app.after(1000, update_info_label)
+
 
 #Cache-Packages
 def clear_cache_pkg():
-    terminal_list = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-                     'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-                     'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-                     'yakuake']
-    for terminal in terminal_list:
+    for terminal in terminals:
         try:
             if terminal == 'gnome-terminal':
                 subprocess.call([terminal, '-e', "sudo pikaur -Sc"])
@@ -493,15 +608,11 @@ def get_cache_size():
     result = subprocess.check_output(["du", "-sh", "/var/cache/pacman/pkg/"])
     size = result.split()[0].decode("utf-8")
     return size
-    
 
-
-   
-        
-    
 def update_label():
     size = get_cache_size()
     text_var.set("Cache Pkgs: " + size + "B")
+    app.after(1000, update_label)
     
 text_var = tkinter.StringVar(value="Cache size: updating...")
 
@@ -512,70 +623,24 @@ label = customtkinter.CTkLabel(master=app,
                                )
 label.place(x=390, y=520)
 app.after(1000, update_label)
+
 update_label()
 
 
 
 
-#cache-home-bin
-def get_cache_and_trash_size():
-    result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/"])
-    sizes = result.splitlines()
-    cache_size = sizes[0].split()[0].decode("utf-8")
-    trash_size = sizes[1].split()[0].decode("utf-8")
-    return cache_size, trash_size
-
-def clear_cache_and_trash():
-    terminal_list = ['gnome-terminal', 'configkonsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-                     'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-                     'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-                     'yakuake']
-    for terminal in terminal_list:
-        try:
-            if terminal == 'gnome-terminal':
-                subprocess.call([terminal, "--", "/home/" + username + "/.config/archmain/scripts/home-clean"])
-            else:
-                subprocess.call([terminal, "-e" , "/home/" + username + "/.config/archmain/scripts/home-clean"])
-            break
-        except:
-            continue
-    update_info_label()
- 
-
-def update_info_label():
-    cache_size, trash_size = get_cache_and_trash_size()
-    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
 
 
-text_var2 = customtkinter.StringVar(value="Cache size: updating...\nTrash size: updating...")
-
-info_label = customtkinter.CTkLabel(master=app,
-                               textvariable=text_var2,
-                               width=120,
-                               height=40)
-info_label.place(x=230, y=520)
-
-clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=clear_cache_and_trash)
-clear_button.place(x=250, y=490)
-
-
-app.after(1000, update_info_label)
-update_info_label()
 
 
 #Orphans
-# Lista dei terminali supportati
-terminal_list = ['gnome-terminal', 'konsole', 'xfce4-terminal', 'kgx', 'lxterminal', 'alacritty',
-                 'mate-terminal', 'deepin-terminal', 'qterminal', 'terminator', 'tilix', 'xterm', 'rxvt',
-                 'xfterm+', 'eterm', 'st', 'aterm', 'sakura', 'lilyterm', 'cool-retro-term', 'guake', 'kitty',
-                 'yakuake']
-
 orphan_pkgs_label_text = tkinter.StringVar()
 orphan_pkgs_label_text.set("Orphan Packages: N/A")
 
+
 # Funzione per pulire la cache dei pacchetti orfani
 def clear_orphan_pkgs():
-    for terminal in terminal_list:
+    for terminal in terminals:
         try:
             if terminal == 'gnome-terminal':
                 subprocess.call([terminal,  '--', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
@@ -603,6 +668,19 @@ clear_orphan_button.place(x=690, y=490)
 orphan_pkgs_label = customtkinter.CTkLabel(app, textvariable=orphan_pkgs_label_text, width=120, height=25)
 orphan_pkgs_label.place(x=670, y=520)
 app.after(1000, update_orphan_pkgs_label) 
+
+update_orphan_pkgs_label()
+
+
+def update_orphan_pkgs_label():
+    try:
+        output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
+        num_orphan_pkgs = len(output.splitlines())
+        orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
+    except:
+        orphan_pkgs_label_text.set("No Orphan")
+    app.after(1000, update_orphan_pkgs_label) 
+
 update_orphan_pkgs_label()
 
 
@@ -610,14 +688,4 @@ update_orphan_pkgs_label()
 
 
 
-
-
-
-
-
-
-app.after(1000, update_info_label)
-app.after(1000, update_orphan_pkgs_label) 
-app.after(1000, update_label)
-app.after(1000, update_textbox)
 app.mainloop()
