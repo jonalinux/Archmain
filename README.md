@@ -17,7 +17,7 @@ The GUI uses the pikaur package manager, which is a popular AUR helper for Arch 
 
 The source code is available on GitHub and can be easily modified to suit the needs of individual users. The code is well-commented and easy to understand, making it a great starting point for anyone interested in creating a similar project.
 
-Getting Started To get started with the Arch Linux Package Manager GUI, you will need to have a working installation of Arch Linux with the Tkinter library installed. Additionally, you will need to have the pikaur package manager installed.
+Getting Started with the Arch Linux Package Manager GUI, you will need to have a working installation of Arch Linux with the Tkinter library installed. Additionally, you will need to have the pikaur package manager installed.
 
 Once these requirements are met, simply clone the repository and run the script using Python. The GUI will launch and you can start using it to manage your packages.
 
