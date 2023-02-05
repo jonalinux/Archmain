@@ -435,10 +435,9 @@ for t in terminals:
         terminal = t
         break
 
-entry_value = tk.StringVar()
-entry_value.set("Before using the options, insert the package name.")
-entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
-entry.place(x=263, y=12)
+
+#entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
+#entry.place(x=263, y=12)
 
 def clear_entry():
     entry_value.set("")
@@ -446,11 +445,20 @@ button = customtkinter.CTkButton(master=app, width=50, text="Del",text_color=("g
 button.place(x=210, y=12)    
 
 def change_bg_color(event=None):
-    entry.configure(text_color=("#333","#f2f2f2"))   
+    content = entry_value.get()
+    if content.islower():
+        entry.configure(text_color=("#333","#f2f2f2"))
+    else:
+        entry.configure(text_color=("#df4848"))
+    return content.islower()
 
+entry_value = tk.StringVar()
+entry_value.set("before using the options, insert the package name.")
 entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
 entry.place(x=263, y=12)
-entry.bind("<FocusIn>", change_bg_color)   
+entry.bind("<FocusIn>", change_bg_color)
+entry.bind("<KeyRelease>", change_bg_color)
+
 
 actions = ['Search', 'Install', 'Remove', '--Ignore', 'Downgrade']
 combobox_var = customtkinter.StringVar(value="Options")
