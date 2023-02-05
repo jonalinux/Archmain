@@ -448,8 +448,14 @@ def change_bg_color(event=None):
     content = entry_value.get()
     if content.islower():
         entry.configure(text_color=("#333","#f2f2f2"))
+        pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
+        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+         file.write("Hello " + username + "!!\n" + pikaur.stdout)
+
     else:
-        entry.configure(text_color=("#df4848"))
+        entry.configure(text_color=("red","#e8493a"))
+        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+         file.write("Warning! The package names in the entry must be written in lowercase!")
     return content.islower()
 
 entry_value = tk.StringVar()
