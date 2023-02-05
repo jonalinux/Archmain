@@ -283,16 +283,16 @@ button.place(x=35, y=119)
 
 combobox_country = customtkinter.CTkOptionMenu(master=app, width=50, values=countries)
 combobox_country.place(x=128, y=119)
-combobox_country.set(value_c)  # imposta il valore iniziale
+combobox_country.set(value_c)  # imposta il valore iniziale 
 
 
 
 #leggi pacchetti
 def read_text_file():
     try:
-        with open('/home/' + username + '/.config/archmain/data/last', 'r') as file:
+        with open('/home/' + username + '/.config/archmain/data/last.json', 'r') as file:
             text = file.read()
-            with open("/home/" + username + "/.config/archmain/data/list-upds", "w") as file:
+            with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
                 file.write(text)
     except:
         print("Error reading/writing file")
@@ -306,18 +306,12 @@ read_text_file_button.place(x=35, y=152)
 
 
 
-
-
-
-
-
-
-# Console
+#Console
 text = ""
 
 def update_textbox():
    global text
-   with open("/home/" + username + "/.config/archmain/data/list-upds", "r") as file:
+   with open("/home/" + username + "/.config/archmain/data/console.json", "r") as file:
       new_text = file.read()
    if new_text != text:
       textbox.configure(state="normal")  # configure textbox to be editable
@@ -329,11 +323,13 @@ def update_textbox():
 
 textbox = customtkinter.CTkTextbox(app, width=600, height=350, font=('source code pro',14), corner_radius=12)
 textbox.place(x=207, y=50)
-textbox.configure(state="disabled")  # configure textbox to be read-only
+textbox.configure(state="disabled") # configure textbox to be read-only
 app.after(1000, update_textbox)
 
+
+
 def del_console():
-    with open("/home/" + username + "/.config/archmain/data/list-upds", "w") as file:
+    with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
         file.write(" ")
 
 button = customtkinter.CTkButton(master=app, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
@@ -345,14 +341,14 @@ button.place(x=850, y=610)
 #delay
 # Carica il valore attuale dal file di configurazione
 def load_config():
-    with open("/home/" + username + "/.config/archmain/data/delay", 'r') as f:
+    with open("/home/" + username + "/.config/archmain/data/delay.json", 'r') as f:
         return f.read()
 value = load_config()
 
 
 # Scrive il nuovo valore nel file di configurazione
 def write_config(value):
-     with open("/home/" + username + "/.config/archmain/data/delay", 'w') as f:
+     with open("/home/" + username + "/.config/archmain/data/delay.json", 'w') as f:
        f.write(value)
 
 # Funzione eseguita quando si seleziona un nuovo valore nel menu a tendina
@@ -375,14 +371,14 @@ combobox.set(load_config())  # imposta il valore iniziale
 #checkSet
 # Carica il valore attuale dal file di configurazione
 def load_config_2():
-    with open("/home/" + username + "/.config/archmain/data/checkSet", 'r') as f:
+    with open("/home/" + username + "/.config/archmain/data/checkSet.json", 'r') as f:
         return f.read()
 value_2 = load_config_2()
 
 
 # Scrive il nuovo valore nel file di configurazione
 def write_config_2(value_2):
-     with open("/home/" + username + "/.config/archmain/data/checkSet", 'w') as f:
+     with open("/home/" + username + "/.config/archmain/data/checkSet.json", 'w') as f:
        f.write(value_2)
 
 # Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
@@ -424,7 +420,7 @@ def remove_package():
         print("No supported terminal found.")
 
 def write_to_file():
-    with open("/home/" + username + "/.config/archmain/data/ignore", "a") as f:
+    with open("/home/" + username + "/.config/archmain/data/ignore.json", "a") as f:
         f.write(f"{entry_value.get()}\n")
 
 def downgrade_package():
@@ -475,7 +471,7 @@ combobox = customtkinter.CTkComboBox(master=app, values=actions, variable=combob
 combobox.place(x=665, y=12)
 
 def write_to_file():
-    with open("/home/" + username + "/.config/archmain/data/ignore", "w") as file:
+    with open("/home/" + username + "/.config/archmain/data/ignore.json", "w") as file:
         file.write(" ")
 write_to_file()
 
@@ -634,6 +630,7 @@ def get_cache_size():
     size = result.split()[0].decode("utf-8")
     return size
 
+
 def update_label():
     size = get_cache_size()
     text_var.set("Cache Pkgs: " + size + "B")
@@ -650,6 +647,20 @@ label.place(x=390, y=520)
 app.after(1000, update_label)
 
 update_label()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #Orphans
 orphan_pkgs_label_text = tkinter.StringVar()

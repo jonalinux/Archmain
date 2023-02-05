@@ -18,7 +18,7 @@
 
 # URL
 ICON="$HOME/.config/archmain/icons/icon.png"
-list="$HOME/.config/archmain/data/list-upds"
+list="$HOME/.config/archmain/data/console.json"
 python="$HOME/.config/archmain/archmain.py"
 chSet="$HOME/.config/archmain/data/checkSet"
 delay="$HOME/.config/archmain/data/delay"

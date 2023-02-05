@@ -72,7 +72,7 @@ else
 fi
 
 # Array of required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify)
+required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq)
 
 # Function to check if a package is installed
 function is_installed {

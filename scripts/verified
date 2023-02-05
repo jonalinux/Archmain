@@ -18,9 +18,9 @@
 
 # URL
 
-list="$HOME/.config/archmain/data/list-upds"
-urltemp="$HOME/.config/archmain/data/temp"
-last="$HOME/.config/archmain/data/last"
+list="$HOME/.config/archmain/data/console.json"
+urltemp="$HOME/.config/archmain/data/temp.json"
+last="$HOME/.config/archmain/data/last.json"
 
 # Variabili cmd
 
@@ -49,4 +49,3 @@ get_updates
     fi
 
 cp "$urltemp" "$last"
-
