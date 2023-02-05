@@ -36,6 +36,7 @@ from tkinter import *
 from PIL import Image
 import json
 import shutil
+import time
 
 
 
@@ -166,14 +167,21 @@ def check_updates():
 
     if terminal:
         subprocess.call([terminal, "-e", "/home/" + username + "/.config/archmain/scripts/updatenow"])
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
-        
+
+def start_progress_bar_check():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=check_updates)
+    thread.start()        
         
 def button_function():
     print("button pressed")
 
-button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text="Update Now", command=check_updates)
+button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text="Update Now", command=start_progress_bar_check)
 button.place(x=35, y=20)
 
 
@@ -190,14 +198,21 @@ def ignore_AUR():
 
     if terminal:
         subprocess.call([terminal, "-e", "/home/" + username + "/.config/archmain/scripts/ignore-AUR"])
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
-        
+
+def start_progress_bar_ign():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=ignore_AUR)
+    thread.start()            
         
 def button_function():
     print("button pressed")
 
-button = customtkinter.CTkButton(master=app, border_color="#0f94d2", fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), border_width=0, corner_radius=4, text="Ignore AUR", command=ignore_AUR)
+button = customtkinter.CTkButton(master=app, border_color="#0f94d2", fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), border_width=0, corner_radius=4, text="Ignore AUR", command=start_progress_bar_ign)
 button.place(x=35, y=53)
 
 
@@ -208,7 +223,7 @@ def man_check_updates():
     progressbar.stop()
     app.after(1000, lambda: progressbar.place_forget())
 
-def start_progress_bar():
+def start_progress_bar_man():
     progressbar.place(x=390, y=586)
     progressbar.start()
     thread = threading.Thread(target=man_check_updates)
@@ -221,7 +236,7 @@ button = customtkinter.CTkButton(master=app,
                                  border_width=0,
                                  corner_radius=4,
                                  text="Manual Check",
-                                 command=start_progress_bar)
+                                 command=start_progress_bar_man)
 button.place(x=35, y=86)
 
 
@@ -287,22 +302,31 @@ combobox_country.set(value_c)  # imposta il valore iniziale
 
 
 
-#leggi pacchetti
+#leggi ultimi pacchetti aggiornati e ignorati
 def read_text_file():
     try:
         with open('/home/' + username + '/.config/archmain/data/last.json', 'r') as file:
             text = file.read()
             with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
                 file.write(text)
+            progressbar.stop()
+            app.after(1000, lambda: progressbar.place_forget())    
     except:
         print("Error reading/writing file")
+
+def start_progress_bar_last():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=read_text_file)
+    thread.start()        
 
 read_text_file_button = customtkinter.CTkButton(app, border_color="#0f94d2",
                                  fg_color=("#ccc","#333"),
                                  text_color=("gray10", "#DCE4EE"),
                                  border_width=0,
-                                 corner_radius=4, text="Last Updated", command=read_text_file)
+                                 corner_radius=4, text="Last Updated", command=start_progress_bar_last)
 read_text_file_button.place(x=35, y=152)
+
 
 
 
@@ -404,28 +428,39 @@ combobox_2.set(load_config_2())  # imposta il valore iniziale
 def search_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur {entry_value.get()}'")
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
 
 def install_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur -S {entry_value.get()}'")
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
 
 def remove_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur -Rns {entry_value.get()}'")
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
 
-def write_to_file():
+def ignore_package():
+    time.sleep(5)
     with open("/home/" + username + "/.config/archmain/data/ignore.json", "a") as f:
         f.write(f"{entry_value.get()}\n")
+    progressbar.stop()
+    app.after(1000, lambda: progressbar.place_forget())
 
 def downgrade_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo downgrade {entry_value.get()}'")
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
     else:
         print("No supported terminal found.")
 
@@ -436,8 +471,6 @@ for t in terminals:
         break
 
 
-#entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
-#entry.place(x=263, y=12)
 
 def clear_entry():
     entry_value.set("")
@@ -466,20 +499,18 @@ entry.bind("<FocusIn>", change_bg_color)
 entry.bind("<KeyRelease>", change_bg_color)
 
 
-actions = ['Search', 'Install', 'Remove', '--Ignore', 'Downgrade']
+actions = ['Search', 'Install', 'Remove', 'Ignore', 'Downgrade']
 combobox_var = customtkinter.StringVar(value="Options")
 
-def combobox_callback(choice):
-    if choice == 'Search':
-        search_package()
-    elif choice == 'Install':
-        install_package()
-    elif choice == 'Remove':
-        remove_package()
-    elif choice == 'Ignore':
-        write_to_file()
-    elif choice == 'Downgrade':
-        downgrade_package()
+def combobox_callback(choice):   
+     if choice in ('Search', 'Install', 'Remove', 'Ignore', 'Downgrade'):
+        progressbar.place(x=390, y=586)
+        progressbar.start()   
+        threading.Thread(target=globals()[choice.lower() + '_package'], args=(), daemon=True).start()
+
+   
+
+
 
 combobox = customtkinter.CTkComboBox(master=app, dropdown_hover_color=("#3b8ed0","#06c"), values=actions, variable=combobox_var, command=combobox_callback)
 combobox.place(x=665, y=12)
@@ -591,9 +622,18 @@ def get_cache_and_trash_size():
     return cache_size, trash_size
 
 def clear_cache_and_trash():
+    time.sleep(5)
     os.system("rm -rf ~/.cache/*")
     os.system("rm -rf ~/.local/share/Trash/*")
+    progressbar.stop()
+    app.after(1000, lambda: progressbar.place_forget()) 
     update_info_label()
+
+def start_progress_bar_cachehome():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=clear_cache_and_trash)
+    thread.start()     
 
 def update_info_label():
     cache_size, trash_size = get_cache_and_trash_size()
@@ -607,7 +647,7 @@ info_label = customtkinter.CTkLabel(master=app,
                                height=40)
 info_label.place(x=230, y=520)
 
-clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=clear_cache_and_trash)
+clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=start_progress_bar_cachehome)
 clear_button.place(x=250, y=490)
 
 app.after(1000, update_info_label)
@@ -626,16 +666,21 @@ app.after(1000, update_info_label)
 def clear_cache_pkg():
     for terminal in terminals:
         try:
-            if terminal == 'gnome-terminal':
-                subprocess.call([terminal, '-e', "sudo pikaur -Sc"])
-            else:
-                subprocess.call([terminal, '-e', 'sudo pikaur -Sc'])
+            subprocess.call([terminal, '-e', 'sudo pikaur -Sc'])
+            progressbar.stop()
+            app.after(1000, lambda: progressbar.place_forget()) 
             break
         except:
             continue
-                
+
+def start_progress_bar_cachepkgs():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=clear_cache_pkg)
+    thread.start()  
+
     update_label()
-clean_cache_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=clear_cache_pkg)
+clean_cache_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=start_progress_bar_cachepkgs)
 clean_cache_button.place(x=475, y=490)
 
 #mostra valore cache
@@ -663,19 +708,6 @@ app.after(1000, update_label)
 update_label()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #Orphans
 orphan_pkgs_label_text = tkinter.StringVar()
 orphan_pkgs_label_text.set("Orphan Packages: N/A")
@@ -687,9 +719,12 @@ def clear_orphan_pkgs():
         try:
             if terminal == 'gnome-terminal':
                 subprocess.call([terminal,  '--', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
+                progressbar.stop()
+                app.after(1000, lambda: progressbar.place_forget()) 
             else:
                 subprocess.call([terminal, '-e', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
-            
+                progressbar.stop()
+                app.after(1000, lambda: progressbar.place_forget()) 
             break
         except:
             continue
@@ -703,8 +738,14 @@ def update_orphan_pkgs_label():
     except:
         orphan_pkgs_label_text.set("No Orphan")
 
+def start_progress_bar_orphans():
+    progressbar.place(x=390, y=586)
+    progressbar.start()
+    thread = threading.Thread(target=clear_orphan_pkgs)
+    thread.start()  
+
 # Creazione del bottone per pulire la cache dei pacchetti orfani
-clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=clear_orphan_pkgs)
+clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=start_progress_bar_orphans)
 clear_orphan_button.place(x=690, y=490)
 
 # Creazione della label che mostra il numero di pacchetti orfani
