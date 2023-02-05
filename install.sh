@@ -123,7 +123,7 @@ StartupWMClass=Archmain
 EOF
 
 # Make all files executable
-find "$config_dir" -type f -exec chmod +x {} \;
+chmod +x "/home/$username/.config/scripts/*"
 
 
 echo -e "${Green}Installation complete!${Color_Off}"
