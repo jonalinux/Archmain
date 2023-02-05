@@ -5,23 +5,13 @@
     "xfce4-terminal",
     "kgx",
     "lxterminal",
-    "alacritty",
     "mate-terminal",
     "deepin-terminal",
     "qterminal",
     "terminator",
     "tilix",
+    "terminology",
     "xterm",
-    "rxvt",
-    "xfterm+",
-    "eterm",
-    "st",
-    "aterm",
-    "sakura",
-    "lilyterm",
-    "cool-retro-term",
-    "guake",
-    "kitty",
-    "yakuake"
+    "sakura"
     ]
     }

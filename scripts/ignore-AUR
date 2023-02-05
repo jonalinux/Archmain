@@ -18,8 +18,8 @@
 
 # URL
 verified="$HOME/.config/archmain/scripts/verified"
-urltemp="$HOME/.config/archmain/data/temp"
-ignore=$(cat "$HOME/.config/archmain/data/ignore")
+urltemp="$HOME/.config/archmain/data/temp.json"
+ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 
 
 echo "Temporarily saving the update package list"; 

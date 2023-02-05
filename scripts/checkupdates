@@ -20,8 +20,8 @@
 ICON="$HOME/.config/archmain/icons/icon.png"
 list="$HOME/.config/archmain/data/console.json"
 python="$HOME/.config/archmain/archmain.py"
-chSet="$HOME/.config/archmain/data/checkSet"
-delay="$HOME/.config/archmain/data/delay"
+chSet="$HOME/.config/archmain/data/checkSet.json"
+delay="$HOME/.config/archmain/data/delay.json"
 
 # Variabili cmd
 DELAY=$( expr "$(cat $delay)" \* 60)
