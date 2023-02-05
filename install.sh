@@ -21,57 +21,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+
+#!/bin/bash
+
 # Colors
-Color_Off='\033[0m'
 Green='\033[1;32m'
 Blue='\033[1;34m'
 Red='\033[1;31m'
 Yellow='\033[0;33m'
+Color_Off='\033[0m'
 
-#!/bin/bash
-
-echo -e "${Blue}Checking for base-devel...${Color_Off}"
-
-# Check if base-devel is already installed
-if pacman -Q base-devel &> /dev/null; then
-  echo -e "${Green}base-devel is already installed!${Color_Off}"
-else
-  echo -e "${Yellow}Installing base-devel...${Color_Off}"
-
-  # Install base-devel
-  sudo pacman -S base-devel
-
-  # Confirm the installation
-  if pacman -Q base-devel &> /dev/null; then
-    echo -e "${Green}base-devel has been successfully installed.${Color_Off}"
-  else
-    echo -e "${Red}Error: Failed to install base-devel.${Color_Off}" >&2
-  fi
-fi
-
-echo -e "${Blue}Checking for pikaur...${Color_Off}"
-
-# Check if pikaur is installed
-if ! command -v pikaur &>/dev/null; then
-  echo -e "${Red}Error: pikaur is not installed.${Color_Off}" >&2
-  echo -e "${Yellow}Installing pikaur...${Color_Off}"
-  
-  # Installing required dependencies
-  sudo pacman -S --needed base-devel
-
-  # Clone the pikaur repository and install it
-  git clone https://aur.archlinux.org/pikaur.git
-  cd pikaur
-  makepkg -fsri
-
-  # Clean up
-  cd ..
-  rm -rf pikaur
-else
-  echo -e "${Green}Pikaur is already installed!${Color_Off}"
-fi
-
-# Array of required packages
+# Required packages
 required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq)
 
 # Function to check if a package is installed
@@ -80,14 +41,37 @@ function is_installed {
   return $?
 }
 
-echo -e "${Blue}Checking for required packages...${Color_Off}"
+echo -e "${Blue}Checking for base-devel...${Color_Off}"
+if pacman -Q base-devel &> /dev/null; then
+  echo -e "${Green}base-devel is already installed!${Color_Off}"
+else
+  echo -e "${Yellow}Installing base-devel...${Color_Off}"
+  sudo pacman -S base-devel
+  if pacman -Q base-devel &> /dev/null; then
+    echo -e "${Green}base-devel has been successfully installed.${Color_Off}"
+  else
+    echo -e "${Red}Error: Failed to install base-devel.${Color_Off}"
+  fi
+fi
 
-# Loop through the required packages
+echo -e "${Blue}Checking for pikaur...${Color_Off}"
+if ! command -v pikaur &>/dev/null; then
+  echo -e "${Red}Error: pikaur is not installed.${Color_Off}"
+  echo -e "${Yellow}Installing pikaur...${Color_Off}"
+  sudo pacman -S --needed base-devel
+  git clone https://aur.archlinux.org/pikaur.git
+  cd pikaur
+  makepkg -fsri
+  cd ..
+  rm -rf pikaur
+else
+  echo -e "${Green}Pikaur is already installed!${Color_Off}"
+fi
+
+echo -e "${Blue}Checking for required packages...${Color_Off}"
 for package in "${required_packages[@]}"
 do
-  # Check if the package is installed
   if ! is_installed $package; then
-    # If not installed, install it
     sudo pikaur -S $package --noconfirm
   else
     echo -e "${Green}$package is already installed!${Color_Off}"
@@ -95,21 +79,16 @@ do
 done
 
 echo -e "${Blue}Installing Python packages...${Color_Off}"
-
-# Install Python packages
 pip install psutil customtkinter pillow
 
 echo -e "${Blue}Setting up the configuration...${Color_Off}"
-
-# Create the $HOME/.config/archmain directory
 config_dir="$HOME/.config/archmain"
 mkdir -p "$config_dir"
 mkdir -p "$HOME/.local/share/Trash/"
-
-# Copy all files to the $HOME/.config/archmain directory
+mkdir -p "$HOME/.local/share/applications/"
+mkdir -p "$HOME/.config/"
 cp -r * "$config_dir"
 
-# Define the username variable
 username=$(whoami)
 
 
@@ -122,7 +101,11 @@ Exec=$config_dir/scripts/checkupdates
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
-Name[en_US]=checkupdates.desktop
+Name=Check Updates
+Comment=Autostart script to check for updates
+Icon=system-software-update
+Categories=System;Utility;
+StartupNotify=true
 EOF
 
 # Create the archmain.desktop file
@@ -130,15 +113,18 @@ cat << EOF > "/home/$username/.local/share/applications/archmain.desktop"
 [Desktop Entry]
 Type=Application
 Name=Archmain
-Icon=$config_dir/icons/app-icon.png
-Exec=python3 $config_dir/archmain.py
+Icon=/home/jonathan/.config/archmain/icons/app-icon.png
+Exec=python3 /home/jonathan/.config/archmain/archmain.py
 Comment=Arch System Management
 Terminal=false
-Categories=Utility;
+Categories=System;
+StartupNotify=true
+StartupWMClass=Archmain
 EOF
 
 # Make all files executable
 find "$config_dir" -type f -exec chmod +x {} \;
 
-echo -e "${Red}Warning: Installation complete, but it is necessary to reboot in order to launch the Archmain start scripts. ${Color_Off}"
 
+echo -e "${Green}Installation complete!${Color_Off}"
+echo -e "${Yellow}Reboot now!${Color_Off}"
