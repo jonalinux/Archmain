@@ -86,7 +86,7 @@ config_dir="$HOME/.config/archmain"
 mkdir -p "$config_dir"
 mkdir -p "$HOME/.local/share/Trash/"
 mkdir -p "$HOME/.local/share/applications/"
-mkdir -p "$HOME/.config/"
+mkdir -p "$HOME/.config/autostart"
 cp -r * "$config_dir"
 
 username=$(whoami)
