@@ -22,14 +22,22 @@ urltemp="$HOME/.config/archmain/data/temp.json"
 ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 
 
-echo "Temporarily saving the update package list"; 
-echo "$(date)" > "$urltemp"
-echo  "last updates" >> "$urltemp"
-echo ""
+#temp.json
+echo "------------- $(date '+%a %d %b, %H:%M')" > "$urltemp"
+echo "" >> "$urltemp"
+echo  "Last package installation:" >> "$urltemp"
+echo "" >> "$urltemp"
 checkupdates   >> "$urltemp"
 
-sudo pacman -Syu $ignore
+#check if ignore and update
+if [ -s "$ign" ]
+then
+    sudo pacman -Syu --ignore "$ignore"
+else
+    sudo pacman -Syu 
+fi
 
+#go to verified
 echo ""
 echo ""
 read -p "Press [Enter] key to save list updates.."

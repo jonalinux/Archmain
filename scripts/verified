@@ -21,6 +21,8 @@
 list="$HOME/.config/archmain/data/console.json"
 urltemp="$HOME/.config/archmain/data/temp.json"
 last="$HOME/.config/archmain/data/last.json"
+ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
+ign="$HOME/.config/archmain/data/ignore.json"
 
 # Variabili cmd
 
@@ -49,3 +51,15 @@ get_updates
     fi
 
 cp "$urltemp" "$last"
+
+
+if [ -s "$ign" ]
+then
+  echo "" >> "$last"
+  echo "Packages that were ignored by the user:" >> "$last"
+  echo "" >> "$last"
+  echo "$ignore" >> "$last"
+else
+  echo "$ign is empty."
+  # do something if file is empty
+fi
