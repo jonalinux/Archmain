@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+ 
 
 import threading
 import tkinter 
@@ -470,10 +470,10 @@ def combobox_callback(choice):
 combobox = customtkinter.CTkComboBox(master=app, values=actions, variable=combobox_var, command=combobox_callback)
 combobox.place(x=665, y=12)
 
-def write_to_file():
+def reset():
     with open("/home/" + username + "/.config/archmain/data/ignore.json", "w") as file:
-        file.write(" ")
-write_to_file()
+        file.write("")
+reset()
 
 
 #cpu-disk-ram-swap-boot
