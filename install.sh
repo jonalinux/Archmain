@@ -123,7 +123,8 @@ StartupWMClass=Archmain
 EOF
 
 # Make all files executable
-chmod +x "/home/$username/.config/scripts/*"
+chmod +x "/home/$username/.config/archmain/scripts/*"
+chmod +x "/home/$username/.config/archmain/*"
 
 
 echo -e "${Green}Installation complete!${Color_Off}"
