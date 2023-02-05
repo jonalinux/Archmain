@@ -115,7 +115,7 @@ app.panel_frame = customtkinter.CTkFrame(app, width=170, height=390, corner_radi
 app.panel_frame.place(x=825, y=10)
 
 #license
-label = customtkinter.CTkLabel(master=app,text="Copyright (C) 2023 Jonathan Sanfilippo - GPLv3 license", width=250, height=15, text_color="#868686")
+label = customtkinter.CTkLabel(master=app,text="Copyright (C) 2023 Jonathan Sanfilippo - Licensed GPLv3", width=250, height=15, text_color="#868686")
 label.place(x=365, y=620)
 
 #img "img/001.png"
