@@ -77,7 +77,7 @@ customtkinter.set_appearance_mode(appearance_mode)
 #customtkinter.set_default_color_theme(color_theme)
 
 appearance_mode_var = tkinter.StringVar(value=appearance_mode)
-app.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(app,width=90, values=["Light", "Dark", "System"],
+app.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(app,width=90,dropdown_hover_color=("#2997ff","#06c"), values=["Light", "Dark", "System"],
                                                               variable=appearance_mode_var,
                                                               command=lambda value: change_appearance_mode_event(value))
 app.appearance_mode_optionemenu.place(x=40, y=610)
@@ -281,7 +281,7 @@ button = customtkinter.CTkButton(master=app,width=90,
                                  command=start_progress_bar)
 button.place(x=35, y=119)
 
-combobox_country = customtkinter.CTkOptionMenu(master=app, width=50, values=countries)
+combobox_country = customtkinter.CTkOptionMenu(master=app, width=50, dropdown_hover_color=("#2997ff","#06c"),values=countries)
 combobox_country.place(x=128, y=119)
 combobox_country.set(value_c)  # imposta il valore iniziale 
 
@@ -361,7 +361,7 @@ text_var = tkinter.StringVar(value="Notify Delay in Min")
 label = customtkinter.CTkLabel(master=app,textvariable=text_var,width=120,height=25, fg_color=('#dbdbdb','#2b2b2b'))
 label.place(x=842, y=20)
 
-combobox = customtkinter.CTkOptionMenu(master=app,
+combobox = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#2997ff","#06c"),
                                          values=["120", "180", "240","1440"],
                                          command=optionmenu_callback)
 combobox.place(x=840, y=48)
@@ -393,7 +393,7 @@ text_var = tkinter.StringVar(value="Check every Min")
 label = customtkinter.CTkLabel(master=app,textvariable=text_var, width=120,height=25,fg_color=('#dbdbdb','#2b2b2b'))
 label.place(x=845, y=90)
 
-combobox_2 = customtkinter.CTkOptionMenu(master=app,
+combobox_2 = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#2997ff","#06c"),
                                          values=["60", "120", "180","1440"],
                                          command=optionmenu_callback_2)
 combobox_2.place(x=840, y=118)
@@ -452,7 +452,7 @@ entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=
 entry.place(x=263, y=12)
 entry.bind("<FocusIn>", change_bg_color)   
 
-actions = ['Search', 'Install', 'Remove', 'Ignore', 'Downgrade']
+actions = ['Search', 'Install', 'Remove', '--Ignore', 'Downgrade']
 combobox_var = customtkinter.StringVar(value="Options")
 
 def combobox_callback(choice):
@@ -467,7 +467,7 @@ def combobox_callback(choice):
     elif choice == 'Downgrade':
         downgrade_package()
 
-combobox = customtkinter.CTkComboBox(master=app, values=actions, variable=combobox_var, command=combobox_callback)
+combobox = customtkinter.CTkComboBox(master=app, dropdown_hover_color=("#2997ff","#06c"), values=actions, variable=combobox_var, command=combobox_callback)
 combobox.place(x=665, y=12)
 
 def reset():
