@@ -89,12 +89,12 @@ mkdir -p "$HOME/.local/share/applications/"
 mkdir -p "$HOME/.config/autostart"
 cp -r * "$config_dir"
 
-username=$(whoami)
+
 
 
 
 # Create the checkupdates.desktop file
-cat << EOF > "/home/$username/.config/autostart/checkupdates.desktop"
+cat << EOF > "$HOME/.config/autostart/checkupdates.desktop"
 [Desktop Entry]
 Type=Application
 Exec=$config_dir/scripts/checkupdates
@@ -109,7 +109,7 @@ StartupNotify=true
 EOF
 
 # Create the archmain.desktop file
-cat << EOF > "/home/$username/.local/share/applications/archmain.desktop"
+cat << EOF > "$HOME/.local/share/applications/archmain.desktop"
 [Desktop Entry]
 Type=Application
 Name=Archmain
@@ -123,8 +123,9 @@ StartupWMClass=Archmain
 EOF
 
 # Make all files executable
-chmod +x "/home/$username/.config/archmain/scripts/*"
-chmod +x "/home/$username/.config/archmain/*"
+find "$HOME/.config/archmain" -type f -exec chmod +x {} \;
+find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
+
 
 
 echo -e "${Green}Installation complete!${Color_Off}"
