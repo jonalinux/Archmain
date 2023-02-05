@@ -5,26 +5,5 @@
 
 ## NEW v. 300![Screenshot from 2023-02-05 12-57-27](https://user-images.githubusercontent.com/103053714/216820952-4eb4be6e-8e87-48b8-97ac-8cbb4f027478.png)
 
-![Screenshot from 2023-02-05 18-38-02](https://user-images.githubusercontent.com/103053714/216838534-ea969b16-76ae-4427-9e0e-a5407289dca1.png)
 
-This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
-
-The GUI is built using Python and the Tkinter library, and is designed to be simple and intuitive to use. The interface includes buttons for installing, removing, updating, and clearing the cache of packages. Additionally, the interface includes a label that displays the current size of the cache of packages.
-
-The GUI uses the pikaur package manager, which is a popular AUR helper for Arch Linux. The pikaur command-line utility is used to perform the various package management tasks, and the output of these commands is displayed in a terminal window within the GUI.
-
-The source code is available on GitHub and can be easily modified to suit the needs of individual users. The code is well-commented and easy to understand, making it a great starting point for anyone interested in creating a similar project.
-
-Getting Started
-To get started with the Arch Linux Package Manager GUI, you will need to have a working installation of Arch Linux with the Tkinter library installed. Additionally, you will need to have the pikaur package manager installed.
-
-Once these requirements are met, simply clone the repository and run the script using Python. The GUI will launch and you can start using it to manage your packages.
-
-Using the GUI
-The GUI is simple to use and provides a straightforward way to perform common package management tasks. To install a package, simply enter the name of the package in the text box and press the "Install" button. To remove a package, enter the name of the package in the text box and press the "Remove" button. To update all installed packages, press the "Update" button. To clear the cache of packages, press the "Clear" button. The current size of the cache of packages is displayed in a label at the bottom of the interface.
-
-Contributing
-If you would like to contribute to this project, please fork the repository and submit a pull request with your changes. Your contributions are greatly appreciated!
-
-![Screenshot from 2023-02-05 18-39-42](https://user-images.githubusercontent.com/103053714/216838543-87317510-9f44-4bda-b7ff-a686d00e9bc8.png)
 
