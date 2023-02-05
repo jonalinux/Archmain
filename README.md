@@ -28,6 +28,9 @@ Once these requirements are met, simply clone the repository and run the script 
 ### Using the GUI 
 The GUI is simple to use and provides a straightforward way to perform common package management tasks. To install a package, simply enter the name of the package in the text box and press the "Install" button. To remove a package, enter the name of the package in the text box and press the "Remove" button. To update all installed packages, press the "Update" button. To clear the cache of packages, press the "Clear" button. The current size of the cache of packages is displayed in a label at the bottom of the interface.
 
+![image](https://user-images.githubusercontent.com/103053714/216844957-72d8b7d9-dbc0-4f7a-a6f4-1b43c1891287.png)
+
+
 ### Contributing
 If you would like to contribute to this project, please fork the repository and submit a pull request with your changes. Your contributions are greatly appreciated! 
 
