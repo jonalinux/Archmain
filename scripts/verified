@@ -60,6 +60,6 @@ then
   echo "" >> "$last"
   echo "$ignore" >> "$last"
 else
-  echo "$ign is empty."
+  echo ""
   # do something if file is empty
 fi
