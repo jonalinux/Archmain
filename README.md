@@ -5,9 +5,11 @@
 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
+[![name](https://ckdcf.org/wp-content/uploads/button-donate-paypal-1-300x137.png)](https://www.paypal.com/donate/?hosted_button_id=3C4YAF9NXMEWL)
 
 
 
+##
 
 ![Screenshot from 2023-02-05 19-50-47](https://user-images.githubusercontent.com/103053714/216841493-40730276-e816-4109-b892-06a9ab34a6c8.png)
 
@@ -102,16 +104,11 @@ The configuration directory is located at `~/.config/archmain/`.
 ### Contributors
 - @IvanKey1
 
-## Buy me a Coffee
 
 
 
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="62AAZD7G38V5N">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+
+
 
 
