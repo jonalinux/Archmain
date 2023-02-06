@@ -46,7 +46,7 @@ $ git clone https://github.com/JonathanSanfilippo/Archmain.git
 
 Enter the directory `archmain` and give permissions to execute the bash script:
 
-- $ cd Archmain
+- $ cd archmain
 - $ chmod +x install.sh
 
 Finally, run the installation script:
