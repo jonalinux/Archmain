@@ -504,7 +504,7 @@ entry_value.set("before using the options, insert the package name.")
 entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
 entry.place(x=263, y=12)
 entry.bind("<FocusIn>", change_bg_color)
-entry.bind("<KeyRelease>", change_bg_color)
+#entry.bind("<KeyRelease>", change_bg_color)
 
 
 actions = ['Search', 'Install', 'Remove', 'Ignore', 'Downgrade']
