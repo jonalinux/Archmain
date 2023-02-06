@@ -63,6 +63,8 @@ The following packages must be installed before running the installation script:
 - python-pip
 - libnotify
 - jq
+- wget
+- base-devel
 
 ## Compatible terminals
     "gnome-terminal",
