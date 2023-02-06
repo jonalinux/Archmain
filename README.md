@@ -91,3 +91,6 @@ The installation script will automatically set up the configuration and create t
 - `archmain.desktop` in `~/.local/share/applications/` to start the `archmain` application.
 
 The configuration directory is located at `~/.config/archmain/`.
+
+### Contributors
+- Ivan Karavitis 
