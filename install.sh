@@ -33,7 +33,7 @@ Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
 # Required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq)
+required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq wget)
 
 # Function to check if a package is installed
 function is_installed {
