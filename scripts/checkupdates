@@ -17,6 +17,7 @@
 
 
 # URL
+RPV="$HOME/.config/archmain/scripts/repocheckversion"
 ICON="$HOME/.config/archmain/icons/icon.png"
 list="$HOME/.config/archmain/data/console.json"
 python="$HOME/.config/archmain/archmain.py"
@@ -29,7 +30,7 @@ CHECK=$( expr "$(cat $chSet)" \* 60)
 get_updates(){
     AUR=$(pikaur -Qqua)
     ListUpdates=$(checkupdates 2>/dev/null)
-    Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l))
+    Pending=$(expr "$(pikaur -Qqua | wc -l)" + "$(checkupdates 2>/dev/null | wc -l)")
 }
 
 write_updates(){
@@ -72,6 +73,7 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
     else
         echo "System Updated" > "$list"
         echo "last check at $(date +'%F %T')" >> "$list"
+        $RPV
     fi
 }
 
