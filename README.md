@@ -97,3 +97,11 @@ The configuration directory is located at `~/.config/archmain/`.
 
 ### Contributors
 - @IvanKey1
+
+## Buy me a Coffee
+
+[
+  ![Donate with PayPal]
+  (https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)
+]
+(https://www.paypal.com/donate/?hosted_button_id=62AAZD7G38V5N)
