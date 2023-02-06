@@ -5,8 +5,6 @@
 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
-[![name](https://ckdcf.org/wp-content/uploads/button-donate-paypal-1-300x137.png)](https://www.paypal.com/donate/?hosted_button_id=3C4YAF9NXMEWL)
-
 
 
 ##
@@ -103,6 +101,10 @@ The configuration directory is located at `~/.config/archmain/`.
 
 ### Contributors
 - @IvanKey1
+
+###
+
+[![name](https://ckdcf.org/wp-content/uploads/button-donate-paypal-1-300x137.png)](https://www.paypal.com/donate/?hosted_button_id=3C4YAF9NXMEWL)
 
 
 
