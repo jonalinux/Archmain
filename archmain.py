@@ -146,7 +146,7 @@ logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.co
                                   size=(100, 80))
 
 label003 = customtkinter.CTkLabel(app, image=logo, text=" ", fg_color=('#dbdbdb','#2b2b2b') )
-label003.place(x=56, y=300)
+label003.place(x=56, y=279)
 
 
 
@@ -155,7 +155,7 @@ text = "Archmain v" + vr
 
 # Create the label with the text from the file
 app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#dbdbdb','#2b2b2b'), text_color="#868686")
-app.label.place(x=62, y=372)
+app.label.place(x=62, y=352)
 
 
 
