@@ -39,6 +39,9 @@ If you would like to contribute to this project, please fork the repository and 
 # Archmain
 Arch Linux System Management Tool
 
+## Uninstall OLD VERSION < 288
+- https://github.com/JonathanSanfilippo/Uninstall-Archmain-Old-version-228-.git
+
 ## Installation
 Clone this repository:
 
