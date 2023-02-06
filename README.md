@@ -5,9 +5,16 @@
 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
+### Video Tutorial
+
+[Watch video on Youtube](https://www.youtube.com/watch?v=WBTL0oi173c)
 
 
-##
+
+
+
+
+### Description
 
 ![Screenshot from 2023-02-05 19-50-47](https://user-images.githubusercontent.com/103053714/216841493-40730276-e816-4109-b892-06a9ab34a6c8.png)
 
