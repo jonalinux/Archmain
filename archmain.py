@@ -148,8 +148,16 @@ logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.co
 label003 = customtkinter.CTkLabel(app, image=logo, text=" ", fg_color=('#dbdbdb','#2b2b2b') )
 label003.place(x=56, y=300)
 
-app.label = customtkinter.CTkLabel(app, text="Archmain v3.00", fg_color=('#dbdbdb','#2b2b2b'), text_color="#868686")
-app.label.place(x=60, y=370)
+
+
+vr = os.popen('cat "/home/' + username + '/.config/archmain/version"').read()
+text = "Archmain v" + vr
+
+# Create the label with the text from the file
+app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#dbdbdb','#2b2b2b'), text_color="#868686")
+app.label.place(x=62, y=372)
+
+
 
 
 #ProgressBar
