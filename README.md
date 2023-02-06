@@ -65,6 +65,9 @@ The following packages must be installed before running the installation script:
 - jq
 - wget
 - base-devel
+- pikaur
+
+
 
 ## Compatible terminals
     "gnome-terminal",
