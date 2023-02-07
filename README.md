@@ -34,8 +34,8 @@ Getting Started with the Arch Linux Package Manager GUI, you will need to have a
 Once these requirements are met, simply clone the repository and run the script using Python. The GUI will launch and you can start using it to manage your packages.
 
 
-![216841376-3b6b8104-a3a4-4468-8a99-2b54c5172086](https://user-images.githubusercontent.com/103053714/217283003-e3ad4e88-d72b-4bc5-a305-284e9658de3c.png)
 
+![216841376-3b6b8104-a3a4-4468-8a99-2b54c5172086](https://user-images.githubusercontent.com/103053714/217284297-f7b83216-0978-4c7e-9358-b43dfe829266.png)
 
 ### Using the GUI 
 The GUI is simple to use and provides a straightforward way to perform common package management tasks. To install a package, simply enter the name of the package in the text box and press the "Install" button. To remove a package, enter the name of the package in the text box and press the "Remove" button. To update all installed packages, press the "Update" button. To clear the cache of packages, press the "Clear" button. The current size of the cache of packages is displayed in a label at the bottom of the interface.
