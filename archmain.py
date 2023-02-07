@@ -37,7 +37,7 @@ from PIL import Image
 import json
 import shutil
 import time
-
+from tkinter import Scrollbar
 
 
 #root-(app)-Archmain v3.00
@@ -267,7 +267,7 @@ countries = countries_dict['countries']
 
 def new_mirrors():
     # get the value selected from the dropdown menu
-    country = combobox_country.get()
+    country = entry_country.get()
     # save the selected value in an external file named country
     with open("/home/" + username + "/.config/archmain/config/country.json", "w") as f:
       json.dump({"country": country}, f)
@@ -304,10 +304,9 @@ button = customtkinter.CTkButton(master=app,width=90,
                                  command=start_progress_bar)
 button.place(x=35, y=119)
 
-combobox_country = customtkinter.CTkOptionMenu(master=app, width=50, dropdown_hover_color=("#3b8ed0","#06c"),values=countries)
-combobox_country.place(x=128, y=119)
-combobox_country.set(value_c)  # imposta il valore iniziale 
-
+entry_country = customtkinter.CTkEntry(master=app, width=50,)
+entry_country.insert(0, value_c) # imposta il valore iniziale
+entry_country.place(x=128, y=119)
 
 
 #leggi ultimi pacchetti aggiornati e ignorati
