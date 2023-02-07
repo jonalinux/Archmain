@@ -488,15 +488,9 @@ def change_bg_color(event=None):
     content = entry_value.get()
     if content.islower():
         entry.configure(text_color=("#333","#f2f2f2"))
-        pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
-        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-         file.write("Hello " + username + "!!\n" + pikaur.stdout)
+        
 
-    else:
-        entry.configure(text_color=("red","#e8493a"))
-        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-         file.write("Warning! The package names in the entry must be written in lowercase!")
-    return content.islower()
+ 
 
 entry_value = tk.StringVar()
 entry_value.set("before using the options, insert the package name.")
@@ -510,7 +504,17 @@ actions = ['Search', 'Install', 'Remove', 'Ignore', 'Downgrade']
 combobox_var = customtkinter.StringVar(value="Options")
 
 def combobox_callback(choice):   
-     if choice in ('Search', 'Install', 'Remove', 'Ignore', 'Downgrade'):
+    content = entry_value.get()
+    if not content.islower():
+        entry.configure(text_color=("red","#e8493a"))
+        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+            file.write("Warning! The package names in the entry must be written in lowercase!")
+            
+        return content.islower()
+    if choice in ('Search', 'Install', 'Remove', 'Ignore', 'Downgrade'):
+        pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
+        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+         file.write("Hello " + username + "!!\n" + pikaur.stdout)  
         progressbar.place(x=390, y=586)
         progressbar.start()   
         threading.Thread(target=globals()[choice.lower() + '_package'], args=(), daemon=True).start()
