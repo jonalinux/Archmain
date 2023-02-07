@@ -27,7 +27,8 @@ The GUI is built using Python and the Tkinter library, and is designed to be sim
 
 The GUI uses the pikaur package manager, which is a popular AUR helper for Arch Linux. The pikaur command-line utility is used to perform the various package management tasks, and the output of these commands is displayed in a terminal window within the GUI.
 
-![G](https://user-images.githubusercontent.com/103053714/216841376-3b6b8104-a3a4-4468-8a99-2b54c5172086.png)
+
+![Screenshot from 2023-02-07 15-06-14](https://user-images.githubusercontent.com/103053714/217282708-5c9ae4bb-1b75-4991-8416-ae8e0793fcfb.png)
 
 
 The source code is available on GitHub and can be easily modified to suit the needs of individual users. The code is well-commented and easy to understand, making it a great starting point for anyone interested in creating a similar project.
