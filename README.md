@@ -9,7 +9,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 [Watch video on Youtube](https://www.youtube.com/watch?v=WBTL0oi173c)
 
-## EDIT Country Mirrors
+## New in 301 Country Mirrors
 Changed the country selection list of the servers with an input box, allowing the use of multiple countries.
 
 ![Screenshot from 2023-02-07 14-32-50](https://user-images.githubusercontent.com/103053714/217274827-9e872af5-008f-4320-9386-7c74f0ac142a.png)
