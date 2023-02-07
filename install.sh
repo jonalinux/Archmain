@@ -114,7 +114,7 @@ cat << EOF > "$HOME/.local/share/applications/archmain.desktop"
 Type=Application
 Name=Archmain
 Icon=/home/jonathan/.config/archmain/icons/app-icon.png
-Exec=python3 /home/jonathan/.config/archmain/archmain.py
+Exec=python3 /home/'$USER'/.config/archmain/archmain.py
 Comment=Arch System Management
 Terminal=false
 Categories=System;
