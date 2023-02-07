@@ -15,7 +15,8 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 ### Description
 
 
-![Screenshot from 2023-02-07 15-02-23](https://user-images.githubusercontent.com/103053714/217281610-e45bd2e9-49fd-4dd2-979b-e57b60d53aa4.png)
+![image](https://user-images.githubusercontent.com/103053714/217380423-de93df76-a84b-49b2-9964-a379b79affae.png)
+
 
 
 The GUI is built using Python and the Tkinter library, and is designed to be simple and intuitive to use. The interface includes buttons for installing, removing, updating, and clearing the cache of packages. Additionally, the interface includes a label that displays the current size of the cache of packages.
