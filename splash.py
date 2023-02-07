@@ -35,6 +35,9 @@ app.withdraw()
 #user
 username = getpass.getuser()
 
+def close():
+     exit()
+
 def show_splash_screen():
     splash = tk.Toplevel()
     splash.attributes("-topmost", True)
@@ -60,13 +63,8 @@ def show_splash_screen():
     label_v.lift()
     
     splash.after(5000, splash.destroy)
-   
+    app.after(6000, close)
     
- 
     
-
-
-
 show_splash_screen()
 app.mainloop()
-
