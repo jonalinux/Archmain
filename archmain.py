@@ -536,54 +536,54 @@ reset()
 def update_values():
     disk_usage = psutil.disk_usage("/").percent
     disk_progress.set(value=disk_usage/100)
-    disk_label.configure(text="Disk Usage: {:.2f}%".format(disk_usage))
+    disk_label.configure(text="Disk  {:.2f}%".format(disk_usage))
 
     ram_usage = psutil.virtual_memory().percent
     ram_progress.set(value=ram_usage/100)
-    ram_label.configure(text="RAM Usage: {:.2f}%".format(ram_usage))
+    ram_label.configure(text="RAM  {:.2f}%".format(ram_usage))
 
     swap_usage = psutil.swap_memory().percent
     swap_progress.set(value=swap_usage/100)
-    swap_label.configure(text="Swap Usage: {:.2f}%".format(swap_usage))
+    swap_label.configure(text="Swap  {:.2f}%".format(swap_usage))
     
     cpu_usage = psutil.cpu_percent()
     cpu_progress.set(value=cpu_usage/100)
-    cpu_label.configure(text="CPU Usage: {:.2f}%".format(cpu_usage))
+    cpu_label.configure(text="CPU  {:.2f}%".format(cpu_usage))
  
     boot_partition_usage = psutil.disk_usage("/boot").percent
     boot_partition_progress.set(value=boot_partition_usage/100)
-    boot_partition_label.configure(text="Boot Partition: {:.2f}%".format(boot_partition_usage))
+    boot_partition_label.configure(text="Boot {:.2f}%".format(boot_partition_usage))
 
     app.after(1000, update_values)
 
 
 app.after(1000, update_values)
 
-cpu_label = customtkinter.CTkLabel(app, text="CPU Usage:" , fg_color=('#dbdbdb','#2b2b2b'))
+cpu_label = customtkinter.CTkLabel(app, text="CPU" , fg_color=('#dbdbdb','#2b2b2b'))
 cpu_label.place(x=845, y=237)
 
 cpu_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="red")
 cpu_progress.place(x=845, y=260)
 
-disk_label = customtkinter.CTkLabel(app, text="Disk Usage:", fg_color=('#dbdbdb','#2b2b2b'))
+disk_label = customtkinter.CTkLabel(app, text="Disk ", fg_color=('#dbdbdb','#2b2b2b'))
 disk_label.place(x=845, y=267)
 
 disk_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="#0f94d2")
 disk_progress.place(x=845, y=290)
 
-ram_label = customtkinter.CTkLabel(app, text="RAM Usage:", fg_color=('#dbdbdb','#2b2b2b'))
+ram_label = customtkinter.CTkLabel(app, text="RAM ", fg_color=('#dbdbdb','#2b2b2b'))
 ram_label.place(x=845, y=297)
 
 ram_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="orange")
 ram_progress.place(x=845, y=320)
 
-swap_label = customtkinter.CTkLabel(app, text="Swap Usage:", fg_color=('#dbdbdb','#2b2b2b'))
+swap_label = customtkinter.CTkLabel(app, text="Swap ", fg_color=('#dbdbdb','#2b2b2b'))
 swap_label.place(x=845, y=327)
 
 swap_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="magenta")
 swap_progress.place(x=845, y=350)
 
-boot_partition_label = customtkinter.CTkLabel(app, text="Boot Partition Usage:", fg_color=('#dbdbdb','#2b2b2b'))
+boot_partition_label = customtkinter.CTkLabel(app, text="Boot ", fg_color=('#dbdbdb','#2b2b2b'))
 boot_partition_label.place(x=845, y=357)
 
 boot_partition_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="#55ff00")
