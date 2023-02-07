@@ -70,6 +70,12 @@ Finally, run the installation script:
 
 $ ./install.sh
 
+
+## Update version
+
+you can use update instead of install to update the version only if you are already using archmain v300+ installed on your Arch Linux.
+
+
 ## Required packages
 The following packages must be installed before running the installation script:
 - git
