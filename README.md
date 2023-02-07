@@ -38,7 +38,8 @@ Getting Started with the Arch Linux Package Manager GUI, you will need to have a
 
 Once these requirements are met, simply clone the repository and run the script using Python. The GUI will launch and you can start using it to manage your packages.
 
-![Screenshot from 2023-02-05 18-39-42](https://user-images.githubusercontent.com/103053714/216841357-9198a397-d292-451e-9794-c79916b2dbd0.png)
+
+![216841376-3b6b8104-a3a4-4468-8a99-2b54c5172086](https://user-images.githubusercontent.com/103053714/217283003-e3ad4e88-d72b-4bc5-a305-284e9658de3c.png)
 
 
 ### Using the GUI 
