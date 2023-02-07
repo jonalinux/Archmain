@@ -21,4 +21,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"rsync -av --exclude=data,config * $HOME/.config/archmain/"
+url="$HOME/.config/archmain/"
+
+
+
+cp -r scripts $url
+cp -r archmain.py  $url
+cp -r uninstall.sh version $url
