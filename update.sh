@@ -21,4 +21,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-cp -r --exclude=data "*" "$HOME/.config/archmain/"
+"rsync -av --exclude=data,config * $HOME/.config/archmain/"
