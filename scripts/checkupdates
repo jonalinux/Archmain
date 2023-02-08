@@ -33,7 +33,9 @@ $splash
 DELAY=$( expr "$(cat $delay)" \* 60)
 CHECK=$( expr "$(cat $chSet)" \* 60) 
 get_updates(){
-    AUR=$(yes no | pikaur -Syu | tail -n +8 | head -n -3)
+   # AUR=$(yes no | pikaur -Su | tail -n +8 | head -n -3)
+     AUR=$(pikaur -Qua)
+     Pacman=$(checkupdates 2>/dev/null)
     Pending=$(expr "$(pikaur -Qqua | wc -l)" + "$(checkupdates 2>/dev/null | wc -l)")
 }
 
@@ -44,6 +46,8 @@ write_updates(){
         echo "$Pending Update" > "$list"
         echo ""  >> "$list"
         echo "$AUR" >> "$list"
+        echo ""  >> "$list"
+        echo "$Pacman"  >> "$list"
 
 ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Update available."   -u critical;  )
                 case "$ACTION" in
@@ -60,6 +64,8 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
         echo "$Pending Updates" > "$list"
         echo ""  >> "$list"
         echo "$AUR" >> "$list"
+        echo ""  >> "$list"
+        echo "$Pacman"  >> "$list"
 
         
 

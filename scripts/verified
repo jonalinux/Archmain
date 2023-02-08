@@ -27,7 +27,8 @@ ign="$HOME/.config/archmain/data/ignore.json"
 # Variabili cmd
 
 get_updates(){
-    AUR=$(yes no | pikaur -Syu | tail -n +8 | head -n -3)
+     AUR=$(pikaur -Qua)
+     Pacman=$(checkupdates 2>/dev/null)
     Pending=$(expr $(pikaur -Qqua | wc -l) + $(checkupdates 2>/dev/null | wc -l))
 }
 
@@ -36,11 +37,15 @@ get_updates
         echo "$Pending Update" > "$list"
         echo ""  >> "$list"
         echo "$AUR" >> "$list"
+        echo ""  >> "$list"
+        echo "$Pacman"  >> "$list"
 
     elif [ "$Pending" -ge 1 ]; then
         echo "$Pending Updates" > "$list"
         echo ""  >> "$list"
         echo "$AUR" >> "$list"
+        echo ""  >> "$list"
+        echo "$Pacman"  >> "$list"
 
     else
         echo "System Updated" > "$list"
