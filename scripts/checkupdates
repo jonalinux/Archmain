@@ -34,7 +34,7 @@ DELAY=$( expr "$(cat $delay)" \* 60)
 CHECK=$( expr "$(cat $chSet)" \* 60) 
 get_updates(){
    # AUR=$(yes no | pikaur -Su | tail -n +8 | head -n -3)
-     AUR=$(pikaur -Qqua)
+     AUR=$(pikaur -Qua)
      Pacman=$(checkupdates 2>/dev/null)
     Pending=$(expr "$(pikaur -Qqua | wc -l)" + "$(checkupdates 2>/dev/null | wc -l)")
 }
