@@ -36,17 +36,13 @@ get_updates
     if [ "$Pending" -eq 1 ]; then
         echo "$Pending Update" > "$list"
         echo ""  >> "$list"
-        echo "$AUR" >> "$list"
-        echo ""  >> "$list"
-        echo "$Pacman"  >> "$list"
+        echo "${AUR// +/ }" | cut -c 2- >> "$list"
 
     elif [ "$Pending" -ge 1 ]; then
         echo "$Pending Updates" > "$list"
         echo ""  >> "$list"
-        echo "$AUR" >> "$list"
-        echo ""  >> "$list"
         echo "$Pacman"  >> "$list"
-
+        echo "${AUR// +/ }" | cut -c 2- >> "$list"
     else
         echo "System Updated" > "$list"
         echo "last check at $(date +'%F %T')" >> "$list"

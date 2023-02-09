@@ -34,7 +34,7 @@ DELAY=$( expr "$(cat $delay)" \* 60)
 CHECK=$( expr "$(cat $chSet)" \* 60) 
 get_updates(){
    # AUR=$(yes no | pikaur -Su | tail -n +8 | head -n -3)
-     AUR=$(pikaur -Qua)
+     AUR=$(pikaur -Qqua)
      Pacman=$(checkupdates 2>/dev/null)
     Pending=$(expr "$(pikaur -Qqua | wc -l)" + "$(checkupdates 2>/dev/null | wc -l)")
 }
@@ -45,9 +45,9 @@ write_updates(){
     if [ "$Pending" -eq 1 ]; then
         echo "$Pending Update" > "$list"
         echo ""  >> "$list"
-        echo "$AUR" >> "$list"
-        echo ""  >> "$list"
         echo "$Pacman"  >> "$list"
+        echo "${AUR// +/ }" | cut -c 2- >> "$list"
+       
 
 ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Update available."   -u critical;  )
                 case "$ACTION" in
@@ -63,10 +63,8 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
     elif [ "$Pending" -ge 1 ]; then
         echo "$Pending Updates" > "$list"
         echo ""  >> "$list"
-        echo "$AUR" >> "$list"
-        echo ""  >> "$list"
         echo "$Pacman"  >> "$list"
-
+        echo "${AUR// +/ }" | cut -c 2- >> "$list"
         
 
 ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
