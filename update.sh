@@ -21,10 +21,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# Colors
+Green='\033[1;32m'
+Blue='\033[1;34m'
+Red='\033[1;31m'
+Yellow='\033[0;33m'
+Color_Off='\033[0m'
+
 url="$HOME/.config/archmain/"
-
-
 
 cp -r scripts $url
 cp -r archmain.py  $url
 cp -r uninstall.sh version $url
+
+
+echo -e "${Green}Update Version complete!${Color_Off}"
+
