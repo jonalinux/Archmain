@@ -23,10 +23,6 @@ The GUI is built using Python and the Tkinter library, and is designed to be sim
 
 The GUI uses the pikaur package manager, which is a popular AUR helper for Arch Linux. The pikaur command-line utility is used to perform the various package management tasks, and the output of these commands is displayed in a terminal window within the GUI.
 
-
-![Screenshot from 2023-02-07 15-06-14](https://user-images.githubusercontent.com/103053714/217282708-5c9ae4bb-1b75-4991-8416-ae8e0793fcfb.png)
-
-
 The source code is available on GitHub and can be easily modified to suit the needs of individual users. The code is well-commented and easy to understand, making it a great starting point for anyone interested in creating a similar project.
 
 ## Getting Started
@@ -34,16 +30,8 @@ Getting Started with the Arch Linux Package Manager GUI, you will need to have a
 
 Once these requirements are met, simply clone the repository and run the script using Python. The GUI will launch and you can start using it to manage your packages.
 
-
-
-![216841376-3b6b8104-a3a4-4468-8a99-2b54c5172086](https://user-images.githubusercontent.com/103053714/217284297-f7b83216-0978-4c7e-9358-b43dfe829266.png)
-
 ### Using the GUI 
 The GUI is simple to use and provides a straightforward way to perform common package management tasks. To install a package, simply enter the name of the package in the text box and press the "Install" button. To remove a package, enter the name of the package in the text box and press the "Remove" button. To update all installed packages, press the "Update" button. To clear the cache of packages, press the "Clear" button. The current size of the cache of packages is displayed in a label at the bottom of the interface.
-
-
-![Screenshot from 2023-02-07 15-16-27](https://user-images.githubusercontent.com/103053714/217285215-f09ef3f8-ff21-486e-a33c-a12f9eb990cb.png)
-
 
 
 ### Contributing
@@ -90,6 +78,7 @@ The following packages must be installed before running the installation script:
 - wget
 - base-devel
 - pikaur
+- syslog-ng
 
 
 
