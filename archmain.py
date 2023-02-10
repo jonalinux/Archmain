@@ -38,20 +38,79 @@ import json
 import shutil
 import time
 from tkinter import Scrollbar
+import socket
 
+
+
+#info
+username = getpass.getuser()
+hostname = socket.gethostname()
 
 #root-(app)-Archmain v3.00
 app = customtkinter.CTk(className='Archmain') 
 app.geometry(f"{1020}x{650}")
 app.minsize(1020, 650)
 app.maxsize(1020, 650)
-app.title("Archmain - Arch System Management")
 
 
+filename = "/home/" + username + "/.config/archmain/data/n.json"
+if not os.path.exists(filename):
+    with open(filename, "w") as f:
+        pass
+           
 
-#user
-username = getpass.getuser()
+def title_status():
+    app.status = ""
+    with open("/home/" + username + "/.config/archmain/data/n.json", "r") as file: n = file.read()
+    if n != app.status:
+       app.title(f"{n} - {username}@{hostname}")
+       app.status = n
+    app.after(1000, title_status)
+app.title(f"Archmain - Arch System Management")  
+app.after(1000, title_status)
 
+
+filename = "/home/" + username + "/.config/archmain/data/checkSet.json"
+if not os.path.exists(filename):
+    with open(filename, "w") as f:
+        f.write("60")
+else:
+    with open(filename, "r") as f:
+        content = f.read()
+        if content == "":
+            with open(filename, "w") as f:
+                f.write("60")
+             
+filename = "/home/" + username + "/.config/archmain/data/delay.json"
+if not os.path.exists(filename):
+    with open(filename, "w") as f:
+        f.write("120")
+else:
+    with open(filename, "r") as f:
+        content = f.read()
+        if content == "":
+            with open(filename, "w") as f:
+                f.write("120")   
+                
+src = "/home/" + username + "/.config/archmain/data/temp.json"
+dst = "/home/" + username + "/.config/archmain/data/last.json"
+if not os.path.exists(dst):
+    with open(src, "r") as fsrc:
+        content = fsrc.read()
+        with open(dst, "w") as fdst:
+            fdst.write(content)
+
+filename = "/home/" + username + "/.config/archmain/config/country.json"
+if not os.path.exists(filename):
+    with open(filename, "w") as f:
+        f.write('{"country": "gb"}')
+else:
+    with open(filename, "r") as f:
+        content = f.read()
+        if content == "":
+            with open(filename, "w") as f:
+                f.write('{"country": "gb"}')                
+    
 #icons
 icon = tkinter.PhotoImage(file="/home/" + username + "/.config/archmain/icons/app-icon.png")
 app.iconphoto(False, icon)   
@@ -96,9 +155,11 @@ label.place(x=55, y=590)
 #terminals
 with open('/home/' + username + '/.config/archmain/config/terminals.json', 'r') as file:
     terminals_dict = json.load(file)
-
+ 
 # Accedi alla lista di terminali
 terminals = terminals_dict['terminals']
+
+
 
 
 # configure grid layout (4x4)
@@ -158,12 +219,164 @@ app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#dbdbdb'
 app.label.place(x=62, y=352)
 
 
-
-
 #ProgressBar
 progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color="#55ff00")
 progressbar.configure(mode="indeterminate",)
 progressbar.place_forget()
+
+
+
+
+
+class MyTabView(customtkinter.CTkTabview):
+    def __init__(app, master, **kwargs):
+        super().__init__(master, **kwargs)
+         
+        filename = "/home/" + username + "/.config/archmain/data/processes.json"
+        if not os.path.exists(filename):
+               with open(filename, "w") as f:
+                    pass 
+        
+        
+        filename = "/home/" + username + "/.config/archmain/data/processes.json"
+        with open(filename) as f:
+                 num_lines = sum(1 for line in f)
+           
+        
+        # create tabs
+        app.add(" Console ")
+        app.add(f" Processes ({num_lines})")
+        app.add(" Pacman Log ")
+        
+        
+        # Console
+        app.text = ""
+        def update_textbox():
+            filename = "/home/" + username + "/.config/archmain/data/console.json"
+            if not os.path.exists(filename):
+               with open(filename, "w") as f:
+                    pass
+            global textbox
+            with open("/home/" + username + "/.config/archmain/data/console.json", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text:
+               textbox.configure(state="normal")  # configure textbox to be editable
+               textbox.delete("0.0", "end")  # clear textbox
+               textbox.insert("0.0", new_text)  # insert updated text
+               textbox.configure(state="disabled")  # configure textbox to be read-only
+               app.text = new_text
+            app.after(1000, update_textbox)
+        
+        global textbox
+        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox.place(x=0, y=0)
+        textbox.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox)
+
+        
+        def write_processes_to_file():
+            # Recupera la lista dei processi in esecuzione
+            processes = list(psutil.process_iter())
+            # Ordina i processi in base al consumo di CPU
+            processes.sort(key=lambda process: process.memory_percent(), reverse=True)
+            # Apri il file in modalità di scrittura
+            with open("/home/" + username + "/.config/archmain/data/processes.json", "w") as file:
+            # Per ogni processo in esecuzione
+               for process in processes:
+                try:
+                   # Recupera informazioni sul processo
+                   process_info = process.as_dict(attrs=["pid", "name", "status"])
+                   # Recupera informazioni sul consumo di CPU e RAM del processo
+                   cpu_percent = process.cpu_percent()
+                   memory_info = process.memory_info().rss / 1024 / 1024
+                   # Scrivi le informazioni sul processo nel file
+                   file.write(f"{process_info['name']} {process_info['pid']}: - CPU: {cpu_percent}%, RAM: {memory_info:.2f} MB\n")
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                   pass
+            app.after(10000,write_processes_to_file)      
+        
+        app.after(1000,write_processes_to_file)        
+        
+         # Processes
+        app.text2 = ""
+        def update_textbox2():
+            global textbox2
+            with open("/home/" + username + "/.config/archmain/data/processes.json", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text2:
+               textbox2.configure(state="normal")  # configure textbox to be editable
+               textbox2.delete("0.0", "end")  # clear textbox
+               textbox2.insert("0.0", new_text)  # insert updated text
+               textbox2.configure(state="disabled")  # configure textbox to be read-only
+               app.text2 = new_text
+            app.after(1000, update_textbox2)
+        
+        global textbox2
+        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox2.place(x=0, y=0)
+        textbox2.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox2)  
+            
+            
+         # SysLog
+       # os.system("cp -r /var/log/syslog.log /home/" + username + "/.config/archmain/data/syslog.log ")
+        
+        def copy_last_100_lines_of_file(src, dst):
+            with open(src, "r") as src_file:
+                 lines = src_file.readlines()
+            with open(dst, "w") as dst_file:
+                 dst_file.writelines(lines[-1000:])
+
+        def copy_syslog_to_home():
+            username = os.getlogin()
+            filename = "/home/" + username + "/.config/archmain/data/manager.log"
+            if not os.path.exists(filename):
+                with open(filename, "w") as f:
+                 pass
+            src = "/var/log/pacman.log"
+            dst = "/home/" + username + "/.config/archmain/data/manager.log"
+            copy_last_100_lines_of_file(src, dst)
+            app.after(1000, copy_syslog_to_home)
+
+        
+        app.after(1000, copy_syslog_to_home)
+        
+        app.text3 = ""
+        def update_textbox3():
+            global textbox3
+            with open("/home/" + username + "/.config/archmain/data/manager.log", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text3:
+               textbox3.configure(state="normal")  # configure textbox to be editable
+               textbox3.delete("0.0", "end")  # clear textbox
+               textbox3.insert("0.0", new_text)  # insert updated text
+               textbox3.configure(state="disabled")  # configure textbox to be read-only
+               app.text3 = new_text
+            app.after(1000, update_textbox3)
+        
+        global textbox3
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Pacman Log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3.place(x=0, y=0)
+        textbox3.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox3)      
+
+
+
+
+
+
+app.tab_view = MyTabView(master=app, width=610, height=365,)
+app.tab_view.place(x=203, y=35)
+
+def del_console():
+    with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+        file.write(" ")
+
+button = customtkinter.CTkButton(master=app, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
+button.place(x=850, y=610)
+
+
+
 
 #Update Now
 def check_updates():
@@ -186,10 +399,13 @@ def start_progress_bar_check():
     thread = threading.Thread(target=check_updates)
     thread.start()        
         
-def button_function():
+def button_function(): 
     print("button pressed")
 
-button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text="Update Now", command=start_progress_bar_check)
+
+
+
+button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text=f"Update Now", command=start_progress_bar_check)
 button.place(x=35, y=20)
 
 
@@ -256,12 +472,7 @@ def load_config_c():
 value_c = load_config_c()
 
 
-# lista delle opzioni per il menu a tendina
-with open('/home/' + username + '/.config/archmain/config/lang.json', 'r') as file:
-    countries_dict = json.load(file)
 
-# Accedi alla lista di terminali
-countries = countries_dict['countries']
 
 
 
@@ -337,34 +548,6 @@ read_text_file_button.place(x=35, y=152)
 
 
 
-#Console
-text = ""
-
-def update_textbox():
-   global text
-   with open("/home/" + username + "/.config/archmain/data/console.json", "r") as file:
-      new_text = file.read()
-   if new_text != text:
-      textbox.configure(state="normal")  # configure textbox to be editable
-      textbox.delete("0.0", "end")  # clear textbox
-      textbox.insert("0.0", new_text)  # insert updated text
-      textbox.configure(state="disabled")  # configure textbox to be read-only
-      text = new_text
-   app.after(1000, update_textbox)
-
-textbox = customtkinter.CTkTextbox(app, width=600, height=350, font=('source code pro',14), corner_radius=12)
-textbox.place(x=207, y=50)
-textbox.configure(state="disabled") # configure textbox to be read-only
-app.after(1000, update_textbox)
-
-
-
-def del_console():
-    with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-        file.write(" ")
-
-button = customtkinter.CTkButton(master=app, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
-button.place(x=850, y=610)
 
 
 
@@ -777,6 +960,7 @@ def update_orphan_pkgs_label():
     app.after(1000, update_orphan_pkgs_label) 
 
 update_orphan_pkgs_label()
+
 
 
 

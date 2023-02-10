@@ -33,7 +33,7 @@ Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
 # Required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq wget)
+required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq wget syslog-ng)
 
 # Function to check if a package is installed
 function is_installed {
@@ -126,6 +126,8 @@ EOF
 find "$HOME/.config/archmain" -type f -exec chmod +x {} \;
 find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
 
+sudo systemctl enable syslog-ng@default.service --now
+sudo systemctl start  syslog-ng@default.service
 
 
 echo -e "${Green}Installation complete!${Color_Off}"

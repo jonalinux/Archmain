@@ -23,6 +23,8 @@ urltemp="$HOME/.config/archmain/data/temp.json"
 last="$HOME/.config/archmain/data/last.json"
 ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 ign="$HOME/.config/archmain/data/ignore.json"
+n="$HOME/.config/archmain/data/n.json"
+
 
 # Variabili cmd
 
@@ -33,18 +35,23 @@ get_updates(){
 }
 
 get_updates
+    echo "$Pending" > "$n"
     if [ "$Pending" -eq 1 ]; then
         echo "$Pending Update" > "$list"
+        echo -n "$Pending Update" > "$n"
         echo ""  >> "$list"
+        echo "$Pacman"  >> "$list"
         echo "${AUR// +/ }" | cut -c 2- >> "$list"
 
     elif [ "$Pending" -ge 1 ]; then
         echo "$Pending Updates" > "$list"
+        echo -n "$Pending Updates" > "$n"
         echo ""  >> "$list"
         echo "$Pacman"  >> "$list"
         echo "${AUR// +/ }" | cut -c 2- >> "$list"
     else
         echo "System Updated" > "$list"
+        echo -n "System Updated" > "$n"
         echo "last check at $(date +'%F %T')" >> "$list"
     fi
 
