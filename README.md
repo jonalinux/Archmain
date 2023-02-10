@@ -8,7 +8,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 ### Video Tutorial
 #### how to install and use Archmain v305
 
- - [Watch video on Youtube]()
+ - [Watch video on Youtube](https://youtu.be/4OONixHxFhc)
 
 
 
