@@ -6,8 +6,11 @@
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
 ### Video Tutorial
+#### how to install and use Archmain v305
 
-[Watch video on Youtube](https://www.youtube.com/watch?v=WBTL0oi173c)
+ - [Watch video on Youtube]()
+
+
 
 
 
