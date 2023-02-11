@@ -9,7 +9,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 #### how to install and use Archmain
 
  - [Watch video on Youtube](https://youtu.be/4OONixHxFhc)
- - [Watch video on Youtube](https://www.youtube.com/watch?v=k6AKRPvCf2o&t=303s) (ITA) by LinuxLibero
+ - [Watch video on Youtube](https://www.youtube.com/watch?v=k6AKRPvCf2o&t=303s) (ITA) by [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
 
 
 
