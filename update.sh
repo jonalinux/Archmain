@@ -29,7 +29,7 @@ Color_Off='\033[0m'
 url="$HOME/.config/archmain/"
 
 
-
+sudo chmod +r /var/log/everything.log
 cp -r scripts $url
 cp -r splash.py $url
 cp -r archmain.py  $url
