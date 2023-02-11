@@ -25,13 +25,9 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 The GUI is built using Python and the Tkinter library, and is designed to be simple and intuitive to use. The interface includes buttons for installing, removing, updating, and clearing the cache of packages. Additionally, the interface includes a label that displays the current size of the cache of packages.
 
-
-![Untitled](https://user-images.githubusercontent.com/103053714/217965253-5346b7fa-fa73-48e5-b4a5-0caf748eda8d.png)
-
+![Screenshot from 2023-02-09 23-51-49](https://user-images.githubusercontent.com/103053714/217965347-7925c630-8861-4cd6-abf9-8b4f94f27202.png)
 
 The GUI uses the pikaur package manager, which is a popular AUR helper for Arch Linux. The pikaur command-line utility is used to perform the various package management tasks, and the output of these commands is displayed in a terminal window within the GUI.
-
-![Screenshot from 2023-02-09 23-51-49](https://user-images.githubusercontent.com/103053714/217965347-7925c630-8861-4cd6-abf9-8b4f94f27202.png)
 
 The source code is available on GitHub and can be easily modified to suit the needs of individual users. The code is well-commented and easy to understand, making it a great starting point for anyone interested in creating a similar project.
 
