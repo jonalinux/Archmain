@@ -125,7 +125,7 @@ EOF
 # Make all files executable
 find "$HOME/.config/archmain" -type f -exec chmod +x {} \;
 find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
-
+sudo chmod +r /var/log/everything.log
 sudo systemctl enable syslog-ng@default.service --now
 sudo systemctl start  syslog-ng@default.service
 
