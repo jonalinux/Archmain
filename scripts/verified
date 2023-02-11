@@ -21,6 +21,7 @@
 list="$HOME/.config/archmain/data/console.json"
 urltemp="$HOME/.config/archmain/data/temp.json"
 last="$HOME/.config/archmain/data/last.json"
+lastTemp="$HOME/.config/archmain/data/temp2.json"
 ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 ign="$HOME/.config/archmain/data/ignore.json"
 n="$HOME/.config/archmain/data/n.json"
@@ -55,7 +56,10 @@ get_updates
         echo "last check at $(date +'%F %T')" >> "$list"
     fi
 
-cp "$urltemp" "$last"
+cat "$last"  > "$lastTemp"
+cat "$urltemp" > "$last"
+cat "$lastTemp" >> "$last"
+echo "" > "$urltemp"
 
 
 if [ -s "$ign" ]
