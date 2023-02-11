@@ -132,6 +132,7 @@ The configuration directory is located at `~/.config/archmain/`.
 ### Contributors
 - @IvanKey1
 - Yoon Chan-ryul
+- Gregorio from [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
 
 ###
 
