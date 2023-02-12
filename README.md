@@ -11,7 +11,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
  - [Watch video on Youtube](https://www.youtube.com/watch?v=k6AKRPvCf2o&t=303s) (ITA) by [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
 
 
-## Instruction and description in wiki [Wiki of Archmain](https://github.com/JonathanSanfilippo/Archmain/wiki) 
+# Instruction and description in wiki [Wiki of Archmain](https://github.com/JonathanSanfilippo/Archmain/wiki) 
 
 [![](https://user-images.githubusercontent.com/103053714/218287111-bc6a2057-e1c8-4b34-b14e-a9cfe0371071.png)](https://github.com/JonathanSanfilippo/Archmain/wiki)
 
