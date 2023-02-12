@@ -15,15 +15,12 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 [![](https://user-images.githubusercontent.com/103053714/218287111-bc6a2057-e1c8-4b34-b14e-a9cfe0371071.png)](https://github.com/JonathanSanfilippo/Archmain/wiki)
 
-
-
-
-### contributions to the project
+### Project Contributors and beta tester
 - @IvanKey1
 - Yoon Chan-ryul
 - Gregorio from [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
 
-### Support the project with a donation
+## Support the project with a donation
 
 [![name](https://ckdcf.org/wp-content/uploads/button-donate-paypal-1-300x137.png)](https://www.paypal.com/donate/?hosted_button_id=3C4YAF9NXMEWL)
 
