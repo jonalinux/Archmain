@@ -366,7 +366,7 @@ class MyTabView(customtkinter.CTkTabview):
             global textbox4
             with open("/etc/pacman.d/mirrorlist", "r") as file:
                     lines = file.readlines()
-                    new_text = ''.join(lines[10:])
+                    new_text = ''.join([line.replace("Server = ","") for line in lines[10:]])
             if new_text != app.text4:
                textbox4.configure(state="normal")  # configure textbox to be editable
                textbox4.delete("0.0", "end")  # clear textbox
