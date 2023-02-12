@@ -21,10 +21,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-
-#!/bin/bash
-
 # Colors
 Green='\033[1;32m'
 Blue='\033[1;34m'
@@ -32,64 +28,92 @@ Red='\033[1;31m'
 Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
-# Required packages
-required_packages=(git pacman-contrib downgrade tk reflector python-pip libnotify jq wget syslog-ng)
 
-# Function to check if a package is installed
-function is_installed {
-  pacman -Qi $1 &> /dev/null
-  return $?
-}
+# Packages to check
+PACKAGESX=(git base-devel)
 
-echo -e "${Blue}Checking for base-devel...${Color_Off}"
-if pacman -Q base-devel &> /dev/null; then
-  echo -e "${Green}base-devel is already installed!${Color_Off}"
-else
-  echo -e "${Yellow}Installing base-devel...${Color_Off}"
-  sudo pacman -S base-devel
-  if pacman -Q base-devel &> /dev/null; then
-    echo -e "${Green}base-devel has been successfully installed.${Color_Off}"
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGESX[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
   else
-    echo -e "${Red}Error: Failed to install base-devel.${Color_Off}"
+    echo -e "${Red}$package is NOT installed${Color_Off}"
   fi
-fi
+done
 
-echo -e "${Blue}Checking for pikaur...${Color_Off}"
-if ! command -v pikaur &>/dev/null; then
-  echo -e "${Red}Error: pikaur is not installed.${Color_Off}"
-  echo -e "${Yellow}Installing pikaur...${Color_Off}"
-  sudo pacman -S --needed base-devel
+
+
+# Package to check
+PACKAGEpika=pikaur
+
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Check if package is installed
+if echo "$INSTALLED" | grep -qw "$PACKAGEpika"; then
+  echo -e "${Green}$PACKAGEpika is installed${Color_Off}"
+else
+  echo -e "${Red}$PACKAGEpika is NOT installed${Color_Off}"
+  sudo pacman -S --needed base-devel git
   git clone https://aur.archlinux.org/pikaur.git
   cd pikaur
   makepkg -fsri
   cd ..
-  rm -rf pikaur
-else
-  echo -e "${Green}Pikaur is already installed!${Color_Off}"
 fi
 
-echo -e "${Blue}Checking for required packages...${Color_Off}"
-for package in "${required_packages[@]}"
-do
-  if ! is_installed $package; then
-    sudo pikaur -S $package --noconfirm
+
+# List of packages to check
+PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel)
+# Package to check
+PACKAGE=notify-send
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGES[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
   else
-    echo -e "${Green}$package is already installed!${Color_Off}"
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    sudo pikaur -Sy "$package"
   fi
 done
 
-echo -e "${Blue}Installing Python packages...${Color_Off}"
-pip install psutil customtkinter pillow
+# List of packages to check
+PACKAGES2=(psutil customtkinter pillow)
 
-echo -e "${Blue}Setting up the configuration...${Color_Off}"
+# Iterate through the list of packages
+for package in "${PACKAGES2[@]}"; do
+  if pip show "$package" &> /dev/null; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    pip install "$package"
+  fi
+done
+
+
+# Check if package is installed
+if which "$PACKAGE" &> /dev/null; then
+  echo -e "${Green}libnotify is installed${Color_Off}"
+else
+  echo -e "${Red}libnotify is NOT installed${Color_Off}"
+  echo "Installing $PACKAGE..."
+  sudo pikaur -Sy "$PACKAGE"
+fi
+
+
 config_dir="$HOME/.config/archmain"
 mkdir -p "$config_dir"
 mkdir -p "$HOME/.local/share/Trash/"
 mkdir -p "$HOME/.local/share/applications/"
 mkdir -p "$HOME/.config/autostart"
 cp -r * "$config_dir"
-
-
 
 
 
@@ -128,6 +152,66 @@ find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
 sudo chmod +r /var/log/everything.log
 sudo systemctl enable syslog-ng@default.service --now
 sudo systemctl start  syslog-ng@default.service
+
+
+# Packages to check
+PACKAGESX=(git base-devel)
+
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGESX[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+  fi
+done
+
+
+
+# List of packages to check
+PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel pikaur)
+# Package to check
+PACKAGE=notify-send
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGES[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    sudo pikaur -Sy "$package"
+  fi
+done
+
+# List of packages to check
+PACKAGES2=(psutil customtkinter pillow)
+
+# Iterate through the list of packages
+for package in "${PACKAGES2[@]}"; do
+  if pip show "$package" &> /dev/null; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    pip install "$package"
+  fi
+done
+
+
+# Check if package is installed
+if which "$PACKAGE" &> /dev/null; then
+  echo -e "${Green}libnotify is installed${Color_Off}"
+else
+  echo -e "${Red}libnotify is NOT installed${Color_Off}"
+  echo "Installing $PACKAGE..."
+  sudo pikaur -Sy "$PACKAGE"
+fi
 
 
 echo -e "${Green}Installation complete!${Color_Off}"
