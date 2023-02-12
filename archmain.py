@@ -317,28 +317,6 @@ class MyTabView(customtkinter.CTkTabview):
         app.after(1000, update_textbox2)  
             
             
-         # SysLog
-       # os.system("cp -r /var/log/syslog.log /home/" + username + "/.config/archmain/data/syslog.log ")
-        
-        def copy_last_100_lines_of_file(src, dst):
-            with open(src, "r") as src_file:
-                 lines = src_file.readlines()
-            with open(dst, "w") as dst_file:
-                 dst_file.writelines(lines[-1000:])
-
-        def copy_syslog_to_home():
-            username = os.getlogin()
-            filename = "/home/" + username + "/.config/archmain/data/manager.log"
-            if not os.path.exists(filename):
-                with open(filename, "w") as f:
-                 pass
-            src = "/var/log/pacman.log"
-            dst = "/home/" + username + "/.config/archmain/data/manager.log"
-            copy_last_100_lines_of_file(src, dst)
-            app.after(1000, copy_syslog_to_home)
-
-        
-        app.after(1000, copy_syslog_to_home)
         
         app.text3 = ""
         def update_textbox3():
@@ -389,7 +367,6 @@ class MyTabView(customtkinter.CTkTabview):
             with open("/var/log/everything.log", "r") as file:
                     lines = file.readlines()
                     new_text = ''.join(reversed(lines[-20:]))
-
 
             if new_text != app.text5:
                textbox5.configure(state="normal")  # configure textbox to be editable
