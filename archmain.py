@@ -162,10 +162,7 @@ terminals = terminals_dict['terminals']
 
 
 
-# configure grid layout (4x4)
-app.grid_columnconfigure(1, weight=1)
-app.grid_columnconfigure((2, 3), weight=0)
-app.grid_rowconfigure((0, 1, 2), weight=1)
+
 
 # Sidebar
 app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=390, corner_radius=12)
@@ -246,7 +243,9 @@ class MyTabView(customtkinter.CTkTabview):
         # create tabs
         app.add(" Console ")
         app.add(f" Processes ({num_lines})")
-        app.add(" Pacman Log ")
+        app.add(" Packages log ")
+        app.add(" Mirrorlist ")
+        app.add(" Syslog ")
         
         
         # Console
@@ -344,7 +343,7 @@ class MyTabView(customtkinter.CTkTabview):
         app.text3 = ""
         def update_textbox3():
             global textbox3
-            with open("/home/" + username + "/.config/archmain/data/manager.log", "r") as file:
+            with open("/home/" + username + "/.config/archmain/data/last.json", "r") as file:
                  new_text = file.read()
             if new_text != app.text3:
                textbox3.configure(state="normal")  # configure textbox to be editable
@@ -355,12 +354,56 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox3)
         
         global textbox3
-        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Pacman Log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox3.place(x=0, y=0)
         textbox3.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox3)      
 
 
+        #Mirrorslist-tab
+        app.text4 = ""
+        def update_textbox4():
+            global textbox4
+            with open("/etc/pacman.d/mirrorlist", "r") as file:
+                    lines = file.readlines()
+                    new_text = ''.join(lines[10:])
+            if new_text != app.text4:
+               textbox4.configure(state="normal")  # configure textbox to be editable
+               textbox4.delete("0.0", "end")  # clear textbox
+               textbox4.insert("0.0", new_text)  # insert updated text
+               textbox4.configure(state="disabled")  # configure textbox to be read-only
+               app.text4 = new_text
+            app.after(1000, update_textbox4)
+        
+        global textbox4
+        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox4.place(x=0, y=0)
+        textbox4.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox4)      
+        
+        
+        #syslog
+        app.text5 = ""
+        def update_textbox5():
+            global textbox5
+            with open("/var/log/everything.log", "r") as file:
+                    lines = file.readlines()
+                    new_text = ''.join(reversed(lines[0:]))
+
+
+            if new_text != app.text5:
+               textbox5.configure(state="normal")  # configure textbox to be editable
+               textbox5.delete("0.0", "end")  # clear textbox
+               textbox5.insert("0.0", new_text)  # insert updated text
+               textbox5.configure(state="disabled")  # configure textbox to be read-only
+               app.text5 = new_text
+            app.after(1000, update_textbox5)
+        
+        global textbox5
+        textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox5.place(x=0, y=0)
+        textbox5.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox5)
 
 
 
@@ -520,30 +563,7 @@ entry_country.insert(0, value_c) # imposta il valore iniziale
 entry_country.place(x=128, y=119)
 
 
-#leggi ultimi pacchetti aggiornati e ignorati
-def read_text_file():
-    try:
-        with open('/home/' + username + '/.config/archmain/data/last.json', 'r') as file:
-            text = file.read()
-            with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-                file.write(text)
-            progressbar.stop()
-            app.after(1000, lambda: progressbar.place_forget())    
-    except:
-        print("Error reading/writing file")
 
-def start_progress_bar_last():
-    progressbar.place(x=390, y=586)
-    progressbar.start()
-    thread = threading.Thread(target=read_text_file)
-    thread.start()        
-
-read_text_file_button = customtkinter.CTkButton(app, border_color="#0f94d2",
-                                 fg_color=("#ccc","#333"),
-                                 text_color=("gray10", "#DCE4EE"),
-                                 border_width=0,
-                                 corner_radius=4, text="Last Updated", command=start_progress_bar_last)
-read_text_file_button.place(x=35, y=152)
 
 
 
@@ -856,6 +876,9 @@ def update_info_label():
 app.after(1000, update_info_label)
 
 
+
+
+
 #Cache-Packages
 def clear_cache_pkg():
     for terminal in terminals:
@@ -884,6 +907,7 @@ def get_cache_size():
     return size
 
 
+
 def update_label():
     size = get_cache_size()
     text_var.set("Cache Pkgs: " + size + "B")
@@ -897,9 +921,17 @@ label = customtkinter.CTkLabel(master=app,
                                height=25,
                                )
 label.place(x=390, y=520)
+
 app.after(1000, update_label)
 
 update_label()
+
+
+
+
+
+
+
 
 
 #Orphans
