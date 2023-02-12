@@ -16,6 +16,8 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 [Wiki of Archmain](https://github.com/JonathanSanfilippo/Archmain/wiki) 
 
+![image](https://user-images.githubusercontent.com/103053714/218286585-13a1116f-b002-427e-8353-697a76ead014.png)
+
 
 
 
