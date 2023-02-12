@@ -23,10 +23,12 @@ ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 
 
 #temp.json
-echo "Last updates installed --------------- $(date '+%a %d %b, %H:%M')" > "$urltemp"
+echo "Last updates --------------- $(date '+%a %d %b, %H:%M')" > "$urltemp"
 echo  "" >> "$urltemp"
 echo "$(checkupdates 2>/dev/null)"  >> "$urltemp"
 #echo "$(pikaur -Qua | cut -c 2-)" >> "$urltemp"
+echo  "" >> "$urltemp"
+
 
 #check if ignore and update
 if [ -s "$ign" ]

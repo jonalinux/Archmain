@@ -56,11 +56,17 @@ get_updates
         echo "last check at $(date +'%F %T')" >> "$list"
     fi
 
+
+if [ -s "$urltemp" ]
+then
 cat "$last"  > "$lastTemp"
 cat "$urltemp" > "$last"
 cat "$lastTemp" >> "$last"
-echo "" > "$urltemp"
-
+echo -n "" > "$urltemp"
+else
+  echo ""
+  # do something if file is empty
+fi
 
 if [ -s "$ign" ]
 then
