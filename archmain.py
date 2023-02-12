@@ -388,7 +388,7 @@ class MyTabView(customtkinter.CTkTabview):
             global textbox5
             with open("/var/log/everything.log", "r") as file:
                     lines = file.readlines()
-                    new_text = ''.join(reversed(lines[0:]))
+                    new_text = ''.join(reversed(lines[-20:]))
 
 
             if new_text != app.text5:
