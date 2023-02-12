@@ -3,8 +3,9 @@
 # Archmain - Arch System Management 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
-### Video Tutorial and review
+### ![Youtube_logo](https://user-images.githubusercontent.com/103053714/218287372-3e80312e-ed12-43d7-8b32-de2f6eef2e98.png) Video Tutorial and review 
 #### how to install and use Archmain and review
+
 
  - [Watch video on Youtube](https://youtu.be/4OONixHxFhc)
  - [Watch video on Youtube](https://www.youtube.com/watch?v=k6AKRPvCf2o&t=303s) (ITA) by [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
