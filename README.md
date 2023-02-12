@@ -13,7 +13,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 ## Instruction and description in wiki [Wiki of Archmain](https://github.com/JonathanSanfilippo/Archmain/wiki) 
 
-[![](https://user-images.githubusercontent.com/103053714/218286585-13a1116f-b002-427e-8353-697a76ead014.png)](https://github.com/JonathanSanfilippo/Archmain/wiki)
+[![](https://user-images.githubusercontent.com/103053714/218287111-bc6a2057-e1c8-4b34-b14e-a9cfe0371071.png)](https://github.com/JonathanSanfilippo/Archmain/wiki)
 
 
 
