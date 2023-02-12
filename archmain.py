@@ -415,10 +415,27 @@ def del_console():
     with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
         file.write(" ")
 
-button = customtkinter.CTkButton(master=app, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
-button.place(x=850, y=610)
+button = customtkinter.CTkButton(master=app,width=90, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
+button.place(x=880, y=610)
+
+def perm_syslog():
+    terminal = None
+    for t in terminals:
+        if os.system(f"which {t}") == 0:
+            terminal = t
+            break
+
+    if terminal:
+        subprocess.call([terminal, "-e", "read -p  'To activate the syslog tab, you need to press the syslog button at the bottom to change the permissions and allow reading. Be aware that this will only activate reading for one session at a time for your security. The window will close after you confirm by entering the password, simply re-open the application again.\n\nPress enter to continue..'"])
+        subprocess.call([terminal, "-e","sudo chmod +r /var/log/everything.log"])
+        devnull = open("/dev/null", "w")
+        subprocess.call(["kill", "-q", "python3 && python3", "/home/" + username + "/.config/archmain/archmain.py"], stdout=devnull, stderr=devnull)
+        subprocess.Popen(["killall", "-q", "python3"], stdout=devnull, stderr=devnull)
 
 
+button = customtkinter.CTkButton(master=app, width=90, text="syslog",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=perm_syslog)
+button.place(x=780, y=610)        
+        
 
 
 #Update Now
