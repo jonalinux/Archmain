@@ -19,6 +19,10 @@ This application is very powerful because it utilizes important and necessary to
 
 [![](https://user-images.githubusercontent.com/103053714/218287111-bc6a2057-e1c8-4b34-b14e-a9cfe0371071.png)](https://github.com/JonathanSanfilippo/Archmain/wiki)
 
+# Discussions
+- [Archmain Community](https://github.com/JonathanSanfilippo/Archmain/discussions)
+
+
 ### Project Contributors and beta tester
 - @IvanKey1
 - Yoon Chan-ryul
