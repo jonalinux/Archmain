@@ -1,5 +1,7 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/216729571-1a7b7328-47bc-4aa1-a918-410354bd8b45.png)
 
+![image](https://user-images.githubusercontent.com/103053714/218289490-8fbd154c-17e7-4e5e-8236-2f408ef7b0cb.png)
+
 # Archmain - Arch System Management 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
 
