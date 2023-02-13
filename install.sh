@@ -34,7 +34,7 @@ config_dir="$HOME/.config/archmain"
 
 echo -e "${Blue}Check if a previous version exists.. ${Color_Off}"
 sleep 5
-if [ -d "$config_dir/archmain.py" ]; then
+if [ -d $config_dir ]; then
   
 # Packages to check
 PACKAGESX=(git base-devel)
