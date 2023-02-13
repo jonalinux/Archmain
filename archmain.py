@@ -53,6 +53,9 @@ app.minsize(1020, 650)
 app.maxsize(1020, 650)
 
 
+
+
+
 filename = "/home/" + username + "/.config/archmain/data/n.json"
 if not os.path.exists(filename):
     with open(filename, "w") as f:
@@ -161,20 +164,19 @@ terminals = terminals_dict['terminals']
 
 
 
-
-
-
 # Sidebar
-app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=390, corner_radius=12)
+app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12)
 app.sidebar_frame.place(x=20, y=10)
 
 # panel right
-app.panel_frame = customtkinter.CTkFrame(app, width=170, height=390, corner_radius=12)
+app.panel_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12)
 app.panel_frame.place(x=825, y=10)
+
+
 
 #license
 label = customtkinter.CTkLabel(master=app,text="Copyright (C) 2023 Jonathan Sanfilippo - Licensed GPLv3", width=250, height=15, text_color="#868686")
-label.place(x=365, y=620)
+label.place(x=335, y=620)
 
 #img "img/001.png"
 pkgs = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/001.png"),
@@ -266,7 +268,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox)
         
         global textbox
-        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=587, height=316, font=('source code pro',14), corner_radius=12)
         textbox.place(x=0, y=0)
         textbox.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox)
@@ -310,7 +312,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox2)
         
         global textbox2
-        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=587, height=316, font=('source code pro',14), corner_radius=12)
         textbox2.place(x=0, y=0)
         textbox2.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox2)  
@@ -331,7 +333,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox3)
         
         global textbox3
-        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=587, height=316, font=('source code pro',14), corner_radius=12)
         textbox3.place(x=0, y=0)
         textbox3.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox3)      
@@ -353,7 +355,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox4)
         
         global textbox4
-        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=587, height=316, font=('source code pro',14), corner_radius=12)
         textbox4.place(x=0, y=0)
         textbox4.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox4)      
@@ -377,7 +379,7 @@ class MyTabView(customtkinter.CTkTabview):
                     lines = file.readlines()
                     new_text = ''.join(reversed(lines[0:]))
              if new_text != app.text5:
-                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=587, height=316, font=('source code pro',14), corner_radius=12)
                 textbox5.place(x=0, y=0)
                 textbox5.configure(state="normal")  # configure textbox to be editable
                 textbox5.delete("0.0", "end")  # clear textbox
@@ -393,7 +395,7 @@ class MyTabView(customtkinter.CTkTabview):
         def but_syslog():
              label = customtkinter.CTkLabel(master=app.tab(" Syslog "), text="Need permission to enable reading of file '/var/log/everything.log'")
              label.place(x=10, y=10) 
-             button = customtkinter.CTkButton(master=app.tab(" Syslog "), width=90, text="enable",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=perm_syslog)
+             button = customtkinter.CTkButton(master=app.tab(" Syslog "), width=90, text="enable",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("limegreen","limegreen"),command=perm_syslog)
              button.place(x=500, y=280) 
         but_syslog()
         
@@ -401,14 +403,12 @@ class MyTabView(customtkinter.CTkTabview):
  
 
 
-app.tab_view = MyTabView(master=app, width=610, height=365,)
+app.tab_view = MyTabView(master=app, width=610, height=370,  corner_radius=12)
 app.tab_view.place(x=203, y=35)
 
-def del_console():
-    with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-        file.write(" ")
-button = customtkinter.CTkButton(master=app,width=90, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
-button.place(x=880, y=610)
+#------------------------------------------------------------------------------------------------ end tab
+
+
 
       
         
