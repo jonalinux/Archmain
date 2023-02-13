@@ -121,7 +121,7 @@ StartupNotify=true
 EOF
 
 # Create the tray file
-cat << EOF > "$HOME/.config/autostart/checkupdates.desktop"
+cat << EOF > "$HOME/.config/autostart/tray.desktop"
 [Desktop Entry]
 Type=Application
 Exec=python3 /home/$USER/.config/archmain/archmain-tray.py
@@ -259,7 +259,7 @@ StartupNotify=true
 EOF
 
 # Create the tray file
-cat << EOF > "$HOME/.config/autostart/checkupdates.desktop"
+cat << EOF > "$HOME/.config/autostart/tray.desktop"
 [Desktop Entry]
 Type=Application
 Exec=python3 /home/$USER/.config/archmain/archmain-tray.py
