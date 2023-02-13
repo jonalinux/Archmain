@@ -39,7 +39,8 @@ import shutil
 import time
 from tkinter import Scrollbar
 import socket
-
+import pystray
+from PIL import Image
 
 
 #info
@@ -1009,19 +1010,6 @@ switch_var = customtkinter.StringVar(value=switch_value)
 switch_1 = customtkinter.CTkSwitch(master=app, text="Login Splash", command=switch_event,
                                    variable=switch_var, onvalue="on", offvalue="off")
 switch_1.place(x=870, y=615)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
