@@ -30,6 +30,7 @@ rm -rf "$HOME/.config/archmain"
 
 # Remove autostart file
 rm -f "$HOME/.config/autostart/checkupdates.desktop"
+rm -f "$HOME/.config/autostart/tray.desktop"
 
 # Remove Archmain desktop file
 rm -f "$HOME/.local/share/applications/archmain.desktop"
@@ -38,7 +39,7 @@ rm -f "$HOME/.local/share/applications/archmain.desktop"
 sudo pip uninstall -y psutil customtkinter pillow
 
 # Array of installed packages
-installed_packages=(pacman-contrib downgrade tk reflector python-pip)
+installed_packages=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel python-pyqt5)
 
 # Loop through the installed packages
 for package in "${installed_packages[@]}"
