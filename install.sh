@@ -102,7 +102,9 @@ fi
   mkdir -p "$HOME/.local/share/applications/"
   mkdir -p "$HOME/.config/autostart"
   cp -r * "$config_dir"
-  mv "$config_dir/config.bak" "$config_dir/config"
+  cp -r "$config_dir/config.bak" "$config_dir/config"
+  rm -r "$config_dir/config.bak"
+
 
 
 
