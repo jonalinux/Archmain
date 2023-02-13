@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Copyright (C) 2023 Jonathan Sanfilippo <jonathansanfilippo.uk@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
+ICON="$HOME/.config/archmain/icons/icon.png"
+current_version=$(cat "$HOME/.config/archmain/version") #don't remove this file!
+Json="$HOME/.config/archmain/data/version.json"
+new_version=$(cat "$Json")
+
+wget -O "$Json" "https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version"
+
+if [ "$new_version" -gt "$current_version" ]; then
+               notify-send -i "$ICON"  "Archmain" "A new version $new_version is available." -u normal -t 5000
+else
+  echo ""
+fi
+
+
