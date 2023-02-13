@@ -28,6 +28,10 @@ Red='\033[1;31m'
 Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
+v="(cat $HOME/.config/archmain/version)"
+v2="(cat ./version)"
+
+
 echo -e "${Blue}Check if a previous version exists.. ${Color_Off}"
 sleep 5
 if [ -d ~/.config/archmain/ ]; then
@@ -91,7 +95,7 @@ else
   sudo pikaur -Sy "$PACKAGE"
 fi
   sleep 5
-  echo -e "${Blue}Previous version detected, replacing the version without updating dependencies. ${Color_Off}"
+  echo -e "${Blue}Previous version $v detected, replacing the version with $v2. ${Color_Off}"
   
   config_dir="$HOME/.config/archmain"
 
