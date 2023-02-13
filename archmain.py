@@ -224,7 +224,6 @@ progressbar.place_forget()
 
 
 
-
 class MyTabView(customtkinter.CTkTabview):
     def __init__(app, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -360,29 +359,46 @@ class MyTabView(customtkinter.CTkTabview):
         app.after(1000, update_textbox4)      
         
         
-        #syslog
-        app.text5 = ""
-        def update_textbox5():
-            global textbox5
-            with open("/var/log/everything.log", "r") as file:
-                    lines = file.readlines()
-                    new_text = ''.join(reversed(lines[-20:]))
-
-            if new_text != app.text5:
-               textbox5.configure(state="normal")  # configure textbox to be editable
-               textbox5.delete("0.0", "end")  # clear textbox
-               textbox5.insert("0.0", new_text)  # insert updated text
-               textbox5.configure(state="disabled")  # configure textbox to be read-only
-               app.text5 = new_text
-            app.after(1000, update_textbox5)
         
-        global textbox5
-        textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
-        textbox5.place(x=0, y=0)
-        textbox5.configure(state="disabled") # configure textbox to be read-only
-        app.after(1000, update_textbox5)
+        
+        
+        app.text5 = ""
+        #syslog
+        def perm_syslog():
+             terminal = None
+             for t in terminals:
+                if os.system(f"which {t}") == 0:
+                   terminal = t
+                   break
+        
+             if terminal:
+                subprocess.call([terminal, "-e","sudo chmod +r /var/log/everything.log"])
+             with open("/var/log/everything.log", "r") as file:
+                    lines = file.readlines()
+                    new_text = ''.join(reversed(lines[0:]))
+             if new_text != app.text5:
+                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+                textbox5.place(x=0, y=0)
+                textbox5.configure(state="normal")  # configure textbox to be editable
+                textbox5.delete("0.0", "end")  # clear textbox
+                textbox5.insert("0.0", new_text)  # insert updated text
+                textbox5.configure(state="disabled")  # configure textbox to be read-only
+                app.text5 = new_text
+             else:
+                textbox5.configure(state="normal")  # configure textbox to be editable
+                textbox5.delete("0.0", "end")  # clear textbox
+                textbox5.insert("0.0", new_text)  # insert updated text
+                textbox5.configure(state="disabled")  # configure textbox to be read-only
+            
+        def but_syslog():
+             label = customtkinter.CTkLabel(master=app.tab(" Syslog "), text="Need permission to enable reading of file '/var/log/everything.log'")
+             label.place(x=10, y=10) 
+             button = customtkinter.CTkButton(master=app.tab(" Syslog "), width=90, text="enable",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=perm_syslog)
+             button.place(x=500, y=280) 
+        but_syslog()
+        
 
-
+ 
 
 
 app.tab_view = MyTabView(master=app, width=610, height=365,)
@@ -391,27 +407,10 @@ app.tab_view.place(x=203, y=35)
 def del_console():
     with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
         file.write(" ")
-
 button = customtkinter.CTkButton(master=app,width=90, text="Clean Console",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=del_console)
 button.place(x=880, y=610)
 
-def perm_syslog():
-    terminal = None
-    for t in terminals:
-        if os.system(f"which {t}") == 0:
-            terminal = t
-            break
-
-    if terminal:
-        subprocess.call([terminal, "-e", "read -p  'To activate the syslog tab, you need to press the syslog button at the bottom to change the permissions and allow reading. Be aware that this will only activate reading for one session at a time for your security. The window will close after you confirm by entering the password, simply re-open the application again.\n\nPress enter to continue..'"])
-        subprocess.call([terminal, "-e","sudo chmod +r /var/log/everything.log"])
-        devnull = open("/dev/null", "w")
-        subprocess.call(["kill", "-q", "python3 && python3", "/home/" + username + "/.config/archmain/archmain.py"], stdout=devnull, stderr=devnull)
-        subprocess.Popen(["killall", "-q", "python3"], stdout=devnull, stderr=devnull)
-
-
-button = customtkinter.CTkButton(master=app, width=90, text="syslog",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=perm_syslog)
-button.place(x=780, y=610)        
+      
         
 
 
