@@ -39,7 +39,7 @@ rm -f "$HOME/.local/share/applications/archmain.desktop"
 sudo pip uninstall -y psutil customtkinter pillow
 
 # Array of installed packages
-installed_packages=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel python-pyqt5)
+installed_packages=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng  python-pyqt5)
 
 # Loop through the installed packages
 for package in "${installed_packages[@]}"
