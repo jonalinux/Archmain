@@ -25,7 +25,7 @@ new_version=$(cat "$Json")
 wget -O "$Json" "https://raw.githubusercontent.com/JonathanSanfilippo/Archmain/main/version"
 
 if [ "$new_version" -gt "$current_version" ]; then
-               notify-send -i "$ICON"  "Archmain" "A new version $new_version is available." -u critical
+               notify-send -i "$ICON"  "Archmain" "A new version $new_version is available." -u normal -t 5000
 else
   echo ""
 fi

@@ -18,7 +18,7 @@
 
 
 # URL
-RPV="$HOME/.config/archmain/scripts/repocheckversion"
+repo="$HOME/.config/archmain/scripts/repocheckversion"
 ICON="$HOME/.config/archmain/icons/icon.png"
 list="$HOME/.config/archmain/data/console.json"
 python="$HOME/.config/archmain/archmain.py"
@@ -26,6 +26,7 @@ splash="$HOME/.config/archmain/splash.py"
 chSet="$HOME/.config/archmain/data/checkSet.json"
 delay="$HOME/.config/archmain/data/delay.json"
 n="$HOME/.config/archmain/data/n.json"
+tray="$HOME/.config/archmain/data/tray.json"
 
 sleep 10
 # Leggere il percorso del file JSON
@@ -59,6 +60,7 @@ get_updates(){
 
 
 write_updates(){
+    echo -n "$Pending" > "$tray"
     if [ "$Pending" -eq 1 ]; then
         echo "$Pending Update" > "$list"
         echo ""  >> "$list"
@@ -100,7 +102,7 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
         echo "System Updated" > "$list"
         echo -n "System Updated" > "$n"
         echo "last check at $(date +'%F %T')" >> "$list"
-        $RPV
+        $repo
     fi
 }
 
