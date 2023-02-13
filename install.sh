@@ -97,15 +97,13 @@ fi
   sleep 5
   echo -e "${Blue}Previous version $v detected, replacing the version with $v2. ${Color_Off}"
   
-
-  mv "$config_dir/config" "$config_dir/config.bak"
+  rm -rf "$config_dir"
   mkdir -p "$config_dir"
   mkdir -p "$HOME/.local/share/Trash/"
   mkdir -p "$HOME/.local/share/applications/"
   mkdir -p "$HOME/.config/autostart"
   cp -r * "$config_dir"
-  cp  "$config_dir/config.bak/*.json" "$config_dir/config"
-  rm -r "$config_dir/config.bak"
+
 
 
 else
