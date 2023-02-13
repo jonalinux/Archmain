@@ -25,6 +25,7 @@ lastTemp="$HOME/.config/archmain/data/temp2.json"
 ignore=$(cat "$HOME/.config/archmain/data/ignore.json")
 ign="$HOME/.config/archmain/data/ignore.json"
 n="$HOME/.config/archmain/data/n.json"
+tray="$HOME/.config/archmain/data/tray.json"
 
 
 # Variabili cmd
@@ -36,6 +37,7 @@ get_updates(){
 }
 
 get_updates
+    echo -n "$Pending" > "$tray"
     echo "$Pending" > "$n"
     if [ "$Pending" -eq 1 ]; then
         echo "$Pending Update" > "$list"
