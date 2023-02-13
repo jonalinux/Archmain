@@ -107,8 +107,8 @@ fi
 
 
 else
-  
-
+  echo -e "${Blue}No Previous version detected ${Color_Off}"  
+sleep 5
 
 
 
