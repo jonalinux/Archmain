@@ -28,7 +28,93 @@ Red='\033[1;31m'
 Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
+echo -e "${Blue}Check if a previous version exists.. {Color_Off}"
+sleep 5
+if [ -d ~/.config/archmain/ ]; then
+  
+# Packages to check
+PACKAGESX=(git base-devel)
 
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGESX[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+  fi
+done
+
+
+
+# List of packages to check
+PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel pikaur)
+# Package to check
+PACKAGE=notify-send
+# Get a list of installed packages
+INSTALLED=$(pacman -Qqe)
+
+# Iterate through the list of packages
+for package in "${PACKAGES[@]}"; do
+  if echo "$INSTALLED" | grep -qw "$package"; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    sudo pikaur -Sy "$package"
+  fi
+done
+
+# List of packages to check
+PACKAGES2=(psutil customtkinter pillow)
+
+# Iterate through the list of packages
+for package in "${PACKAGES2[@]}"; do
+  if pip show "$package" &> /dev/null; then
+    echo -e "${Green}$package is installed${Color_Off}"
+  else
+    echo -e "${Red}$package is NOT installed${Color_Off}"
+    echo "Installing $package..."
+    pip install "$package"
+  fi
+done
+
+
+# Check if package is installed
+if which "$PACKAGE" &> /dev/null; then
+  echo -e "${Green}libnotify is installed${Color_Off}"
+else
+  echo -e "${Red}libnotify is NOT installed${Color_Off}"
+  echo "Installing $PACKAGE..."
+  sudo pikaur -Sy "$PACKAGE"
+fi
+  sleep 5
+  echo -e "${Blue}Previous version detected, replacing the version without updating dependencies. {Color_Off}"
+  
+  config_dir="$HOME/.config/archmain"
+
+  rm -r "$config_dir/{data,scripts,archmain.py,version}"
+  mv "$config_dir/config" "$config_dir/config.bak"
+  mkdir -p "$config_dir"
+  mkdir -p "$HOME/.local/share/Trash/"
+  mkdir -p "$HOME/.local/share/applications/"
+  mkdir -p "$HOME/.config/autostart"
+  cp -r * "$config_dir"
+  mv "$config_dir/config.bak" "$config_dir/config"
+
+
+
+
+
+
+
+
+
+
+else
+  
 # Packages to check
 PACKAGESX=(git base-devel)
 
@@ -146,73 +232,16 @@ StartupNotify=true
 StartupWMClass=Archmain
 EOF
 
-# Make all files executable
-find "$HOME/.config/archmain" -type f -exec chmod +x {} \;
-find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
-sudo chmod +r /var/log/everything.log
 sudo systemctl enable syslog-ng@default.service --now
 sudo systemctl start  syslog-ng@default.service
 
 
-# Packages to check
-PACKAGESX=(git base-devel)
-
-# Get a list of installed packages
-INSTALLED=$(pacman -Qqe)
-
-# Iterate through the list of packages
-for package in "${PACKAGESX[@]}"; do
-  if echo "$INSTALLED" | grep -qw "$package"; then
-    echo -e "${Green}$package is installed${Color_Off}"
-  else
-    echo -e "${Red}$package is NOT installed${Color_Off}"
-  fi
-done
-
-
-
-# List of packages to check
-PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel pikaur)
-# Package to check
-PACKAGE=notify-send
-# Get a list of installed packages
-INSTALLED=$(pacman -Qqe)
-
-# Iterate through the list of packages
-for package in "${PACKAGES[@]}"; do
-  if echo "$INSTALLED" | grep -qw "$package"; then
-    echo -e "${Green}$package is installed${Color_Off}"
-  else
-    echo -e "${Red}$package is NOT installed${Color_Off}"
-    echo "Installing $package..."
-    sudo pikaur -Sy "$package"
-  fi
-done
-
-# List of packages to check
-PACKAGES2=(psutil customtkinter pillow)
-
-# Iterate through the list of packages
-for package in "${PACKAGES2[@]}"; do
-  if pip show "$package" &> /dev/null; then
-    echo -e "${Green}$package is installed${Color_Off}"
-  else
-    echo -e "${Red}$package is NOT installed${Color_Off}"
-    echo "Installing $package..."
-    pip install "$package"
-  fi
-done
-
-
-# Check if package is installed
-if which "$PACKAGE" &> /dev/null; then
-  echo -e "${Green}libnotify is installed${Color_Off}"
-else
-  echo -e "${Red}libnotify is NOT installed${Color_Off}"
-  echo "Installing $PACKAGE..."
-  sudo pikaur -Sy "$PACKAGE"
 fi
 
+
+# Make all files executable
+find "$HOME/.config/archmain" -type f -exec chmod +x {} \;
+find "$HOME/.config/archmain/scripts" -type f -exec chmod +x {} \;
 
 echo -e "${Green}Installation complete!${Color_Off}"
 echo -e "${Yellow}Reboot now!${Color_Off}"
