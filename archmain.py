@@ -558,13 +558,6 @@ entry_country.place(x=128, y=119)
 
 
 
-
-
-
-
-
-
-
 #delay
 # Carica il valore attuale dal file di configurazione
 def load_config():
@@ -920,13 +913,6 @@ app.after(1000, update_label)
 update_label()
 
 
-
-
-
-
-
-
-
 #Orphans
 orphan_pkgs_label_text = tkinter.StringVar()
 orphan_pkgs_label_text.set("Orphan Packages: N/A")
@@ -987,8 +973,7 @@ def update_orphan_pkgs_label():
 update_orphan_pkgs_label()
 
 
-
-
+#splash-setting
 def switch_event():
     switch_value = switch_var.get()
     print("switch toggled, current value:", switch_value)
