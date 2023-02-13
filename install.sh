@@ -28,7 +28,7 @@ Red='\033[1;31m'
 Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
-echo -e "${Blue}Check if a previous version exists.. {Color_Off}"
+echo -e "${Blue}Check if a previous version exists.. ${Color_Off}"
 sleep 5
 if [ -d ~/.config/archmain/ ]; then
   
@@ -91,11 +91,11 @@ else
   sudo pikaur -Sy "$PACKAGE"
 fi
   sleep 5
-  echo -e "${Blue}Previous version detected, replacing the version without updating dependencies. {Color_Off}"
+  echo -e "${Blue}Previous version detected, replacing the version without updating dependencies. ${Color_Off}"
   
   config_dir="$HOME/.config/archmain"
 
-  rm -r "$config_dir/{data,scripts,archmain.py,version}"
+  rm -rf "$config_dir/{data,scripts,archmain.py,version}"
   mv "$config_dir/config" "$config_dir/config.bak"
   mkdir -p "$config_dir"
   mkdir -p "$HOME/.local/share/Trash/"
