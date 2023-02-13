@@ -39,8 +39,7 @@ import shutil
 import time
 from tkinter import Scrollbar
 import socket
-import pystray
-from PIL import Image
+
 
 
 #info
