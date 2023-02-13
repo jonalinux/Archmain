@@ -99,12 +99,13 @@ fi
   
 
 
-  rm -rf "$config_dir/{data,scripts,archmain.py,version}"
+  rm -rf "$config_dir"
   mv "$config_dir/config" "$config_dir/config.bak"
   mkdir -p "$config_dir"
   mkdir -p "$HOME/.local/share/Trash/"
   mkdir -p "$HOME/.local/share/applications/"
   mkdir -p "$HOME/.config/autostart"
+  cp -r * "$config_dir"
   cp  "$config_dir/config.bak/*.json" "$config_dir/config"
   rm -r "$config_dir/config.bak"
 
