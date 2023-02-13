@@ -268,7 +268,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox)
         
         global textbox
-        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=587, height=316, font=('source code pro',14), corner_radius=12)
+        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox.place(x=0, y=0)
         textbox.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox)
@@ -312,7 +312,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox2)
         
         global textbox2
-        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=587, height=316, font=('source code pro',14), corner_radius=12)
+        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox2.place(x=0, y=0)
         textbox2.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox2)  
@@ -333,7 +333,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox3)
         
         global textbox3
-        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=587, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox3.place(x=0, y=0)
         textbox3.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox3)      
@@ -355,7 +355,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox4)
         
         global textbox4
-        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=587, height=316, font=('source code pro',14), corner_radius=12)
+        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox4.place(x=0, y=0)
         textbox4.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox4)      
@@ -379,7 +379,7 @@ class MyTabView(customtkinter.CTkTabview):
                     lines = file.readlines()
                     new_text = ''.join(reversed(lines[0:]))
              if new_text != app.text5:
-                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=587, height=316, font=('source code pro',14), corner_radius=12)
+                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
                 textbox5.place(x=0, y=0)
                 textbox5.configure(state="normal")  # configure textbox to be editable
                 textbox5.delete("0.0", "end")  # clear textbox
@@ -403,7 +403,7 @@ class MyTabView(customtkinter.CTkTabview):
  
 
 
-app.tab_view = MyTabView(master=app, width=610, height=370,  corner_radius=12)
+app.tab_view = MyTabView(master=app, width=610, height=370,)
 app.tab_view.place(x=203, y=35)
 
 #------------------------------------------------------------------------------------------------ end tab
@@ -985,6 +985,41 @@ def update_orphan_pkgs_label():
     app.after(1000, update_orphan_pkgs_label) 
 
 update_orphan_pkgs_label()
+
+
+
+
+def switch_event():
+    switch_value = switch_var.get()
+    print("switch toggled, current value:", switch_value)
+    data = {}
+    data["switch_value"] = switch_value
+    with open("/home/" + username + "/.config/archmain/config/splash.json", "w") as file:
+        json.dump(data, file)
+
+# Caricare i dati dal file JSON all'avvio dell'app
+try:
+    with open("/home/" + username + "/.config/archmain/config/splash.json", "r") as file:
+        data = json.load(file)
+        switch_value = data["switch_value"]
+except FileNotFoundError:
+    switch_value = "on"
+
+switch_var = customtkinter.StringVar(value=switch_value)
+switch_1 = customtkinter.CTkSwitch(master=app, text="Login Splash", command=switch_event,
+                                   variable=switch_var, onvalue="on", offvalue="off")
+switch_1.place(x=870, y=615)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
