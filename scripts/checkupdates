@@ -28,7 +28,24 @@ delay="$HOME/.config/archmain/data/delay.json"
 n="$HOME/.config/archmain/data/n.json"
 
 sleep 10
-$splash
+# Leggere il percorso del file JSON
+splash_conf="$HOME/.config/archmain/config/splash.json"
+
+# Caricare il valore dal file JSON
+switch_value=$(jq -r .switch_value "$splash_conf")
+
+# Fare un'azione in base al valore
+if [ "$switch_value" = "on" ]; then
+  # Azione da eseguire se switch_value è "on"
+  $splash
+else
+  # Azione da eseguire se switch_value è "off"
+  echo ""
+fi
+
+
+
+
 
 # Variabili cmd
 DELAY=$( expr "$(cat $delay)" \* 60)
@@ -50,7 +67,7 @@ write_updates(){
         echo -n "$Pending Update" > "$n"
        
 
-ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Update available."   -u critical;  )
+ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Update available."   -u normal -t 5000 )
                 case "$ACTION" in
                       "0")
                          $python
@@ -68,7 +85,7 @@ ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" 
         echo "${AUR// +/ }" | cut -c 2- >> "$list"
         echo -n "$Pending Updates" > "$n"
 
-ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u critical;  )
+ACTION=$(notify-send -i "$ICON" --action="OPEN" --action="DELAY"  -a "Archmain" "$Pending Updates available."   -u normal -t 5000  )
                 case "$ACTION" in
                       "0")
                          $python
