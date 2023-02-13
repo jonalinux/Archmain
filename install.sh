@@ -30,11 +30,11 @@ Color_Off='\033[0m'
 
 v="$(cat $HOME/.config/archmain/version)"
 v2="$(cat ./version)"
-
+config_dir="$HOME/.config/archmain"
 
 echo -e "${Blue}Check if a previous version exists.. ${Color_Off}"
 sleep 5
-if [ -d ~/.config/archmain/ ]; then
+if [ -d "$config_dir/archmain.py" ]; then
   
 # Packages to check
 PACKAGESX=(git base-devel)
@@ -97,7 +97,7 @@ fi
   sleep 5
   echo -e "${Blue}Previous version $v detected, replacing the version with $v2. ${Color_Off}"
   
-  config_dir="$HOME/.config/archmain"
+
 
   rm -rf "$config_dir/{data,scripts,archmain.py,version}"
   mv "$config_dir/config" "$config_dir/config.bak"
@@ -105,21 +105,16 @@ fi
   mkdir -p "$HOME/.local/share/Trash/"
   mkdir -p "$HOME/.local/share/applications/"
   mkdir -p "$HOME/.config/autostart"
-  cp -r  "$config_dir/config.bak/*" "$config_dir/config"
+  cp  "$config_dir/config.bak/*.json" "$config_dir/config"
   rm -r "$config_dir/config.bak"
-
-
-
-
-
-
-
-
-
 
 
 else
   
+
+
+
+
 # Packages to check
 PACKAGESX=(git base-devel)
 
