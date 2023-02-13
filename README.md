@@ -27,6 +27,7 @@ This application is very powerful because it utilizes important and necessary to
 - @IvanKey1
 - Yoon Chan-ryul
 - Gregorio from [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
+- Davius Ikse
 
 ## Support the project with a donation
 
