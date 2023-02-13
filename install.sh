@@ -28,8 +28,8 @@ Red='\033[1;31m'
 Yellow='\033[0;33m'
 Color_Off='\033[0m'
 
-v="(cat $HOME/.config/archmain/version)"
-v2="(cat ./version)"
+v="$(cat $HOME/.config/archmain/version)"
+v2="$(cat ./version)"
 
 
 echo -e "${Blue}Check if a previous version exists.. ${Color_Off}"
@@ -106,7 +106,7 @@ fi
   mkdir -p "$HOME/.local/share/applications/"
   mkdir -p "$HOME/.config/autostart"
   cp -r * "$config_dir"
-  cp -r "$config_dir/config.bak" "$config_dir/config"
+  cp -r  "$config_dir/config.bak/*" "$config_dir/config/"
   rm -r "$config_dir/config.bak"
 
 
