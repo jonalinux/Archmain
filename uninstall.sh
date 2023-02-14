@@ -30,7 +30,7 @@ rm -rf "$HOME/.config/archmain"
 
 # Remove autostart file
 rm -f "$HOME/.config/autostart/checkupdates.desktop"
-rm -f "$HOME/.config/autostart/tray.desktop"
+
 
 # Remove Archmain desktop file
 rm -f "$HOME/.local/share/applications/archmain.desktop"
