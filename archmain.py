@@ -941,6 +941,7 @@ def ignore_package():
 def downgrade_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo downgrade {entry_value.get()}'")
+        subprocess.call(["bash", "/home/" + username + "/.config/archmain/scripts/verified"])
         progressbar.stop()
         app.after(1000, lambda: progressbar.place_forget())
     else:
