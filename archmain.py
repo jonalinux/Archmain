@@ -658,7 +658,7 @@ app.after(1000, check_dblck)
 button = customtkinter.CTkButton(master=app,width=140,
                                  border_color="#0f94d2",
                                  fg_color=("#ccc","#333"),
-                                 text_color=("gray10", "#DCE4EE"),
+                                 text_color=("gray10", "#DCE4EE"),hover_color=("#df4848","#df4848"),
                                  border_width=0,
                                  corner_radius=4,
                                  text="Delete db.lck",
