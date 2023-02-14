@@ -28,7 +28,13 @@ delay="$HOME/.config/archmain/data/delay.json"
 n="$HOME/.config/archmain/data/n.json"
 tray="$HOME/.config/archmain/data/tray.json"
 
-sleep 10
+sleep 5
+traypy="$HOME/.config/archmain/archmain-tray.py"
+killall python3 "$traypy"  #KDE fix multiple processes
+sleep 2
+python3 "$traypy" &
+
+
 # Leggere il percorso del file JSON
 splash_conf="$HOME/.config/archmain/config/splash.json"
 
