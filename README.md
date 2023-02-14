@@ -1,6 +1,6 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/216729571-1a7b7328-47bc-4aa1-a918-410354bd8b45.png)
 
-![image](https://user-images.githubusercontent.com/103053714/218608217-403dd397-87f9-4029-bdd2-cffc9e397450.png)
+![image](https://user-images.githubusercontent.com/103053714/218807870-a205be31-bc6d-4684-b19e-3d660c869768.png)
 
 
 # Archmain - Arch System Management 
