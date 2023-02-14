@@ -632,12 +632,6 @@ entry_editor.place(x=128, y=152)
 
 
 
-
-
-
-
-
-
 #delay
 # Carica il valore attuale dal file di configurazione
 def load_config():
