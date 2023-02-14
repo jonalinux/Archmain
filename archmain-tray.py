@@ -38,13 +38,20 @@ def read_number_from_file(file_path):
     with open(file_path, "r") as f:
         return int(f.read().strip())
 
+current_number = None
+
 def update_icon_and_menu(tray_icon, number_action, menu):
+    global current_number
     number = read_number_from_file(file_path)
-    number_action.setText("Updates: {}".format(number))
-    if number > 0:
-        tray_icon.setIcon(QIcon("/home/" + username + "/.config/archmain/icons/tray-1.png"))
-    else:
-        tray_icon.setIcon(QIcon("/home/" + username + "/.config/archmain/icons/tray-0.png"))
+    if number != current_number:
+        current_number = number
+        number_action.setText("Updates: {}".format(number))
+        if number > 0:
+            tray_icon.setIcon(QIcon("/home/" + username + "/.config/archmain/icons/tray-1.png"))
+        else:
+            tray_icon.setIcon(QIcon("/home/" + username + "/.config/archmain/icons/tray-0.png"))
+
+
 
 def main():
     app = QApplication(sys.argv)
@@ -53,6 +60,8 @@ def main():
     tray_icon.setIcon(QIcon("/home/" + username + "/.config/archmain/icons/tray-0.png"))
 
     menu = QMenu()
+    menu.setStyleSheet("background-color: #202124; color: #f2f2f2; height:60px;")
+
 
     number_action = QAction("Updates: {}".format(read_number_from_file(file_path)))
     menu.addAction(number_action)
@@ -65,11 +74,12 @@ def main():
 
     tray_icon.show()
 
-    tray_icon.activated.connect(lambda reason: menu.popup(QCursor.pos()) if reason == QSystemTrayIcon.Trigger else None)
+    tray_icon.activated.connect(lambda reason: subprocess.call(["python3", "/home/" + username + "/.config/archmain/archmain.py"]) if reason == QSystemTrayIcon.Trigger else None)
 
+     
     timer = QTimer()
     timer.timeout.connect(lambda: update_icon_and_menu(tray_icon, number_action, menu))
-    timer.start(1000)
+    timer.start(5000)
 
     sys.exit(app.exec_())
 
