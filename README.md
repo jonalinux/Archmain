@@ -1,6 +1,5 @@
 ![repository-open-graph-template](https://user-images.githubusercontent.com/103053714/216729571-1a7b7328-47bc-4aa1-a918-410354bd8b45.png)
 
-![image](https://user-images.githubusercontent.com/103053714/218845353-217fbc6a-3497-4afc-8fd2-517ff508bb15.png)
 
 
 
