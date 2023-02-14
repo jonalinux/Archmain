@@ -733,8 +733,8 @@ def change_bg_color_group(event=None):
 
 button = customtkinter.CTkButton(master=app,width=50,
                                  border_color="#0f94d2",
-                                 fg_color=("#ccc","#333"),
-                                 text_color=("gray10", "#DCE4EE"),
+                                 
+                                 text_color="#f2f2f2",
                                  border_width=0,
                                  corner_radius=4,
                                  text="Group",
@@ -751,16 +751,6 @@ combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0",
                                          command=optionmenu_callback_g)
 combobox.place(x=263, y=397)
 combobox.set(load_config_g())  # imposta il valore iniziale
-
-
-
-
-
-
-
-
-
-
 
 
 
