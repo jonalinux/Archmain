@@ -541,6 +541,12 @@ def start_progress_bar():
     thread = threading.Thread(target=new_mirrors)
     thread.start()
 
+def change_bg_color_mirr(event=None):
+    content = entry_country.get()
+    if content.islower():
+        entry_country.configure(text_color=("#333","#f2f2f2"))
+        
+        
 button = customtkinter.CTkButton(master=app,width=90,
                                  border_color="#0f94d2",
                                  fg_color=("#ccc","#333"),
@@ -551,9 +557,83 @@ button = customtkinter.CTkButton(master=app,width=90,
                                  command=start_progress_bar)
 button.place(x=35, y=119)
 
-entry_country = customtkinter.CTkEntry(master=app, width=50,)
+entry_country = customtkinter.CTkEntry(master=app, width=50,text_color=("#06c","#2997ff"))
 entry_country.insert(0, value_c) # imposta il valore iniziale
+entry_country.bind("<FocusIn>", change_bg_color_mirr)
 entry_country.place(x=128, y=119)
+
+
+#fstab
+
+def load_config_editor():
+    with open("/home/" + username + "/.config/archmain/config/editor.json", 'r') as f:
+        editor = json.load(f)
+        return editor["editor"]
+value_c = load_config_editor()
+
+def fstab():
+    # get the value selected from the dropdown menu
+    editor = entry_editor.get()
+    # save the selected value in an external file named editor
+    with open("/home/" + username + "/.config/archmain/config/editor.json", "w") as f:
+      json.dump({"editor": editor}, f)
+
+
+    # Loop through each terminal in the list
+    for terminal in terminals:
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo {editor} /etc/fstab'")
+            break
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=390, y=586)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=fstab)
+    thread.start()
+
+def change_bg_color_editor(event=None):
+    content = load_config_c()
+    if content.islower():
+        entry_editor.configure(text_color=("#333","#f2f2f2"))
+
+button = customtkinter.CTkButton(master=app,width=90,
+                                 border_color="#0f94d2",
+                                 fg_color=("#ccc","#333"),
+                                 text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Edit fstab",
+                                 command=start_progress_bar)
+button.place(x=35, y=152)
+
+entry_editor = customtkinter.CTkEntry(master=app, width=50,text_color=("#06c","#2997ff"))
+entry_editor.insert(0, value_c) # imposta il valore iniziale
+entry_editor.bind("<FocusIn>", change_bg_color_editor)
+entry_editor.place(x=128, y=152)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
