@@ -754,6 +754,93 @@ combobox.set(load_config_g())  # imposta il valore iniziale
 
 
 
+#service
+
+def load_config_s():
+    with open("/home/" + username + "/.config/archmain/data/service-option.json", 'r') as f:
+        return f.read()
+app.after(1000, load_config_s)
+option = load_config_s()
+
+
+# Scrive il nuovo valore nel file di configurazione
+def write_config_svr(value_s):
+     with open("/home/" + username + "/.config/archmain/data/service-option.json", 'w') as f:
+       f.write(value_s)
+
+
+# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
+def optionmenu_callback_sv(choice):
+    value_s = choice
+    write_config_svr(value_s)
+
+
+def load_config_service():
+    with open("/home/" + username + "/.config/archmain/data/servicename.json", 'r') as f:
+        servicename = json.load(f)
+        return servicename["servicename"]
+value_sv = load_config_service()
+
+def edit_service():
+    # get the value selected from the dropdown menu
+    servicename = entry_service.get()
+    # save the selected value in an external file named service
+    with open("/home/" + username + "/.config/archmain/data/servicename.json", "w") as f:
+      json.dump({"servicename": servicename}, f)
+    
+
+ 
+
+    # Loop through each terminal in the list
+    for terminal in terminals:
+        option = load_config_s()
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo systemctl {option} {servicename}'")
+            break
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=390, y=586)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=edit_service)
+    thread.start()
+
+def change_bg_color_service(event=None):
+    content = load_config_s()
+    if content.islower():
+        entry_service.configure(text_color=("#333","#f2f2f2")) 
+
+button = customtkinter.CTkButton(master=app,width=60,
+                                 border_color="#0f94d2",
+                                 
+                                 text_color="#f2f2f2",
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Service",
+                                 command=start_progress_bar)
+button.place(x=535, y=397)
+
+entry_service = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
+entry_service.insert(0, value_sv) # imposta il valore iniziale
+entry_service.bind("<FocusIn>", change_bg_color_service)
+entry_service.place(x=689, y=397)
+
+combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=90,
+                                         values=["enable", "disable", "start", "stop", "restart"],
+                                         command=optionmenu_callback_sv)
+combobox.place(x=597, y=397)
+combobox.set(load_config_s())  # imposta il valore iniziale
+
+
+
 
 
 
