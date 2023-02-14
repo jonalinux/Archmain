@@ -105,49 +105,7 @@ fi
   cp -r * "$config_dir"
 
 
-# Create the checkupdates.desktop file
-cat << EOF > "$HOME/.config/autostart/checkupdates.desktop"
-[Desktop Entry]
-Type=Application
-Exec=$config_dir/scripts/checkupdates
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=Check Updates
-Comment=Autostart script to check for updates
-Icon=system-software-update
-Categories=System;Utility;
-StartupNotify=true
-EOF
 
-# Create the tray file
-cat << EOF > "$HOME/.config/autostart/tray.desktop"
-[Desktop Entry]
-Type=Application
-Exec=python3 /home/$USER/.config/archmain/archmain-tray.py
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=tray
-Comment=Autostart script to check for updates
-Icon=system-software-update
-Categories=System;Utility;
-StartupNotify=true
-EOF
-
-# Create the archmain.desktop file
-cat << EOF > "$HOME/.local/share/applications/archmain.desktop"
-[Desktop Entry]
-Type=Application
-Name=Archmain
-Icon=/home/$USER/.config/archmain/icons/app-icon.png
-Exec=python3 /home/$USER/.config/archmain/archmain.py
-Comment=Arch System Management
-Terminal=false
-Categories=System;
-StartupNotify=true
-StartupWMClass=Archmain
-EOF
 
 else
   echo -e "${Blue}No Previous version detected ${Color_Off}"  
@@ -258,20 +216,6 @@ Categories=System;Utility;
 StartupNotify=true
 EOF
 
-# Create the tray file
-cat << EOF > "$HOME/.config/autostart/tray.desktop"
-[Desktop Entry]
-Type=Application
-Exec=python3 /home/$USER/.config/archmain/archmain-tray.py
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=tray
-Comment=Autostart script to check for updates
-Icon=system-software-update
-Categories=System;Utility;
-StartupNotify=true
-EOF
 
 # Create the archmain.desktop file
 cat << EOF > "$HOME/.local/share/applications/archmain.desktop"
