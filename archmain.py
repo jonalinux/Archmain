@@ -184,7 +184,7 @@ pkgs = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.co
                                   size=(40, 40))
 
 label001 = customtkinter.CTkLabel(app, image=pkgs, text=" ")
-label001.place(x=495, y=440)
+label001.place(x=495, y=460)
 
 
 home = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/002.png"),
@@ -192,14 +192,14 @@ home = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.co
                                   size=(40, 40))
 
 label002 = customtkinter.CTkLabel(app, image=home, text=" ")
-label002.place(x=270, y=440)
+label002.place(x=270, y=460)
 
 orph = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
                                   dark_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
                                   size=(40, 40))
 
 label003 = customtkinter.CTkLabel(app, image=orph, text=" ")
-label003.place(x=710, y=440)
+label003.place(x=712, y=460)
 
 logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
                                   dark_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
@@ -244,7 +244,7 @@ class MyTabView(customtkinter.CTkTabview):
         # create tabs
         app.add(" Console ")
         app.add(f" Processes ({num_lines})")
-        app.add(" Packages log ")
+        app.add(" Updates log ")
         app.add(" Mirrorlist ")
         app.add(" Syslog ")
         
@@ -333,7 +333,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox3)
         
         global textbox3
-        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Packages log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Updates log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
         textbox3.place(x=0, y=0)
         textbox3.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox3)      
@@ -403,7 +403,7 @@ class MyTabView(customtkinter.CTkTabview):
  
 
 
-app.tab_view = MyTabView(master=app, width=610, height=370,)
+app.tab_view = MyTabView(master=app, width=610, height=395,)
 app.tab_view.place(x=203, y=35)
 
 #------------------------------------------------------------------------------------------------ end tab
@@ -664,6 +664,104 @@ button = customtkinter.CTkButton(master=app,width=140,
                                  text="Delete db.lck",
                                  command=start_progress_bar)
 button.place(x=35, y=185)
+
+
+
+#group-add-remove
+
+def load_config_g():
+    with open("/home/" + username + "/.config/archmain/data/group-option.json", 'r') as f:
+        return f.read()
+app.after(1000, load_config_g)
+option = load_config_g()
+
+
+# Scrive il nuovo valore nel file di configurazione
+def write_config_g(value_g):
+     with open("/home/" + username + "/.config/archmain/data/group-option.json", 'w') as f:
+       f.write(value_g)
+
+
+# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
+def optionmenu_callback_g(choice):
+    value_g = choice
+    write_config_g(value_g)
+
+
+def load_config_group():
+    with open("/home/" + username + "/.config/archmain/data/groupname.json", 'r') as f:
+        group = json.load(f)
+        return group["group"]
+value_c = load_config_group()
+
+def edit_group():
+    # get the value selected from the dropdown menu
+    group = entry_group.get()
+    # save the selected value in an external file named group
+    with open("/home/" + username + "/.config/archmain/data/groupname.json", "w") as f:
+      json.dump({"group": group}, f)
+    
+
+ 
+
+    # Loop through each terminal in the list
+    for terminal in terminals:
+        option = load_config_g()
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo group{option} {group}'")
+            break
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=390, y=586)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=edit_group)
+    thread.start()
+
+def change_bg_color_group(event=None):
+    content = load_config_c()
+    if content.islower():
+        entry_group.configure(text_color=("#333","#f2f2f2"))
+
+button = customtkinter.CTkButton(master=app,width=50,
+                                 border_color="#0f94d2",
+                                 fg_color=("#ccc","#333"),
+                                 text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Group",
+                                 command=start_progress_bar)
+button.place(x=210, y=397)
+
+entry_group = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
+entry_group.insert(0, value_c) # imposta il valore iniziale
+entry_group.bind("<FocusIn>", change_bg_color_group)
+entry_group.place(x=345, y=397)
+
+combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=80,
+                                         values=["add", "del"],
+                                         command=optionmenu_callback_g)
+combobox.place(x=263, y=397)
+combobox.set(load_config_g())  # imposta il valore iniziale
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -956,10 +1054,10 @@ info_label = customtkinter.CTkLabel(master=app,
                                textvariable=text_var2,
                                width=120,
                                height=40)
-info_label.place(x=230, y=520)
+info_label.place(x=230, y=540)
 
 clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=start_progress_bar_cachehome)
-clear_button.place(x=250, y=490)
+clear_button.place(x=250, y=510)
 
 app.after(1000, update_info_label)
 
@@ -995,7 +1093,7 @@ def start_progress_bar_cachepkgs():
 
     update_label()
 clean_cache_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=start_progress_bar_cachepkgs)
-clean_cache_button.place(x=475, y=490)
+clean_cache_button.place(x=475, y=510)
 
 #mostra valore cache
 def get_cache_size():
@@ -1017,7 +1115,7 @@ label = customtkinter.CTkLabel(master=app,
                                width=250,
                                height=25,
                                )
-label.place(x=390, y=520)
+label.place(x=390, y=540)
 
 app.after(1000, update_label)
 
@@ -1062,11 +1160,11 @@ def start_progress_bar_orphans():
 
 # Creazione del bottone per pulire la cache dei pacchetti orfani
 clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=start_progress_bar_orphans)
-clear_orphan_button.place(x=690, y=490)
+clear_orphan_button.place(x=692, y=510)
 
 # Creazione della label che mostra il numero di pacchetti orfani
 orphan_pkgs_label = customtkinter.CTkLabel(app, textvariable=orphan_pkgs_label_text, width=120, height=25)
-orphan_pkgs_label.place(x=670, y=520)
+orphan_pkgs_label.place(x=672, y=540)
 app.after(1000, update_orphan_pkgs_label) 
 
 update_orphan_pkgs_label()
