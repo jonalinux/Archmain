@@ -409,7 +409,6 @@ app.tab_view.place(x=203, y=35)
 #------------------------------------------------------------------------------------------------ end tab
 
 
-
       
         
 
@@ -623,10 +622,48 @@ entry_editor.place(x=128, y=152)
 
 
 
+def delete_dblck():
+    if terminal:
+        time.sleep(5)
+        os.system("rm /var/lib/pacman/db.lck")
+        progressbar.stop()
+        app.after(1000, lambda: progressbar.place_forget())
+    after_dblck()
+    
+def after_dblck():
+    if not os.path.exists('/var/lib/pacman/db.lck'):
+       with open("/home/" + username + "/.config/archmain/data/console.json", 'w') as f:
+            f.write("The db.lck file has been removed or is not present.")        
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=390, y=586)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=delete_dblck)
+    thread.start()
+    
+def check_dblck():
+    if os.path.exists('/var/lib/pacman/db.lck'):
+       with open("/home/" + username + "/.config/archmain/data/console.json", 'w') as f:
+            f.write("Attention, the database lock has not been released. To fix the issue, you can use 'remove db.lck'.")
+    app.after(5000, check_dblck)
+
+            
+app.after(1000, check_dblck)
 
 
 
-
+button = customtkinter.CTkButton(master=app,width=140,
+                                 border_color="#0f94d2",
+                                 fg_color=("#ccc","#333"),
+                                 text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Delete db.lck",
+                                 command=start_progress_bar)
+button.place(x=35, y=185)
 
 
 
