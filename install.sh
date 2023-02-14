@@ -54,7 +54,7 @@ done
 
 
 # List of packages to check
-PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel pikaur python-pyqt5)
+PACKAGES=(pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel pikaur python-pyqt5)
 # Package to check
 PACKAGE=notify-send
 # Get a list of installed packages
@@ -67,7 +67,7 @@ for package in "${PACKAGES[@]}"; do
   else
     echo -e "${Red}$package is NOT installed${Color_Off}"
     echo "Installing $package..."
-    sudo pikaur -Sy "$package"
+    sudo pikaur -Sy "$package" --noconfirm
   fi
 done
 
@@ -150,7 +150,7 @@ fi
 
 
 # List of packages to check
-PACKAGES=(git pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel python-pyqt5)
+PACKAGES=(pacman-contrib downgrade tk reflector python-pip jq wget syslog-ng base-devel python-pyqt5)
 # Package to check
 PACKAGE=notify-send
 # Get a list of installed packages
@@ -163,7 +163,7 @@ for package in "${PACKAGES[@]}"; do
   else
     echo -e "${Red}$package is NOT installed${Color_Off}"
     echo "Installing $package..."
-    sudo pikaur -Sy "$package"
+    sudo pikaur -Sy "$package"  --noconfirm
   fi
 done
 
