@@ -918,8 +918,9 @@ def search_package():
 def install_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur -S {entry_value.get()}'")
+        pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
         with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-            file.write("")
+         file.write("Hello " + username + "!!\n" + pikaur.stdout) 
         progressbar.stop()
         app.after(1000, lambda: progressbar.place_forget())
     else:
@@ -928,6 +929,9 @@ def install_package():
 def remove_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur -Rns {entry_value.get()}'")
+        pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
+        with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
+         file.write("Hello " + username + "!!\n" + pikaur.stdout) 
         progressbar.stop()
         app.after(1000, lambda: progressbar.place_forget())
     else:
