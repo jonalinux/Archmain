@@ -648,10 +648,7 @@ def check_dblck():
     if os.path.exists('/var/lib/pacman/db.lck'):
        with open("/home/" + username + "/.config/archmain/data/console.json", 'w') as f:
             f.write("Warning, the database lock has not been released. To fix the issue, you can use 'remove db.lck\nif you are upgrading or downgrading you can ignore the message.'.")
-    app.after(5000, check_dblck)
 
-            
-app.after(1000, check_dblck)
 
 
 
