@@ -919,7 +919,7 @@ def install_package():
     if terminal:
         os.system(f"{terminal} -e 'sudo pikaur -S {entry_value.get()}'")
         with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
-            file.write("Warning! The package names in the entry must be written in lowercase!")
+            file.write("")
         progressbar.stop()
         app.after(1000, lambda: progressbar.place_forget())
     else:
