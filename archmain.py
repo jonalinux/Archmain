@@ -48,10 +48,10 @@ hostname = socket.gethostname()
 
 #root-(app)-Archmain v3.00
 app = customtkinter.CTk(className='Archmain') 
-app.geometry(f"{1020}x{650}")
-app.minsize(1020, 650)
-app.maxsize(1020, 650)
-
+app.geometry(f"{1500}x{850}")
+app.minsize(1500, 850)
+app.maxsize(1500, 850)
+app.configure(fg_color=("#f6f8fc","#1f1f1f"))
 
 
 
@@ -140,10 +140,10 @@ customtkinter.set_appearance_mode(appearance_mode)
 #customtkinter.set_default_color_theme(color_theme)
 
 appearance_mode_var = tkinter.StringVar(value=appearance_mode)
-app.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(app,width=90,dropdown_hover_color=("#3b8ed0","#06c"), values=["Light", "Dark", "System"],
+app.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(app,width=90, height=20, dropdown_hover_color=("#3b8ed0","#06c"), values=["Light", "Dark", "System"],
                                                               variable=appearance_mode_var,
                                                               command=lambda value: change_appearance_mode_event(value))
-app.appearance_mode_optionemenu.place(x=40, y=610)
+app.appearance_mode_optionemenu.place(x=30, y=815)
 
 def change_appearance_mode_event(new_appearance_mode: str):
     customtkinter.set_appearance_mode(new_appearance_mode)
@@ -151,8 +151,52 @@ def change_appearance_mode_event(new_appearance_mode: str):
         choice = {"appearance_mode": new_appearance_mode, "color_theme": color_theme}
         json.dump(choice, file)
 
-label = customtkinter.CTkLabel(master=app,text="Themes", width=50, height=15, text_color="#868686")
-label.place(x=55, y=590)
+label = customtkinter.CTkLabel(master=app,text="Themes", width=50, height=15, )
+label.place(x=125, y=817)
+
+
+
+#splash-setting
+def switch_event():
+    switch_value = switch_var.get()
+    print("switch toggled, current value:", switch_value)
+    data = {}
+    data["switch_value"] = switch_value
+    with open("/home/" + username + "/.config/archmain/config/splash.json", "w") as file:
+        json.dump(data, file)
+
+# Caricare i dati dal file JSON all'avvio dell'app
+try:
+    with open("/home/" + username + "/.config/archmain/config/splash.json", "r") as file:
+        data = json.load(file)
+        switch_value = data["switch_value"]
+except FileNotFoundError:
+    switch_value = "on"
+
+switch_var = customtkinter.StringVar(value=switch_value)
+switch_1 = customtkinter.CTkSwitch(master=app, text="Login Splash", command=switch_event,
+                                   variable=switch_var, onvalue="on", offvalue="off")
+switch_1.place(x=1350, y=815)
+
+
+
+#banner-line
+linebanner = customtkinter.CTkFrame(master=app, width=1500 ,height=5, fg_color=("#0f94d2","#08c"))
+linebanner.place(x=0, y=50)
+linebanner = tk.Frame(master=app, width=1500 ,height=50, bg="#333")
+linebanner.place(x=0, y=0)
+
+logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
+                                  dark_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
+                                  size=(50, 40))
+
+label003 = customtkinter.CTkLabel(app, image=logo, text=" ", fg_color="#333") #fg_color=('#ecf1f6','#2b2b2b')
+label003.place(x=25, y=5)
+
+label = customtkinter.CTkLabel(app, text="Archmain", font=('Cantarell',24), fg_color="#333", text_color="#FFF")
+label.configure()
+label.place(x=80, y=10)
+
 
 
 #terminals
@@ -165,48 +209,20 @@ terminals = terminals_dict['terminals']
 
 
 # Sidebar
-app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12)
-app.sidebar_frame.place(x=20, y=10)
+app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12, fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.sidebar_frame.place(x=20, y=80)
 
 # panel right
-app.panel_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12)
-app.panel_frame.place(x=825, y=10)
+app.panel_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.panel_frame.place(x=1310, y=80)
 
 
 
 #license
 label = customtkinter.CTkLabel(master=app,text="Copyright (C) 2023 Jonathan Sanfilippo - Licensed GPLv3", width=250, height=15, text_color="#868686")
-label.place(x=335, y=620)
-
-#img "img/001.png"
-pkgs = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/001.png"),
-                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/001.png"),
-                                  size=(40, 40))
-
-label001 = customtkinter.CTkLabel(app, image=pkgs, text=" ")
-label001.place(x=495, y=460)
+label.place(x=595, y=820)
 
 
-home = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/002.png"),
-                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/002.png"),
-                                  size=(40, 40))
-
-label002 = customtkinter.CTkLabel(app, image=home, text=" ")
-label002.place(x=270, y=460)
-
-orph = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
-                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
-                                  size=(40, 40))
-
-label003 = customtkinter.CTkLabel(app, image=orph, text=" ")
-label003.place(x=712, y=460)
-
-logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
-                                  dark_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
-                                  size=(100, 80))
-
-label003 = customtkinter.CTkLabel(app, image=logo, text=" ", fg_color=('#dbdbdb','#2b2b2b') )
-label003.place(x=56, y=279)
 
 
 
@@ -214,14 +230,10 @@ vr = os.popen('cat "/home/' + username + '/.config/archmain/version"').read()
 text = "Archmain v" + vr
 
 # Create the label with the text from the file
-app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#dbdbdb','#2b2b2b'), text_color="#868686")
+app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#ecf1f6','#2b2b2b'), text_color="#868686")
 app.label.place(x=62, y=352)
 
 
-#ProgressBar
-progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color="#55ff00")
-progressbar.configure(mode="indeterminate",)
-progressbar.place_forget()
 
 
 
@@ -247,6 +259,7 @@ class MyTabView(customtkinter.CTkTabview):
         app.add(" Updates log ")
         app.add(" Mirrorlist ")
         app.add(" Syslog ")
+        app.add(" journalctl ")
         
         
         # Console
@@ -268,10 +281,12 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox)
         
         global textbox
-        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox = customtkinter.CTkTextbox(master=app.tab(" Console "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox.place(x=0, y=0)
         textbox.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox)
+
+
 
         
         def write_processes_to_file():
@@ -312,7 +327,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox2)
         
         global textbox2
-        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox2 = customtkinter.CTkTextbox(master=app.tab(f" Processes ({num_lines})"), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox2.place(x=0, y=0)
         textbox2.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox2)  
@@ -333,7 +348,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox3)
         
         global textbox3
-        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Updates log "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox3 = customtkinter.CTkTextbox(master=app.tab(" Updates log "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox3.place(x=0, y=0)
         textbox3.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox3)      
@@ -355,7 +370,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox4)
         
         global textbox4
-        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+        textbox4 = customtkinter.CTkTextbox(master=app.tab(" Mirrorlist "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox4.place(x=0, y=0)
         textbox4.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox4)      
@@ -374,12 +389,12 @@ class MyTabView(customtkinter.CTkTabview):
                    break
         
              if terminal:
-                subprocess.call([terminal, "-e","sudo chmod +r /var/log/everything.log"])
-             with open("/var/log/everything.log", "r") as file:
+                subprocess.call([terminal, "-e","sudo chmod +r /var/log/syslog.log"])
+             with open("/var/log/syslog.log", "r") as file:
                     lines = file.readlines()
                     new_text = ''.join(reversed(lines[0:]))
              if new_text != app.text5:
-                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=600, height=316, font=('source code pro',14), corner_radius=12)
+                textbox5 = customtkinter.CTkTextbox(master=app.tab(" Syslog "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
                 textbox5.place(x=0, y=0)
                 textbox5.configure(state="normal")  # configure textbox to be editable
                 textbox5.delete("0.0", "end")  # clear textbox
@@ -393,18 +408,38 @@ class MyTabView(customtkinter.CTkTabview):
                 textbox5.configure(state="disabled")  # configure textbox to be read-only
             
         def but_syslog():
-             label = customtkinter.CTkLabel(master=app.tab(" Syslog "), text="Need permission to enable reading of file '/var/log/everything.log'")
+             label = customtkinter.CTkLabel(master=app.tab(" Syslog "), text="Need permission to enable reading of file '/var/log/syslog.log'")
              label.place(x=10, y=10) 
              button = customtkinter.CTkButton(master=app.tab(" Syslog "), width=90, text="enable",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("limegreen","limegreen"),command=perm_syslog)
-             button.place(x=500, y=280) 
+             button.place(x=400, y=12) 
         but_syslog()
         
-
+        
+        #jctl
+        app.text6 = ""
+        def update_textbox6():
+            global textbox6
+            os.system("journalctl -p 3 -b -n > /home/" + username + "/.config/archmain/data/jctl.json")
+            with open("/home/" + username + "/.config/archmain/data/jctl.json", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text6:
+               textbox6.configure(state="normal")  # configure textbox to be editable
+               textbox6.delete("0.0", "end")  # clear textbox
+               textbox6.insert("0.0", new_text)  # insert updated text
+               textbox6.configure(state="disabled")  # configure textbox to be read-only
+               app.text6 = new_text
+            app.after(1000, update_textbox6)
+        
+        global textbox6
+        textbox6 = customtkinter.CTkTextbox(master=app.tab(" journalctl "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
+        textbox6.place(x=0, y=0)
+        textbox6.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox6)  
  
 
 
-app.tab_view = MyTabView(master=app, width=610, height=395,)
-app.tab_view.place(x=203, y=35)
+app.tab_view = MyTabView(master=app, width=1096, height=395,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.tab_view.place(x=203, y=65)
 
 #------------------------------------------------------------------------------------------------ end tab
 
@@ -429,7 +464,7 @@ def check_updates():
         print("No supported terminal found.")
 
 def start_progress_bar_check():
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     progressbar.start()
     thread = threading.Thread(target=check_updates)
     thread.start()        
@@ -441,7 +476,7 @@ def button_function():
 
 
 button = customtkinter.CTkButton(app, border_color="#0f94d2",  text_color=("#DCE4EE", "#DCE4EE"), border_width=0, corner_radius=4, text=f"Update Now", command=start_progress_bar_check)
-button.place(x=35, y=20)
+button.place(x=35, y=86)
 
 
 
@@ -463,7 +498,7 @@ def ignore_AUR():
         print("No supported terminal found.")
 
 def start_progress_bar_ign():
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     progressbar.start()
     thread = threading.Thread(target=ignore_AUR)
     thread.start()            
@@ -472,7 +507,7 @@ def button_function():
     print("button pressed")
 
 button = customtkinter.CTkButton(master=app, border_color="#0f94d2", fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), border_width=0, corner_radius=4, text="Ignore AUR", command=start_progress_bar_ign)
-button.place(x=35, y=53)
+button.place(x=35, y=120)
 
 
 
@@ -483,7 +518,7 @@ def man_check_updates():
     app.after(1000, lambda: progressbar.place_forget())
 
 def start_progress_bar_man():
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     progressbar.start()
     thread = threading.Thread(target=man_check_updates)
     thread.start()
@@ -496,7 +531,7 @@ button = customtkinter.CTkButton(master=app,
                                  corner_radius=4,
                                  text="Manual Check",
                                  command=start_progress_bar_man)
-button.place(x=35, y=86)
+button.place(x=35, y=152)
 
 
 #New-mirrors
@@ -533,7 +568,7 @@ def new_mirrors():
 
 def start_progress_bar():
     # Mostra la progressbar
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     # Avvia la progressbar
     progressbar.start()
     # Crea un nuovo thread per eseguire il comando bash
@@ -554,12 +589,12 @@ button = customtkinter.CTkButton(master=app,width=90,
                                  corner_radius=4,
                                  text="New Mirrors",
                                  command=start_progress_bar)
-button.place(x=35, y=119)
+button.place(x=35, y=185)
 
-entry_country = customtkinter.CTkEntry(master=app, width=50,text_color=("#06c","#2997ff"))
+entry_country = customtkinter.CTkEntry(master=app, width=50,text_color=("#06c","#2997ff"))##3dbeff
 entry_country.insert(0, value_c) # imposta il valore iniziale
 entry_country.bind("<FocusIn>", change_bg_color_mirr)
-entry_country.place(x=128, y=119)
+entry_country.place(x=128, y=184)
 
 
 #fstab
@@ -592,7 +627,7 @@ def fstab():
 
 def start_progress_bar():
     # Mostra la progressbar
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     # Avvia la progressbar
     progressbar.start()
     # Crea un nuovo thread per eseguire il comando bash
@@ -612,12 +647,12 @@ button = customtkinter.CTkButton(master=app,width=90,
                                  corner_radius=4,
                                  text="Edit fstab",
                                  command=start_progress_bar)
-button.place(x=35, y=152)
+button.place(x=35, y=217)
 
 entry_editor = customtkinter.CTkEntry(master=app, width=50,text_color=("#06c","#2997ff"))
 entry_editor.insert(0, value_c) # imposta il valore iniziale
 entry_editor.bind("<FocusIn>", change_bg_color_editor)
-entry_editor.place(x=128, y=152)
+entry_editor.place(x=128, y=217)
 
 
 
@@ -637,7 +672,7 @@ def after_dblck():
 
 def start_progress_bar():
     # Mostra la progressbar
-    progressbar.place(x=390, y=586)
+    progressbar.place(x=625, y=480)
     # Avvia la progressbar
     progressbar.start()
     # Crea un nuovo thread per eseguire il comando bash
@@ -660,182 +695,7 @@ button = customtkinter.CTkButton(master=app,width=140,
                                  corner_radius=4,
                                  text="Delete db.lck",
                                  command=start_progress_bar)
-button.place(x=35, y=185)
-
-
-
-#group-add-remove
-
-def load_config_g():
-    with open("/home/" + username + "/.config/archmain/data/group-option.json", 'r') as f:
-        return f.read()
-app.after(1000, load_config_g)
-option = load_config_g()
-
-
-# Scrive il nuovo valore nel file di configurazione
-def write_config_g(value_g):
-     with open("/home/" + username + "/.config/archmain/data/group-option.json", 'w') as f:
-       f.write(value_g)
-
-
-# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
-def optionmenu_callback_g(choice):
-    value_g = choice
-    write_config_g(value_g)
-
-
-def load_config_group():
-    with open("/home/" + username + "/.config/archmain/data/groupname.json", 'r') as f:
-        group = json.load(f)
-        return group["group"]
-value_c = load_config_group()
-
-def edit_group():
-    # get the value selected from the dropdown menu
-    group = entry_group.get()
-    # save the selected value in an external file named group
-    with open("/home/" + username + "/.config/archmain/data/groupname.json", "w") as f:
-      json.dump({"group": group}, f)
-    
-
- 
-
-    # Loop through each terminal in the list
-    for terminal in terminals:
-        option = load_config_g()
-        # Check if the terminal is installed
-        if os.system(f"command -v {terminal}") == 0:
-            # If the terminal is installed, run the command to update the mirrors
-            os.system(f"{terminal} -e ' sudo group{option} {group}'")
-            break
-    # Ferma la progressbar
-    progressbar.stop()
-    # Nascondi la progressbar dopo 1 secondo
-    app.after(1000, lambda: progressbar.place_forget())
-
-def start_progress_bar():
-    # Mostra la progressbar
-    progressbar.place(x=390, y=586)
-    # Avvia la progressbar
-    progressbar.start()
-    # Crea un nuovo thread per eseguire il comando bash
-    thread = threading.Thread(target=edit_group)
-    thread.start()
-
-def change_bg_color_group(event=None):
-    content = load_config_c()
-    if content.islower():
-        entry_group.configure(text_color=("#333","#f2f2f2"))
-
-button = customtkinter.CTkButton(master=app,width=50,
-                                 border_color="#0f94d2",
-                                 
-                                 text_color="#f2f2f2",
-                                 border_width=0,
-                                 corner_radius=4,
-                                 text="Group",
-                                 command=start_progress_bar)
-button.place(x=210, y=397)
-
-entry_group = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
-entry_group.insert(0, value_c) # imposta il valore iniziale
-entry_group.bind("<FocusIn>", change_bg_color_group)
-entry_group.place(x=345, y=397)
-
-combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=80,
-                                         values=["add", "del"],
-                                         command=optionmenu_callback_g)
-combobox.place(x=263, y=397)
-combobox.set(load_config_g())  # imposta il valore iniziale
-
-
-
-#service
-
-def load_config_s():
-    with open("/home/" + username + "/.config/archmain/data/service-option.json", 'r') as f:
-        return f.read()
-app.after(1000, load_config_s)
-option = load_config_s()
-
-
-# Scrive il nuovo valore nel file di configurazione
-def write_config_svr(value_s):
-     with open("/home/" + username + "/.config/archmain/data/service-option.json", 'w') as f:
-       f.write(value_s)
-
-
-# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
-def optionmenu_callback_sv(choice):
-    value_s = choice
-    write_config_svr(value_s)
-
-
-def load_config_service():
-    with open("/home/" + username + "/.config/archmain/data/servicename.json", 'r') as f:
-        servicename = json.load(f)
-        return servicename["servicename"]
-value_sv = load_config_service()
-
-def edit_service():
-    # get the value selected from the dropdown menu
-    servicename = entry_service.get()
-    # save the selected value in an external file named service
-    with open("/home/" + username + "/.config/archmain/data/servicename.json", "w") as f:
-      json.dump({"servicename": servicename}, f)
-    
-
- 
-
-    # Loop through each terminal in the list
-    for terminal in terminals:
-        option = load_config_s()
-        # Check if the terminal is installed
-        if os.system(f"command -v {terminal}") == 0:
-            # If the terminal is installed, run the command to update the mirrors
-            os.system(f"{terminal} -e ' sudo systemctl {option} {servicename}'")
-            break
-    # Ferma la progressbar
-    progressbar.stop()
-    # Nascondi la progressbar dopo 1 secondo
-    app.after(1000, lambda: progressbar.place_forget())
-
-def start_progress_bar():
-    # Mostra la progressbar
-    progressbar.place(x=390, y=586)
-    # Avvia la progressbar
-    progressbar.start()
-    # Crea un nuovo thread per eseguire il comando bash
-    thread = threading.Thread(target=edit_service)
-    thread.start()
-
-def change_bg_color_service(event=None):
-    content = load_config_s()
-    if content.islower():
-        entry_service.configure(text_color=("#333","#f2f2f2")) 
-
-button = customtkinter.CTkButton(master=app,width=60,
-                                 border_color="#0f94d2",
-                                 
-                                 text_color="#f2f2f2",
-                                 border_width=0,
-                                 corner_radius=4,
-                                 text="Service",
-                                 command=start_progress_bar)
-button.place(x=535, y=397)
-
-entry_service = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
-entry_service.insert(0, value_sv) # imposta il valore iniziale
-entry_service.bind("<FocusIn>", change_bg_color_service)
-entry_service.place(x=689, y=397)
-
-combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=90,
-                                         values=["enable", "disable", "start", "stop", "restart"],
-                                         command=optionmenu_callback_sv)
-combobox.place(x=597, y=397)
-combobox.set(load_config_s())  # imposta il valore iniziale
-
+button.place(x=35, y=250)
 
 
 
@@ -859,15 +719,15 @@ def optionmenu_callback(choice):
     write_config(choice)
 
 # Crea il menu a tendina
-text_var = tkinter.StringVar(value="Notify Delay in Min")
+text_var = tkinter.StringVar(value="Delay Min")
 
-label = customtkinter.CTkLabel(master=app,textvariable=text_var,width=120,height=25, fg_color=('#dbdbdb','#2b2b2b'))
-label.place(x=842, y=20)
+label = customtkinter.CTkLabel(master=app,textvariable=text_var,width=0,height=25, fg_color=('#ecf1f6','#2b2b2b'), bg_color=('#ecf1f6','#2b2b2b'))
+label.place(x=1405, y=88)
 
-combobox = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#3b8ed0","#06c"),
+combobox = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=70,
                                          values=["120", "180", "240","1440"],
                                          command=optionmenu_callback)
-combobox.place(x=840, y=48)
+combobox.place(x=1325, y=86)
 combobox.set(load_config())  # imposta il valore iniziale
 
 
@@ -891,15 +751,15 @@ def optionmenu_callback_2(choice):
 
 
 # Crea l'opzione menù
-text_var = tkinter.StringVar(value="Check every Min")
+text_var = tkinter.StringVar(value="Check Min")
 
-label = customtkinter.CTkLabel(master=app,textvariable=text_var, width=120,height=25,fg_color=('#dbdbdb','#2b2b2b'))
-label.place(x=845, y=90)
+label = customtkinter.CTkLabel(master=app,textvariable=text_var, width=0,height=25,fg_color=('#ecf1f6','#2b2b2b'), bg_color=('#ecf1f6','#2b2b2b'))
+label.place(x=1405, y=120)
 
-combobox_2 = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#3b8ed0","#06c"),
+combobox_2 = customtkinter.CTkOptionMenu(master=app,dropdown_hover_color=("#3b8ed0","#06c"), width=70,
                                          values=["60", "120", "180","1440"],
                                          command=optionmenu_callback_2)
-combobox_2.place(x=840, y=118)
+combobox_2.place(x=1325, y=118)
 combobox_2.set(load_config_2())  # imposta il valore iniziale
 
 
@@ -960,8 +820,8 @@ for t in terminals:
 
 def clear_entry():
     entry_value.set("")
-button = customtkinter.CTkButton(master=app, width=50, text="Del",text_color=("gray10", "#DCE4EE"), fg_color=("#ccc","#333"),hover_color=("#df4848","#df4848"),command=clear_entry)
-button.place(x=210, y=12)    
+button = customtkinter.CTkButton(master=app, width=50, text="Del",text_color="#FFF",  fg_color="#555",hover_color=("#df4848","#df4848"), bg_color="#333",command=clear_entry)
+button.place(x=450, y=12)    
 
 def change_bg_color(event=None):
     content = entry_value.get()
@@ -973,8 +833,8 @@ def change_bg_color(event=None):
 
 entry_value = tk.StringVar()
 entry_value.set("before using the options, insert the package name.")
-entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=400, height=29, text_color=("#06c","#2997ff"))
-entry.place(x=263, y=12)
+entry = customtkinter.CTkEntry(app, textvariable=entry_value, width=430, height=29, text_color=("#06c","#2997ff"), bg_color="#333")
+entry.place(x=503, y=12)
 entry.bind("<FocusIn>", change_bg_color)
 entry.bind("<KeyRelease>", change_bg_color)
 
@@ -994,16 +854,13 @@ def combobox_callback(choice):
         pikaur = subprocess.run(["pikaur", "-V"], capture_output=True, text=True)
         with open("/home/" + username + "/.config/archmain/data/console.json", "w") as file:
          file.write("Hello " + username + "!!\n" + pikaur.stdout)  
-        progressbar.place(x=390, y=586)
+        progressbar.place(x=625, y=480)
         progressbar.start()   
         threading.Thread(target=globals()[choice.lower() + '_package'], args=(), daemon=True).start()
 
    
-
-
-
-combobox = customtkinter.CTkComboBox(master=app, dropdown_hover_color=("#3b8ed0","#06c"), values=actions, variable=combobox_var, command=combobox_callback)
-combobox.place(x=665, y=12)
+combobox = customtkinter.CTkComboBox(master=app,width=120, dropdown_hover_color=("#3b8ed0","#06c"), bg_color="#333", values=actions, variable=combobox_var, command=combobox_callback)
+combobox.place(x=935, y=12)
 
 def reset():
     with open("/home/" + username + "/.config/archmain/data/ignore.json", "w") as file:
@@ -1038,35 +895,35 @@ def update_values():
 
 app.after(1000, update_values)
 
-cpu_label = customtkinter.CTkLabel(app, text="CPU" , fg_color=('#dbdbdb','#2b2b2b'))
-cpu_label.place(x=845, y=237)
+cpu_label = customtkinter.CTkLabel(app, text="CPU" , fg_color=('#ecf1f6','#2b2b2b'))
+cpu_label.place(x=1330, y=237)
 
 cpu_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="red")
-cpu_progress.place(x=845, y=260)
+cpu_progress.place(x=1330, y=260)
 
-disk_label = customtkinter.CTkLabel(app, text="Disk ", fg_color=('#dbdbdb','#2b2b2b'))
-disk_label.place(x=845, y=267)
+disk_label = customtkinter.CTkLabel(app, text="Disk ", fg_color=('#ecf1f6','#2b2b2b'))
+disk_label.place(x=1330, y=267)
 
 disk_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="#0f94d2")
-disk_progress.place(x=845, y=290)
+disk_progress.place(x=1330, y=290)
 
-ram_label = customtkinter.CTkLabel(app, text="RAM ", fg_color=('#dbdbdb','#2b2b2b'))
-ram_label.place(x=845, y=297)
+ram_label = customtkinter.CTkLabel(app, text="RAM ", fg_color=('#ecf1f6','#2b2b2b'))
+ram_label.place(x=1330, y=297)
 
 ram_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="orange")
-ram_progress.place(x=845, y=320)
+ram_progress.place(x=1330, y=320)
 
-swap_label = customtkinter.CTkLabel(app, text="Swap ", fg_color=('#dbdbdb','#2b2b2b'))
-swap_label.place(x=845, y=327)
+swap_label = customtkinter.CTkLabel(app, text="Swap ", fg_color=('#ecf1f6','#2b2b2b'))
+swap_label.place(x=1330, y=327)
 
 swap_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="magenta")
-swap_progress.place(x=845, y=350)
+swap_progress.place(x=1330, y=350)
 
-boot_partition_label = customtkinter.CTkLabel(app, text="Boot ", fg_color=('#dbdbdb','#2b2b2b'))
-boot_partition_label.place(x=845, y=357)
+boot_partition_label = customtkinter.CTkLabel(app, text="Boot ", fg_color=('#ecf1f6','#2b2b2b'))
+boot_partition_label.place(x=1330, y=357)
 
 boot_partition_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="#55ff00")
-boot_partition_progress.place(x=845, y=380)
+boot_partition_progress.place(x=1330, y=380)
 
 def count_installed_packages():
     output = subprocess.run(['pikaur', '-Q'], stdout=subprocess.PIPE)
@@ -1079,8 +936,8 @@ def update_kernel_info():
     kernel_label.configure(text="Kernel: {}".format(kernel))
     kernel_label.after(1000, update_kernel_info)
     
-kernel_label = customtkinter.CTkLabel(app, text="Kernel: ...", fg_color=('#dbdbdb','#2b2b2b'))
-kernel_label.place(x=845, y=165)
+kernel_label = customtkinter.CTkLabel(app, text="Kernel: ...", fg_color=('#ecf1f6','#2b2b2b'))
+kernel_label.place(x=1330, y=165)
 app.after(1000, update_kernel_info)
 
 def update_mirrorlist_info():
@@ -1089,8 +946,8 @@ def update_mirrorlist_info():
     mirrorlist_label.configure(text="Server Mirrors: {}".format(diff))
     mirrorlist_label.after(1000, update_mirrorlist_info)
 
-mirrorlist_label = customtkinter.CTkLabel(app, text="Server Mirrors: ...", fg_color=('#dbdbdb','#2b2b2b'))
-mirrorlist_label.place(x=845, y=185)
+mirrorlist_label = customtkinter.CTkLabel(app, text="Server Mirrors: ...", fg_color=('#ecf1f6','#2b2b2b'))
+mirrorlist_label.place(x=1330, y=185)
 app.after(1000, update_mirrorlist_info)
 
 def update_packages_info():
@@ -1098,193 +955,395 @@ def update_packages_info():
     label.configure(text="Packages: {}".format(packages))
     label.after(1000, update_packages_info)
 
-label = customtkinter.CTkLabel(app,fg_color=('#dbdbdb','#2b2b2b'),text="Packages: {}".format(count_installed_packages()))
-label.place(x=845, y=205)
+label = customtkinter.CTkLabel(app,fg_color=('#ecf1f6','#2b2b2b'),text="Packages: {}".format(count_installed_packages()))
+label.place(x=1330, y=205)
 app.after(1000, update_packages_info)
 
 
-#cache-home-bin
-def get_cache_and_trash_size():
-    result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/"])
-    sizes = result.splitlines()
-    cache_size = sizes[0].split()[0].decode("utf-8")
-    trash_size = sizes[1].split()[0].decode("utf-8")
-    return cache_size, trash_size
-
-def clear_cache_and_trash():
-    time.sleep(5)
-    os.system("rm -rf ~/.cache/*")
-    os.system("rm -rf ~/.local/share/Trash/*")
-    progressbar.stop()
-    app.after(1000, lambda: progressbar.place_forget()) 
-    update_info_label()
-
-def start_progress_bar_cachehome():
-    progressbar.place(x=390, y=586)
-    progressbar.start()
-    thread = threading.Thread(target=clear_cache_and_trash)
-    thread.start()     
-
-def update_info_label():
-    cache_size, trash_size = get_cache_and_trash_size()
-    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
-
-text_var2 = customtkinter.StringVar(value="Cache size: updating...\nTrash size: updating...")
-
-info_label = customtkinter.CTkLabel(master=app,
-                               textvariable=text_var2,
-                               width=120,
-                               height=40)
-info_label.place(x=230, y=540)
-
-clear_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=start_progress_bar_cachehome)
-clear_button.place(x=250, y=510)
-
-app.after(1000, update_info_label)
-
-update_info_label()
-
-def update_info_label():
-    cache_size, trash_size = get_cache_and_trash_size()
-    text_var2.set("Cache home: " + cache_size + "B\nTrash: " + trash_size + "B")
-    app.after(1000, update_info_label) # Aggiungi questa riga
-
-app.after(1000, update_info_label)
 
 
 
+class SystemCleaner(customtkinter.CTkTabview):
+    def __init__(app, master, **kwargs):
+        super().__init__(master, **kwargs)
+        
+        app.add(" System Cleaner ")
+        
+       
+        
+        #img "img/001.png"
+        pkgs = customtkinter.CTkImage( light_image=Image.open("/home/" + username + "/.config/archmain/img/001.png"),
+                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/001.png"),
+                                  size=(40, 40))
+
+        label001 = customtkinter.CTkLabel(master=app.tab(" System Cleaner "), image=pkgs, text=" ")
+        label001.place(x=525, y=30)
 
 
-#Cache-Packages
-def clear_cache_pkg():
-    for terminal in terminals:
-        try:
-            subprocess.call([terminal, '-e', 'sudo pikaur -Sc'])
+        home = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/002.png"),
+                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/002.png"),
+                                  size=(40, 40))
+
+        label002 = customtkinter.CTkLabel(master=app.tab(" System Cleaner "), image=home, text=" ")
+        label002.place(x=120, y=30)
+
+        orph = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
+                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/003.png"),
+                                  size=(40, 40))
+
+        label003 = customtkinter.CTkLabel(master=app.tab(" System Cleaner "), image=orph, text=" ")
+        label003.place(x=930, y=30)
+
+
+                #cache-home-bin
+        def get_cache_and_trash_size():
+            result = subprocess.check_output(["du", "-sh", "/home/" + username + "/.cache/", "/home/" + username + "/.local/share/Trash/", "/home/" + username ])
+            sizes = result.splitlines()
+            cache_size = sizes[0].split()[0].decode("utf-8")
+            trash_size = sizes[1].split()[0].decode("utf-8")
+            home_size_str = sizes[2].split()[0].decode('utf-8')
+       
+            return cache_size, trash_size, home_size_str
+
+        def clear_cache_and_trash():
+            time.sleep(5)
+            os.system("rm -rf ~/.cache/*")
+            os.system("rm -rf ~/.local/share/Trash/*")
             progressbar.stop()
             app.after(1000, lambda: progressbar.place_forget()) 
-            break
-        except:
-            continue
+            update_info_label()
 
-def start_progress_bar_cachepkgs():
-    progressbar.place(x=390, y=586)
-    progressbar.start()
-    thread = threading.Thread(target=clear_cache_pkg)
-    thread.start()  
+        def start_progress_bar_cachehome():
+            progressbar.place(x=625, y=480)
+            progressbar.start()
+            thread = threading.Thread(target=clear_cache_and_trash)
+            thread.start()
+        
+        def update_info_label():
+            cache_size, trash_size, home_size_str = get_cache_and_trash_size()
+            text_var2.set(f"Cache home: {cache_size}B\nTrash: {trash_size}B\nHome: {home_size_str}B")
+            app.after(1000, update_info_label)
+        
+        text_var2 = customtkinter.StringVar(value="Cache size: updating...\nTrash size: updating...")
+        
+        info_label = customtkinter.CTkLabel(master=app.tab(" System Cleaner "),
+                                    textvariable=text_var2,
+                                    width=120,
+                                    height=40)
+        info_label.place(x=80, y=120)
+        
+        clear_button = customtkinter.CTkButton(master=app.tab(" System Cleaner "), width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear", command=start_progress_bar_cachehome)
+        clear_button.place(x=100, y=80)
+        
+        
+        update_info_label()
+        app.after(1000, update_info_label)
 
-    update_label()
-clean_cache_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=start_progress_bar_cachepkgs)
-clean_cache_button.place(x=475, y=510)
-
-#mostra valore cache
-def get_cache_size():
-    result = subprocess.check_output(["du", "-sh", "/var/cache/pacman/pkg/"])
-    size = result.split()[0].decode("utf-8")
-    return size
 
 
+        #Cache-Packages
+        def clear_cache_pkg():
+            for terminal in terminals:
+                try:
+                    subprocess.call([terminal, '-e', 'sudo pikaur -Sc'])
+                    progressbar.stop()
+                    app.after(1000, lambda: progressbar.place_forget()) 
+                    break
+                except:
+                    continue
+        
+        def start_progress_bar_cachepkgs():
+            progressbar.place(x=625, y=480)
+            progressbar.start()
+            thread = threading.Thread(target=clear_cache_pkg)
+            thread.start()  
+        
+            update_label()
+        clean_cache_button = customtkinter.CTkButton(master=app.tab(" System Cleaner "), width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Clear",  command=start_progress_bar_cachepkgs)
+        clean_cache_button.place(x=505, y=80)
+        
+        #mostra valore cache
+        def get_cache_size():
+            result = subprocess.check_output(["du", "-sh", "/var/cache/pacman/pkg/", "/var/lib/pacman/"])
+            sizes = result.splitlines()
+            pacman = sizes[0].split()[0].decode("utf-8")
+            vlp = sizes[1].split()[0].decode("utf-8")
+            return pacman, vlp
+        
+        
+        
+        def update_label():
+            pacman, vlp = get_cache_size()
+            text_var.set("Pacman pkg: " + pacman + "B\n Pacman lib: " + vlp + "B")
+            app.after(1000, update_label)
+            
+        text_var = tkinter.StringVar(value="Cache size: updating...")
+        
+        label = customtkinter.CTkLabel(master=app.tab(" System Cleaner "),
+                                       textvariable=text_var,
+                                       width=250,
+                                       height=25,
+                                       )
+        label.place(x=420, y=120)
+        
+        app.after(1000, update_label)
+        
+        update_label()
+        
+        
+        
+        
+        
+        #Orphans
+        orphan_pkgs_label_text = tkinter.StringVar()
+        orphan_pkgs_label_text.set("Orphan Packages: N/A")
+        
+        
+        # Funzione per pulire la cache dei pacchetti orfani
+        def clear_orphan_pkgs():
+            for terminal in terminals:
+                try:
+                    if terminal == 'gnome-terminal':
+                        subprocess.call([terminal,  '--', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
+                        progressbar.stop()
+                        app.after(1000, lambda: progressbar.place_forget()) 
+                    else:
+                        subprocess.call([terminal, '-e', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
+                        progressbar.stop()
+                        app.after(1000, lambda: progressbar.place_forget()) 
+                    break
+                except:
+                    continue
+            update_orphan_pkgs_label()
+        
+        def update_orphan_pkgs_label():
+            try:
+                output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
+                num_orphan_pkgs = len(output.splitlines())
+                orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
+            except:
+                orphan_pkgs_label_text.set("No Orphan")
+        
+        def start_progress_bar_orphans():
+            progressbar.place(x=625, y=480)
+            progressbar.start()
+            thread = threading.Thread(target=clear_orphan_pkgs)
+            thread.start()  
+        
+        # Creazione del bottone per pulire la cache dei pacchetti orfani
+        clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=start_progress_bar_orphans)
+        clear_orphan_button.place(x=915, y=122)
+        
+        # Creazione della label che mostra il numero di pacchetti orfani
+        orphan_pkgs_label = customtkinter.CTkLabel(app, textvariable=orphan_pkgs_label_text, width=120, height=25)
+        orphan_pkgs_label.place(x=898, y=155)
+        app.after(1000, update_orphan_pkgs_label) 
+        
+        update_orphan_pkgs_label()
+        
+        
+        def update_orphan_pkgs_label():
+            try:
+                output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
+                num_orphan_pkgs = len(output.splitlines())
+                orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
+            except:
+                orphan_pkgs_label_text.set("No Orphan")
+            app.after(1000, update_orphan_pkgs_label) 
+        
+        update_orphan_pkgs_label()
+        
+        
 
-def update_label():
-    size = get_cache_size()
-    text_var.set("Cache Pkgs: " + size + "B")
-    app.after(1000, update_label)
+
+app.tab_view = SystemCleaner(master=app, width=1096, height=260,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.tab_view.place(x=203, y=490)
+
+
+
+
+#group-add-remove
+
+def load_config_g():
+    with open("/home/" + username + "/.config/archmain/data/group-option.json", 'r') as f:
+        return f.read()
+app.after(1000, load_config_g)
+option = load_config_g()
+
+
+# Scrive il nuovo valore nel file di configurazione
+def write_config_g(value_g):
+     with open("/home/" + username + "/.config/archmain/data/group-option.json", 'w') as f:
+       f.write(value_g)
+
+
+# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
+def optionmenu_callback_g(choice):
+    value_g = choice
+    write_config_g(value_g)
+
+
+def load_config_group():
+    with open("/home/" + username + "/.config/archmain/data/groupname.json", 'r') as f:
+        group = json.load(f)
+        return group["group"]
+value_c = load_config_group()
+
+def edit_group():
+    # get the value selected from the dropdown menu
+    group = entry_group.get()
+    # save the selected value in an external file named group
+    with open("/home/" + username + "/.config/archmain/data/groupname.json", "w") as f:
+      json.dump({"group": group}, f)
     
-text_var = tkinter.StringVar(value="Cache size: updating...")
 
-label = customtkinter.CTkLabel(master=app,
-                               textvariable=text_var,
-                               width=250,
-                               height=25,
-                               )
-label.place(x=390, y=540)
+ 
 
-app.after(1000, update_label)
-
-update_label()
-
-
-#Orphans
-orphan_pkgs_label_text = tkinter.StringVar()
-orphan_pkgs_label_text.set("Orphan Packages: N/A")
-
-
-# Funzione per pulire la cache dei pacchetti orfani
-def clear_orphan_pkgs():
+    # Loop through each terminal in the list
     for terminal in terminals:
-        try:
-            if terminal == 'gnome-terminal':
-                subprocess.call([terminal,  '--', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
-                progressbar.stop()
-                app.after(1000, lambda: progressbar.place_forget()) 
-            else:
-                subprocess.call([terminal, '-e', "/home/" + username + "/.config/archmain/scripts/remove-orphans"])
-                progressbar.stop()
-                app.after(1000, lambda: progressbar.place_forget()) 
+        option = load_config_g()
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo group{option} {group}'")
             break
-        except:
-            continue
-    update_orphan_pkgs_label()
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
 
-def update_orphan_pkgs_label():
-    try:
-        output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
-        num_orphan_pkgs = len(output.splitlines())
-        orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
-    except:
-        orphan_pkgs_label_text.set("No Orphan")
-
-def start_progress_bar_orphans():
-    progressbar.place(x=390, y=586)
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=625, y=480)
+    # Avvia la progressbar
     progressbar.start()
-    thread = threading.Thread(target=clear_orphan_pkgs)
-    thread.start()  
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=edit_group)
+    thread.start()
 
-# Creazione del bottone per pulire la cache dei pacchetti orfani
-clear_orphan_button = customtkinter.CTkButton(app, width=80, fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"), hover_color=("#df4848","#df4848"), border_width=0, corner_radius=8, text="Remove", command=start_progress_bar_orphans)
-clear_orphan_button.place(x=692, y=510)
+def change_bg_color_group(event=None):
+    content = load_config_c()
+    if content.islower():
+        entry_group.configure(text_color=("#333","#f2f2f2"))
 
-# Creazione della label che mostra il numero di pacchetti orfani
-orphan_pkgs_label = customtkinter.CTkLabel(app, textvariable=orphan_pkgs_label_text, width=120, height=25)
-orphan_pkgs_label.place(x=672, y=540)
-app.after(1000, update_orphan_pkgs_label) 
+button = customtkinter.CTkButton(master=app,width=50,
+                                 border_color="#0f94d2",
+                                 
+                                 fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Group",
+                                 command=start_progress_bar)
+button.place(x=210, y=470)#470
 
-update_orphan_pkgs_label()
+entry_group = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
+entry_group.insert(0, value_c) # imposta il valore iniziale
+entry_group.bind("<FocusIn>", change_bg_color_group)
+entry_group.place(x=345, y=470)
+
+combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=80,
+                                         values=["add", "del"],
+                                         command=optionmenu_callback_g)
+combobox.place(x=263, y=470)
+combobox.set(load_config_g())  # imposta il valore iniziale
 
 
-def update_orphan_pkgs_label():
-    try:
-        output = subprocess.check_output(['pacman', '-Qtdq'], universal_newlines=True)
-        num_orphan_pkgs = len(output.splitlines())
-        orphan_pkgs_label_text.set(f"Orphan: {num_orphan_pkgs}")
-    except:
-        orphan_pkgs_label_text.set("No Orphan")
-    app.after(1000, update_orphan_pkgs_label) 
 
-update_orphan_pkgs_label()
+#service
+
+def load_config_s():
+    with open("/home/" + username + "/.config/archmain/data/service-option.json", 'r') as f:
+        return f.read()
+app.after(1000, load_config_s)
+option = load_config_s()
 
 
-#splash-setting
-def switch_event():
-    switch_value = switch_var.get()
-    print("switch toggled, current value:", switch_value)
-    data = {}
-    data["switch_value"] = switch_value
-    with open("/home/" + username + "/.config/archmain/config/splash.json", "w") as file:
-        json.dump(data, file)
+# Scrive il nuovo valore nel file di configurazione
+def write_config_svr(value_s):
+     with open("/home/" + username + "/.config/archmain/data/service-option.json", 'w') as f:
+       f.write(value_s)
 
-# Caricare i dati dal file JSON all'avvio dell'app
-try:
-    with open("/home/" + username + "/.config/archmain/config/splash.json", "r") as file:
-        data = json.load(file)
-        switch_value = data["switch_value"]
-except FileNotFoundError:
-    switch_value = "on"
 
-switch_var = customtkinter.StringVar(value=switch_value)
-switch_1 = customtkinter.CTkSwitch(master=app, text="Login Splash", command=switch_event,
-                                   variable=switch_var, onvalue="on", offvalue="off")
-switch_1.place(x=870, y=615)
+# Funzione eseguita quando si seleziona un nuovo valore nell'opzione menù
+def optionmenu_callback_sv(choice):
+    value_s = choice
+    write_config_svr(value_s)
 
+
+def load_config_service():
+    with open("/home/" + username + "/.config/archmain/data/servicename.json", 'r') as f:
+        servicename = json.load(f)
+        return servicename["servicename"]
+value_sv = load_config_service()
+
+def edit_service():
+    # get the value selected from the dropdown menu
+    servicename = entry_service.get()
+    # save the selected value in an external file named service
+    with open("/home/" + username + "/.config/archmain/data/servicename.json", "w") as f:
+      json.dump({"servicename": servicename}, f)
+    
+
+ 
+
+    # Loop through each terminal in the list
+    for terminal in terminals:
+        option = load_config_s()
+        # Check if the terminal is installed
+        if os.system(f"command -v {terminal}") == 0:
+            # If the terminal is installed, run the command to update the mirrors
+            os.system(f"{terminal} -e ' sudo systemctl {option} {servicename}'")
+            break
+    # Ferma la progressbar
+    progressbar.stop()
+    # Nascondi la progressbar dopo 1 secondo
+    app.after(1000, lambda: progressbar.place_forget())
+
+def start_progress_bar():
+    # Mostra la progressbar
+    progressbar.place(x=625, y=480)
+    # Avvia la progressbar
+    progressbar.start()
+    # Crea un nuovo thread per eseguire il comando bash
+    thread = threading.Thread(target=edit_service)
+    thread.start()
+
+def change_bg_color_service(event=None):
+    content = load_config_s()
+    if content.islower():
+        entry_service.configure(text_color=("#333","#f2f2f2")) 
+
+button = customtkinter.CTkButton(master=app,width=60,
+                                 border_color="#0f94d2",
+                                 
+                                 fg_color=("#ccc","#333"), text_color=("gray10", "#DCE4EE"),
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Service",
+                                 command=start_progress_bar)
+button.place(x=1020, y=470)
+
+entry_service = customtkinter.CTkEntry(master=app, width=120,text_color=("#06c","#2997ff"))
+entry_service.insert(0, value_sv) # imposta il valore iniziale
+entry_service.bind("<FocusIn>", change_bg_color_service)
+entry_service.place(x=1174, y=470)
+
+combobox = customtkinter.CTkComboBox(master=app,dropdown_hover_color=("#3b8ed0","#06c"),width=90,
+                                         values=["enable", "disable", "start", "stop", "restart"],
+                                         command=optionmenu_callback_sv)
+combobox.place(x=1082, y=470)
+combobox.set(load_config_s())  # imposta il valore iniziale
+
+
+
+
+#ProgressBar
+progressbar_bk = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color=("#999","#555"))
+progressbar_bk.configure(mode="indeterminate")
+progressbar_bk.place(x=625, y=480)
+progressbar = customtkinter.CTkProgressBar(app, width=250, height=5,progress_color=("orange","#55ff00"))
+progressbar.configure(mode="indeterminate")
+progressbar.place_forget()
 
 
 
