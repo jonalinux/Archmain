@@ -209,11 +209,11 @@ terminals = terminals_dict['terminals']
 
 
 # Sidebar
-app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12, fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.sidebar_frame = customtkinter.CTkFrame(app, width=170, height=695, corner_radius=12, fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
 app.sidebar_frame.place(x=20, y=80)
 
 # panel right
-app.panel_frame = customtkinter.CTkFrame(app, width=170, height=395, corner_radius=12,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
+app.panel_frame = customtkinter.CTkFrame(app, width=170, height=695, corner_radius=12,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
 app.panel_frame.place(x=1310, y=80)
 
 
