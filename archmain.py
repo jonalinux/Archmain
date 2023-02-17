@@ -186,16 +186,16 @@ linebanner.place(x=0, y=50)
 linebanner = tk.Frame(master=app, width=1500 ,height=50, bg="#333")
 linebanner.place(x=0, y=0)
 
-logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
-                                  dark_image=Image.open("/home/" + username + "/.config/archmain/icons/app-logo.png"),
-                                  size=(50, 40))
+logo = customtkinter.CTkImage(light_image=Image.open("/home/" + username + "/.config/archmain/img/logo.png"),
+                                  dark_image=Image.open("/home/" + username + "/.config/archmain/img/logo.png"),
+                                  size=(250, 40))
 
 label003 = customtkinter.CTkLabel(app, image=logo, text=" ", fg_color="#333") #fg_color=('#ecf1f6','#2b2b2b')
 label003.place(x=25, y=5)
 
-label = customtkinter.CTkLabel(app, text="Archmain", font=('Cantarell',24), fg_color="#333", text_color="#FFF")
-label.configure()
-label.place(x=80, y=10)
+#label = customtkinter.CTkLabel(app, text="Archmain", font=('Cantarell',24), fg_color="#333", text_color="#FFF")
+#label.configure()
+#label.place(x=80, y=10)
 
 
 
@@ -226,12 +226,12 @@ label.place(x=595, y=820)
 
 
 
-vr = os.popen('cat "/home/' + username + '/.config/archmain/version"').read()
-text = "Archmain v" + vr
+vr = os.popen('head -n 1 "/home/' + username + '/.config/archmain/version"').read().strip()
+text = "v" + vr
 
 # Create the label with the text from the file
-app.label = customtkinter.CTkLabel(app, text=text, width=10, fg_color=('#ecf1f6','#2b2b2b'), text_color="#868686")
-app.label.place(x=62, y=352)
+app.label = customtkinter.CTkLabel(app, text=text, width=0, height=10, fg_color="#333", text_color="#FFF")
+app.label.place(x=1460, y=30)
 
 
 
