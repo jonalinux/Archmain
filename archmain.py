@@ -40,13 +40,11 @@ import time
 from tkinter import Scrollbar
 import socket
 
-
-
 #info
 username = getpass.getuser()
 hostname = socket.gethostname()
 
-#root-(app)-Archmain v3.00
+#app-(app)-Archmain v3.00
 app = customtkinter.CTk(className='Archmain') 
 app.geometry(f"{1500}x{850}")
 app.minsize(1500, 850)
@@ -232,6 +230,8 @@ text = "v" + vr
 # Create the label with the text from the file
 app.label = customtkinter.CTkLabel(app, text=text, width=0, height=10, fg_color="#333", text_color="#FFF")
 app.label.place(x=1460, y=30)
+
+
 
 
 
@@ -958,6 +958,77 @@ def update_packages_info():
 label = customtkinter.CTkLabel(app,fg_color=('#ecf1f6','#2b2b2b'),text="Packages: {}".format(count_installed_packages()))
 label.place(x=1330, y=205)
 app.after(1000, update_packages_info)
+
+
+#network
+def get_speed():
+    net_io_counters = psutil.net_io_counters()
+    return (net_io_counters.bytes_sent, net_io_counters.bytes_recv)
+
+def convert_size(size_bytes):
+    # Funzione per convertire i byte in megabyte, gigabyte o kilobyte in base alla grandezza
+    # del valore
+    if size_bytes > 1024 ** 3:
+        return "%.2f GB" % (size_bytes / (1024 ** 3))
+    elif size_bytes > 1024 ** 2:
+        return "%.2f MB" % (size_bytes / (1024 ** 2))
+    elif size_bytes > 1024:
+        return "%.2f KB" % (size_bytes / 1024)
+    else:
+        return "%d B" % size_bytes
+
+
+def convert_speed(speed):
+    if speed < 1024:
+        return speed, "KB/s"
+    elif speed < 1024**2:
+        return speed/1024, "MB/s"
+    else:
+        return speed/(1024**2), "GB/s"
+
+
+def update_speed_thread():
+    while True:
+        upload0, download0 = get_speed()
+        time.sleep(1)
+        upload1, download1 = get_speed()
+        upload_speed = (upload1 - upload0) / 1000
+        download_speed = (download1 - download0) / 1000
+        upload_speed, upload_unit = convert_speed(upload_speed)
+        download_speed, download_unit = convert_speed(download_speed)
+        upload_speed_label.configure(text="Up: {:.2f} {}".format(upload_speed, upload_unit))
+        download_speed_label.configure(text="Down {:.2f} {}".format(download_speed, download_unit))
+
+def update_label_thread():
+    while True:
+        upload, download = get_speed()
+        upload_label.configure(text="Sent: {}".format(convert_size(upload)))
+        download_label.configure(text="Received: {}".format(convert_size(download)))
+        time.sleep(0.1)
+
+Network_label = customtkinter.CTkLabel(app, text="Network data", fg_color=('#ecf1f6','#2b2b2b'))
+Network_label.place(x=1330, y=415)
+upload_label = customtkinter.CTkLabel(app, text="Sent...", fg_color=('#ecf1f6','#2b2b2b'), text_color=("#8f2af5","#ba7ff5"))
+upload_label.place(x=1330, y=435)
+download_label = customtkinter.CTkLabel(app, text="Received...", fg_color=('#ecf1f6','#2b2b2b'), text_color=("#09ba00","#85f57f"))
+download_label.place(x=1330, y=455)
+Network_label2 = customtkinter.CTkLabel(app, text="Network speed", fg_color=('#ecf1f6','#2b2b2b'))
+Network_label2.place(x=1330, y=495)
+upload_speed_label = customtkinter.CTkLabel(app, text="Upload... ", fg_color=('#ecf1f6','#2b2b2b'), text_color=("#8f2af5","#ba7ff5"))
+upload_speed_label.place(x=1330, y=515)
+download_speed_label = customtkinter.CTkLabel(app, text="Download...", fg_color=('#ecf1f6','#2b2b2b'),  text_color=("#09ba00","#85f57f"))
+download_speed_label.place(x=1330, y=535)
+
+speed_thread = threading.Thread(target=update_speed_thread, daemon=True)
+label_thread = threading.Thread(target=update_label_thread, daemon=True)
+
+speed_thread.start()
+label_thread.start()
+
+
+
+
+
 
 
 
