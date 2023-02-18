@@ -260,6 +260,8 @@ class MyTabView(customtkinter.CTkTabview):
         app.add(" Mirrorlist ")
         app.add(" Syslog ")
         app.add(" journalctl ")
+        app.add(" Pacman ")
+        app.add(" AUR ")
         
         
         # Console
@@ -436,6 +438,48 @@ class MyTabView(customtkinter.CTkTabview):
         textbox6.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox6)  
  
+         #pkgs-pacman
+        app.text7 = ""
+        def update_textbox7():
+            global textbox7
+            os.system("  pikaur -Q > /home/" + username + "/.config/archmain/data/pkgs-pacman.json")
+            with open("/home/" + username + "/.config/archmain/data/pkgs-pacman.json", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text7:
+               textbox7.configure(state="normal")  # configure textbox to be editable
+               textbox7.delete("0.0", "end")  # clear textbox
+               textbox7.insert("0.0", new_text)  # insert updated text
+               textbox7.configure(state="disabled")  # configure textbox to be read-only
+               app.text7 = new_text
+            app.after(1000, update_textbox7)
+        
+        global textbox7
+        textbox7 = customtkinter.CTkTextbox(master=app.tab(" Pacman "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
+        textbox7.place(x=0, y=0)
+        textbox7.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox7)  
+
+         #pkgs-aur
+        app.text8 = ""
+        def update_textbox8():
+            global textbox8
+            os.system("  pikaur -Qm > /home/" + username + "/.config/archmain/data/pkgs-aur.json")
+            with open("/home/" + username + "/.config/archmain/data/pkgs-aur.json", "r") as file:
+                 new_text = file.read()
+            if new_text != app.text8:
+               textbox8.configure(state="normal")  # configure textbox to be editable
+               textbox8.delete("0.0", "end")  # clear textbox
+               textbox8.insert("0.0", new_text)  # insert updated text
+               textbox8.configure(state="disabled")  # configure textbox to be read-only
+               app.text8 = new_text
+            app.after(1000, update_textbox8)
+        
+        global textbox8
+        textbox8 = customtkinter.CTkTextbox(master=app.tab(" AUR "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
+        textbox8.place(x=0, y=0)
+        textbox8.configure(state="disabled") # configure textbox to be read-only
+        app.after(1000, update_textbox8)  
+
 
 
 app.tab_view = MyTabView(master=app, width=1096, height=395,fg_color=("#ecf1f6","#2b2b2b"), border_color=("#bcd","#333"), border_width=1)
