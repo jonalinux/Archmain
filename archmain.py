@@ -252,6 +252,15 @@ class MyTabView(customtkinter.CTkTabview):
         with open(filename) as f:
                  num_lines = sum(1 for line in f)
            
+        filename = "/home/" + username + "/.config/archmain/data/pkgs-pacman.json"
+        with open(filename) as f:
+                 num_lines2 = sum(1 for line in f)
+        
+        filename = "/home/" + username + "/.config/archmain/data/pkgs-aur.json"
+        with open(filename) as f:
+                 num_lines3 = sum(1 for line in f)
+        
+        
         
         # create tabs
         app.add(" Console ")
@@ -260,8 +269,8 @@ class MyTabView(customtkinter.CTkTabview):
         app.add(" Mirrorlist ")
         app.add(" Syslog ")
         app.add(" journalctl ")
-        app.add(" Pacman ")
-        app.add(" AUR ")
+        app.add(f" Pacman ({num_lines2})")
+        app.add(f" AUR ({num_lines3})")
         
         
         # Console
@@ -454,7 +463,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox7)
         
         global textbox7
-        textbox7 = customtkinter.CTkTextbox(master=app.tab(" Pacman "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
+        textbox7 = customtkinter.CTkTextbox(master=app.tab(f" Pacman ({num_lines2})"), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox7.place(x=0, y=0)
         textbox7.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox7)  
@@ -475,7 +484,7 @@ class MyTabView(customtkinter.CTkTabview):
             app.after(1000, update_textbox8)
         
         global textbox8
-        textbox8 = customtkinter.CTkTextbox(master=app.tab(" AUR "), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
+        textbox8 = customtkinter.CTkTextbox(master=app.tab(f" AUR ({num_lines3})"), width=1084, height=348, font=('source code pro',14),border_color=("#bcd","#2b2b2b"), border_width=1)
         textbox8.place(x=0, y=0)
         textbox8.configure(state="disabled") # configure textbox to be read-only
         app.after(1000, update_textbox8)  
@@ -912,6 +921,9 @@ def reset():
 reset()
 
 
+
+# Funzione per aggiornare i valori di CPU, RAM, disco, swap e boot
+
 #cpu-disk-ram-swap-boot
 def update_values():
     disk_usage = psutil.disk_usage("/").percent
@@ -940,41 +952,51 @@ def update_values():
 app.after(1000, update_values)
 
 cpu_label = customtkinter.CTkLabel(app, text="CPU" , fg_color=('#ecf1f6','#2b2b2b'))
-cpu_label.place(x=1330, y=237)
+cpu_label.place(x=1330, y=257)
 
 cpu_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="red")
-cpu_progress.place(x=1330, y=260)
+cpu_progress.place(x=1330, y=280)
 
 disk_label = customtkinter.CTkLabel(app, text="Disk ", fg_color=('#ecf1f6','#2b2b2b'))
-disk_label.place(x=1330, y=267)
+disk_label.place(x=1330, y=287)
 
 disk_progress = customtkinter.CTkProgressBar(app, height=5, width=130, progress_color="#0f94d2")
-disk_progress.place(x=1330, y=290)
+disk_progress.place(x=1330, y=310)
 
 ram_label = customtkinter.CTkLabel(app, text="RAM ", fg_color=('#ecf1f6','#2b2b2b'))
-ram_label.place(x=1330, y=297)
+ram_label.place(x=1330, y=317)
 
 ram_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="orange")
-ram_progress.place(x=1330, y=320)
+ram_progress.place(x=1330, y=340)
 
 swap_label = customtkinter.CTkLabel(app, text="Swap ", fg_color=('#ecf1f6','#2b2b2b'))
-swap_label.place(x=1330, y=327)
+swap_label.place(x=1330, y=347)
 
 swap_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="magenta")
-swap_progress.place(x=1330, y=350)
+swap_progress.place(x=1330, y=370)
 
 boot_partition_label = customtkinter.CTkLabel(app, text="Boot ", fg_color=('#ecf1f6','#2b2b2b'))
-boot_partition_label.place(x=1330, y=357)
+boot_partition_label.place(x=1330, y=377)
 
 boot_partition_progress = customtkinter.CTkProgressBar(app, height=5,width=130, progress_color="#55ff00")
-boot_partition_progress.place(x=1330, y=380)
+boot_partition_progress.place(x=1330, y=400)
 
 def count_installed_packages():
-    output = subprocess.run(['pikaur', '-Q'], stdout=subprocess.PIPE)
-    packages = output.stdout.decode('utf-8').split('\n')
-    return len(packages)
+    filename = "/home/" + username + "/.config/archmain/data/pkgs-pacman.json"
+    with open(filename) as f:
+        num_lines2 = sum(1 for line in f)
+    packages = num_lines2
+    return packages
 
-
+def count_installed_AUR():
+    filename = "/home/" + username + "/.config/archmain/data/pkgs-aur.json"
+    with open(filename) as f:
+       num_lines3 = sum(1 for line in f)
+    AUR = num_lines3
+    return AUR
+   
+      
+    
 def update_kernel_info():
     kernel = platform.release()
     kernel_label.configure(text="Kernel: {}".format(kernel))
@@ -1002,6 +1024,15 @@ def update_packages_info():
 label = customtkinter.CTkLabel(app,fg_color=('#ecf1f6','#2b2b2b'),text="Packages: {}".format(count_installed_packages()))
 label.place(x=1330, y=205)
 app.after(1000, update_packages_info)
+
+def update_AUR_info():
+    AUR = count_installed_AUR()
+    label.configure(text="AUR: {}".format(AUR))
+    label.after(1000, update_AUR_info)
+
+label = customtkinter.CTkLabel(app,fg_color=('#ecf1f6','#2b2b2b'),text="AUR: {}".format(count_installed_AUR()))
+label.place(x=1330, y=225)
+app.after(1000, update_AUR_info)
 
 
 #network
@@ -1048,7 +1079,7 @@ def update_label_thread():
         upload, download = get_speed()
         upload_label.configure(text="Sent: {}".format(convert_size(upload)))
         download_label.configure(text="Received: {}".format(convert_size(download)))
-        time.sleep(0.1)
+        time.sleep(1)
 
 Network_label = customtkinter.CTkLabel(app, text="Network data", fg_color=('#ecf1f6','#2b2b2b'))
 Network_label.place(x=1330, y=415)
