@@ -14,7 +14,7 @@ This application is very powerful because it utilizes important and necessary to
 
 
  - [Watch video on Youtube](https://youtu.be/4OONixHxFhc)
- - [Watch video on Youtube](https://www.youtube.com/watch?v=k6AKRPvCf2o&t=303s) (ITA) by [@LinuxLibero](https://www.youtube.com/@LinuxLibero) 
+
 
 
 # Instruction and description in [Wiki of Archmain](https://github.com/JonathanSanfilippo/Archmain/wiki) 
