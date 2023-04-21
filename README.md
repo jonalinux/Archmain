@@ -9,11 +9,7 @@ This is a graphical user interface (GUI) for the package manager in Arch Linux. 
 
 This application is very powerful because it utilizes important and necessary tools for managing the Arch Linux system. The software already uses Pikaur as an AUR helper, but it is still possible to choose to only update community packages while ignoring AUR. We recommend taking full advantage of the integrated AUR helper. [Pikaur](https://github.com/actionless/pikaur) is a very lightweight and reliable project that performs 90% of the functions of this software.
 
-### Video Tutorial and review  ![Youtube_logo](https://user-images.githubusercontent.com/103053714/218287372-3e80312e-ed12-43d7-8b32-de2f6eef2e98.png)
-#### how to install and use Archmain and review
 
-
- - [Watch video on Youtube](https://youtu.be/4OONixHxFhc)
 
 
 
