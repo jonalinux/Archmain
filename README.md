@@ -2,7 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/103053714/219884724-eaf78b7d-0c77-44aa-a5f5-e8f14f956384.png)
 
-## Warning Archmain is a tool written for pure Arch, it is not recommended to use it on derivatives like EOS and Manjaro or other derivatives, although it can work the derivatives may have mutated configurations.
+
 
 # Archmain - Arch System Management 
 This is a graphical user interface (GUI) for the package manager in Arch Linux. The purpose of this GUI is to make it easier for users to manage packages on their Arch Linux system.
