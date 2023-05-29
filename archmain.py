@@ -173,7 +173,7 @@ except FileNotFoundError:
 
 switch_var = customtkinter.StringVar(value=switch_value)
 switch_1 = customtkinter.CTkSwitch(master=app, text="Login Splash", command=switch_event,
-                                   variable=switch_var, onvalue="on", offvalue="off")
+                                   variable=switch_var, onvalue="on", offvalue="off", fg_color="#ffffff")
 switch_1.place(x=1350, y=815)
 
 
